@@ -14,6 +14,7 @@ export class ChartsComponent implements OnInit {
   //x 30 y 50 places a circle on the line graph to plot the data
   constructor() {
     this.offset = 80;
+
     this.dataSet = {
       points: [
         { x: 30 + this.offset, y: 50, delta: -2, interval: null },
@@ -42,10 +43,10 @@ export class ChartsComponent implements OnInit {
         { x: 40, y: 70, title: "Users" },
 
       yline:
-        { x1: this.offset, x2: 320 + this.offset, y1: 130, y2: "130" },
+        { x1: this.offset, x2: 320 + this.offset, y1: 130, y2: 130 },
 
       xline:
-        { x1: this.offset, x2: this.offset, y1: "5", y2: "130" }
+        { x1: this.offset, x2: this.offset, y1: 5, y2: 130 }
 
     }
   }
