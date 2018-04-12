@@ -8,9 +8,9 @@ describe('ChartsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartsComponent ]
+      declarations: [ChartsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,4 +22,21 @@ describe('ChartsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should generate DataSet', () => {
+    let data = [
+     {key: "jan", value: 10},
+     {key: "feb", value: 20} ,
+     {key: "march", value: 60} 
+    ];
+    let mockDataSet = {
+      type: 'line',
+        title: 'Demo Line Graph',
+        labels: {x:'Users',y:'Months'},
+        data: data
+    }
+
+    expect(component.generateDataSet(mockDataSet)).toEqual(true);
+  });
+
 });

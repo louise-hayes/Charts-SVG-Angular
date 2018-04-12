@@ -14,11 +14,11 @@
       <line attr.x1="{{dataSet.yline.x1}}" attr.x2="{{dataSet.yline.x2}}" attr.y1="{{dataSet.yline.y1}}" attr.y2="{{dataSet.yline.y2}}"></line>
     </g>
     <g class="labels x-labels">
-      <text class="chart_labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
+      <text class="chart-labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}" class="label-title">{{dataSet.labelxTitle.title}}</text>
     </g>
     <g class="labels y-labels">
-      <text class="chart_labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
+      <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" class="label-title">{{dataSet.labelyTitle.title}}</text>
     </g>
   </svg>

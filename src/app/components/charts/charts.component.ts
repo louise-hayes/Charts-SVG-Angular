@@ -17,13 +17,13 @@ export class ChartsComponent implements OnInit {
 
     this.dataSet = {
       points: [
-        { x: 30 + this.offset, y: 50, delta: -2, interval: null },
+        { x: 5 + this.offset, y: 50, delta: -2, interval: null },
         { x: 100 + this.offset, y: 80, delta: -1, interval: null },
         { x: 200 + this.offset, y: 60, delta: 3, interval: null },
         { x: 280 + this.offset, y: 30, delta: 4, interval: null }
       ],
       xlabels: [
-        { x: 65 + this.offset, y: 150, text: "Jan" },
+        { x: 5 + this.offset, y: 150, text: "Jan" },
         { x: 125 + this.offset, y: 150, text: "Feb" },
         { x: 185 + this.offset, y: 150, text: "March" },
         { x: 245 + this.offset, y: 150, text: "April" },
@@ -42,10 +42,10 @@ export class ChartsComponent implements OnInit {
       labelyTitle:
         { x: 40, y: 70, title: "Users" },
 
-      yline:
-        { x1: this.offset, x2: 320 + this.offset, y1: 130, y2: 130 },
+      xline: // how long x horizontal line 60-360
+        { x1: this.offset, x2: 300 + this.offset, y1: 130, y2: 130 },
 
-      xline:
+      yline: //how long y vertical line 5 - 130
         { x1: this.offset, x2: this.offset, y1: 5, y2: 130 }
 
     }
@@ -66,6 +66,34 @@ export class ChartsComponent implements OnInit {
     return "M" + pathParts.join(" L");
 
   }
+
+  generateDataSet(dataSet:any) {
+    console.log("generating DataSet");
+    console.log(dataSet);
+    let points = this.getPoints(dataSet.data);  
+    
+
+     
+
+
+
+
+    return true;
+  }
+
+getPoints(dataSet) {
+  let pointsObj = [];
+  dataSet.forEach(data => {
+     pointsObj.push("xlabel"+ data.key)
+  });
+
+  // { x: 30 + this.offset, y: 50, delta: -2, interval: null },
+  // { x: 100 + this.offset, y: 80, delta: -1, interval: null },
+  // { x: 200 + this.offset, y: 60, delta: 3, interval: null },
+  // { x: 280 + this.offset, y: 30, delta: 4, interval: null }
+
+}
+
   ngOnInit() {
 
   }
