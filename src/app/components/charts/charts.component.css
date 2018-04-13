@@ -1,11 +1,10 @@
-/* .chart {
-  width: 500px;
+.chart {
+  padding:10px;
 
-} */
+}
 .graph {
   background: #fff;
-  height: 175px;
-  width: 300px;
+  padding:10px;
 }
 
 .chart-header {

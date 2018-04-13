@@ -7,68 +7,86 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 
 export class ChartsComponent implements OnInit {
-  @Input() dataSetMain: any; 
+  @Input() dataSetMain: any;
 
   dataSet: any;
   leftOffset: number;
   ylineMargin: number;
-  yLineBottom: number;
+  yLineTop: number;
   lineHeight: number;
   lineWidth: number;
   chartStyle: object;
-  chartWidth: string;
+  yLineBot: number;
+  xLineBottomMargin: number;
+  yLineMargin: number;
+  yLineTopMargin: number;
+  xLabelMargin: number;
+  leftMargin: number;
+  yminval: number;
+  step: number;
 
   //x 30 y 50 places a circle on the line graph to plot the data
   constructor() {
-    this.leftOffset = 80;
-    this.ylineMargin = 5;
-    this.yLineBottom = 150;
-    this.lineHeight = 300;
-    this.lineWidth = 160;
 
-    //the chartStyle will be populated from parent style object
+    //the chartStyle will be populated from input() dataSet.chartStyle object
     //but will default to the below
-
     this.chartStyle = {
-
-      "width.px": "500",
-      "height.px": "200"
+      width: "500px",
+      height: "500px"
     }
 
-    this.chartWidth = "700px";
+    this.leftOffset = 150;
+    this.leftMargin = 40;
+    this.ylineMargin = 5;
+    this.yLineTop = 300;
+    this.yLineBot = 5;
 
+    this.lineWidth = 300;
+    this.xLineBottomMargin = 20;
+    this.yLineTopMargin = 20;
+    this.xLabelMargin = 60;
+    this.yminval = 0;
+    this.step = 60;
+
+
+
+    // to be dynamically created by Input() dataSetMain
+    //dataSet populates graph, is rendered in the chart component html
     this.dataSet = {
-      points: [
-        { x: this.ylineMargin + this.leftOffset, y: 50, delta: -2, interval: null },
-        { x: 100 + this.leftOffset, y: 80, delta: -1, interval: null },
-        { x: 200 + this.leftOffset, y: 60, delta: 3, interval: null },
-        { x: 280 + this.leftOffset, y: 30, delta: 4, interval: null }
+      points: [ // Jan 
+        { x: this.leftOffset, y: 300 - 300 },
+        { x: this.step + this.leftOffset, y: 300 - 100 },
+        { x: this.step * 2 + this.leftOffset, y: 300 - 60 },
+        { x: this.step * 3 + this.leftOffset, y: 300 - 200 },
+        { x: this.step * 4 + this.leftOffset, y: 300 - 250 }
       ],
       xlabels: [
-        { x: this.ylineMargin + this.leftOffset, y: this.yLineBottom, text: "Jan" },
-        { x: 125 + this.leftOffset, y: this.yLineBottom, text: "Feb" },
-        { x: 185 + this.leftOffset, y: this.yLineBottom, text: "March" },
-        { x: 245 + this.leftOffset, y: this.yLineBottom, text: "April" },
-        { x: 280 + this.leftOffset, y: this.yLineBottom, text: "May" }
+        { x: this.ylineMargin + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "Jan" },
+        { x: this.step + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "Feb" },
+        { x: this.step * 2 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "March" },
+        { x: this.step * 3 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "April" },
+        { x: this.step * 4 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "May" }
       ],
       ylabels: [
-        { x: this.leftOffset - this.ylineMargin, y: 15, text: "100" },
-        { x: this.leftOffset - this.ylineMargin, y: 40, text: "80" },
-        { x: this.leftOffset - this.ylineMargin, y: 65, text: "60" },
-        { x: this.leftOffset - this.ylineMargin, y: 90, text: "40" },
-        { x: this.leftOffset - this.ylineMargin, y: 115, text: "20" }
+        { x: this.leftOffset - this.ylineMargin, y: 300 - 300, text: "300" },
+        { x: this.leftOffset - this.ylineMargin, y: 300 - 240, text: "240" },
+        { x: this.leftOffset - this.ylineMargin, y: 300 - 180, text: "180" },
+        { x: this.leftOffset - this.ylineMargin, y: 300 - 120, text: "120" },
+        { x: this.leftOffset - this.ylineMargin, y: 300 - 60, text: "60" },
+        { x: this.leftOffset - this.ylineMargin, y: this.yLineTop, text: "0" }
+
       ],
       labelxTitle:
-        { x: 150 + this.leftOffset, y: 170, title: "Month" },
+        { x: this.lineWidth / 2 + this.leftOffset, y: this.yLineTop + this.xLabelMargin, title: "Month" },
 
       labelyTitle:
-        { x: 40, y: 70, title: "Users" },
+        { x: this.leftOffset - 100, y: this.yLineTop / 2, title: "Users" },
 
-      xline: // how long x horizontal line 60-360
-        { x1: this.leftOffset, x2: 300 + this.leftOffset, y1: 130, y2: 130 },
+      xline: // how long x horizontal line: x1 x2 specify how long line is 60-360 y1 and y2 specify where line appears
+        { x1: this.leftOffset, x2: this.lineWidth + this.leftOffset, y1: this.yLineTop, y2: this.yLineTop },
 
-      yline: //how long y vertical line 5 - 130
-        { x1: this.leftOffset, x2: this.leftOffset, y1: 5, y2: 130 }
+      yline: //how long y vertical line top is 5 bottom is chart height e.g. 300
+        { x1: this.leftOffset, x2: this.leftOffset, y1: this.yLineTop, y2: 0 }
 
     }
     console.log(this.dataSetMain);
@@ -85,7 +103,6 @@ export class ChartsComponent implements OnInit {
     }
     // console.log("M" + pathParts.join(" L"));
     // console.log(pathParts);
-
     return "M" + pathParts.join(" L");
     //returns "M 30 50 L 100 80 L 200 60 L 280 30"
 
@@ -93,20 +110,59 @@ export class ChartsComponent implements OnInit {
 
   //function to generate graph dataset 
   generateDataSet(dataSet: any) {
-    console.log("generating DataSet");
     console.log(this.dataSetMain);
-    console.log("method in class is being run");
-    
-    let xAxisLabels = this.getXLabels(dataSet.data);
+    let xLabels = this.getXLabels(dataSet.data);
+    let yLabela = this.getYLabels(dataSet.data);
     return true;
   }
   //function to generate xAxisLabels array
   getXLabels(dataSet) {
     let xlabels = [];
-    dataSet.forEach(data => {
-      xlabels.push({ x: this.ylineMargin + this.leftOffset, y: this.yLineBottom, text: data.xlabel });
+    dataSet.forEach((data, index) => {
+      xlabels.push({ x: this.ylineMargin + this.leftOffset + this.step * index, y: this.yLineTop + this.xLineBottomMargin, text: data.xlabel });
       console.log(xlabels);
     });
+    // dataSet.forEach(function (data,index) {
+    //   xlabels.push({ x: this.ylineMargin + this.leftOffset + (this.step * index), y: this.yLineTop + this.xLineBottomMargin, text: data.xlabel });
+    //   console.log(xlabels);
+    // });
+  }
+
+  getYLabels(dataSet) {
+    console.log(dataSet);
+    
+     function getMax () {
+      let newArr = [];
+      dataSet.forEach(item => {
+        newArr.push(item.value);
+      });
+      console.log("new array " + newArr);
+      return Math.max(newArr);
+    }
+
+    let ylabels = [];
+    // let maxNum = 300;
+    // maxNum = Math.max(dataSet.value);
+    //   maxNum = dataSet.data.reduce(function(a, b) {
+    //     return Math.max(a, b);
+    // });
+
+    let maxNm = getMax();
+
+    console.log(maxNm.toString());
+
+
+
+    dataSet.forEach((data, index) => {
+      //text for Ylabel is computed from the Y Values passed via dataSet.value
+      //YLabel x: static for each label, leftoffSet - yLineMargin to plot lable behind Y Line
+      //YLabel y: increments in steps (steps = max value / array length) top of line = min Value e.g. 0, bottom of line = max value e.g. 300
+      let num = maxNm - (this.step * index);
+      ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.step * index, text: num.toString() });
+      console.log(ylabels);
+    });
+
+
 
   }
 

@@ -1,8 +1,8 @@
-<div class="chart" [ngStyle]="chartStyle">
+<div class="chart" >
   <div class="chart-header">
     <h2 class="chart-title">Line Graph</h2>
   </div>
-  <svg class="graph">
+  <svg class="graph" [ngStyle]="chartStyle">
 
     <path class="chart-line" attr.d="{{linePath()}}"></path>
     <circle class="chart-circle" r="5" *ngFor="let p of dataSet.points" attr.cx="{{p.x}}" attr.cy="{{p.y}}">
