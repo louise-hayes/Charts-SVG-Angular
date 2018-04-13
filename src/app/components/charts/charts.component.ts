@@ -24,6 +24,8 @@ export class ChartsComponent implements OnInit {
   leftMargin: number;
   yminval: number;
   step: number;
+  maxNm: number;
+  maxYval : number;
 
   //x 30 y 50 places a circle on the line graph to plot the data
   constructor() {
@@ -31,8 +33,8 @@ export class ChartsComponent implements OnInit {
     //the chartStyle will be populated from input() dataSet.chartStyle object
     //but will default to the below
     this.chartStyle = {
-      width: "500px",
-      height: "500px"
+      "width.px": 500,
+      "height.px": 600
     }
 
     this.leftOffset = 150;
@@ -40,16 +42,13 @@ export class ChartsComponent implements OnInit {
     this.ylineMargin = 5;
     this.yLineTop = 300;
     this.yLineBot = 5;
-
-    this.lineWidth = 300;
+    this.lineWidth = this.chartStyle["width.px"];
     this.xLineBottomMargin = 20;
     this.yLineTopMargin = 20;
     this.xLabelMargin = 60;
     this.yminval = 0;
     this.step = 60;
-
-
-
+    
     // to be dynamically created by Input() dataSetMain
     //dataSet populates graph, is rendered in the chart component html
     this.dataSet = {
@@ -91,6 +90,8 @@ export class ChartsComponent implements OnInit {
     }
     console.log(this.dataSetMain);
     console.log("constructor is being fired");
+    // this.generateDataSet(this.dataSetMain);
+
   }
 
   //function to generate line path using x y variables from points array
@@ -108,38 +109,47 @@ export class ChartsComponent implements OnInit {
 
   }
 
-  //function to generate graph dataset 
+  //function to generate graph dataset -  param dataSet received from parent App by Include()
+  
   generateDataSet(dataSet: any) {
     console.log(this.dataSetMain);
-    let xLabels = this.getXLabels(dataSet.data);
-    let yLabela = this.getYLabels(dataSet.data);
-    return true;
+    // this.chartStyle = this.dataSet.chartStyle;
+    this.dataSet.ylabels = this.getYLabels(dataSet.data);
+    this.yLineTop = this.maxYval;    
+    this.dataSet.xlabels = this.getXLabels(dataSet.data);
+    this.dataSet.points = this.getPoints(dataSet.data);
+    this.dataSet.xline = { x1: this.leftOffset, x2: this.lineWidth + this.leftOffset, y1: this.yLineTop, y2: this.yLineTop };
+    this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.yLineTop, y2: 0 }
+    console.log(this.dataSet);
+    return true;//for unit test
   }
+
   //function to generate xAxisLabels array
-  getXLabels(dataSet) {
+  getXLabels(data) {
     let xlabels = [];
-    dataSet.forEach((data, index) => {
-      xlabels.push({ x: this.ylineMargin + this.leftOffset + this.step * index, y: this.yLineTop + this.xLineBottomMargin, text: data.xlabel });
-      console.log(xlabels);
+    data.forEach((item, index) => {
+      xlabels.push({ x: this.ylineMargin + this.leftOffset + this.step * index, y: this.yLineTop + this.xLineBottomMargin, text: item.xlabel });
+      console.log("xlabels " + xlabels);
     });
+    return xlabels;
     // dataSet.forEach(function (data,index) {
     //   xlabels.push({ x: this.ylineMargin + this.leftOffset + (this.step * index), y: this.yLineTop + this.xLineBottomMargin, text: data.xlabel });
     //   console.log(xlabels);
     // });
   }
 
-  getYLabels(dataSet) {
-    console.log(dataSet);
-    
-     function getMax () {
-      let newArr = [];
-      dataSet.forEach(item => {
-        newArr.push(item.value);
+  getYLabels(data) {
+    console.log(data);
+    function getMax() {
+      let maxNum = 0
+      data.forEach(item => {
+        if (item.value > maxNum) {
+          maxNum = item.value;
+        }
       });
-      console.log("new array " + newArr);
-      return Math.max(newArr);
+      console.log(maxNum);
+      return maxNum;
     }
-
     let ylabels = [];
     // let maxNum = 300;
     // maxNum = Math.max(dataSet.value);
@@ -147,27 +157,45 @@ export class ChartsComponent implements OnInit {
     //     return Math.max(a, b);
     // });
 
-    let maxNm = getMax();
+    this.maxNm = getMax();
+    this.maxYval = this.maxNm;
+    this.maxNm = Math.ceil(this.maxNm / 100) * 100;
 
-    console.log(maxNm.toString());
+    //function roundup maxNm 
+
+    this.step = this.maxNm / data.length;
 
 
+    console.log(this.maxNm.toString() + "length " + data.length);
 
-    dataSet.forEach((data, index) => {
+
+    data.forEach((item, index) => {
       //text for Ylabel is computed from the Y Values passed via dataSet.value
       //YLabel x: static for each label, leftoffSet - yLineMargin to plot lable behind Y Line
       //YLabel y: increments in steps (steps = max value / array length) top of line = min Value e.g. 0, bottom of line = max value e.g. 300
-      let num = maxNm - (this.step * index);
+      let num = this.maxNm - (this.step * index);
       ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.step * index, text: num.toString() });
-      console.log(ylabels);
+      console.log("ylabel " + ylabels);
+
     });
+    return ylabels;
 
 
+  }
 
+
+  getPoints(data) {
+    let pointsT = [];
+    data.forEach((item, index) => {
+      pointsT.push({ x: this.ylineMargin + this.leftOffset + (this.step * index), y: this.maxYval - item.value });
+      console.log("pointsT " + pointsT[index].y);
+    });
+    return pointsT;
   }
 
   ngOnInit() {
     console.log("ngOnInit is being fired");
     console.log(this.dataSetMain);
+    this.generateDataSet(this.dataSetMain);
   }
 }

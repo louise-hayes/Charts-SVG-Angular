@@ -12,15 +12,15 @@ export class AppComponent {
     backgroundColor: "#FFFFFF",
     labelsFontColor: "#000000",
     lineColor: "#FF0000",
-    height: "150",
-    width: "500"
+    "height.px": "600",
+    "width.px": "500"
   };
   chartData = [  
-      {xlabel: "Dec", value: 70},
-      {xlabel: "Feb", value: 20} ,
-      {xlabel: "March", value: 60},
-      {xlabel: "April", value: 20} ,
-      {xlabel: "May", value: 60}
+      {xlabel: "Dec", value: 488},
+      {xlabel: "Feb", value: 100} ,
+      {xlabel: "March", value: 250},
+      {xlabel: "April", value: 50} ,
+      {xlabel: "Aug", value: 80}
    ];
   dataSetMain = {
       type: 'line',

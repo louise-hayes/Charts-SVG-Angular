@@ -1,7 +1,8 @@
-<div class="chart" >
+<div class="chart">
   <div class="chart-header">
     <h2 class="chart-title">Line Graph</h2>
   </div>
+ 
   <svg class="graph" [ngStyle]="chartStyle">
 
     <path class="chart-line" attr.d="{{linePath()}}"></path>
@@ -24,9 +25,9 @@
     
   </svg>
   <!-- //alternative lable for graph -->
-  <div style="text-align:center">
+  <!-- <div style="text-align:center">
       {{dataSet.labelxTitle.title}}
-    </div>
+    </div> -->
 
 
 </div>
