@@ -25,15 +25,29 @@ describe('ChartsComponent', () => {
 
   it('should generate DataSet', () => {
     let data = [
-     {key: "jan", value: 10},
-     {key: "feb", value: 20} ,
-     {key: "march", value: 60} 
+     {xlabel: "Nov", value: 70},
+     {xlabel: "Feb", value: 20} ,
+     {xlabel: "March", value: 60},
+     {xlabel: "April", value: 20} ,
+     {xlabel: "May", value: 60}
+      
     ];
+
+    //for future use: styling to be implemented after basic graph functionality working
+    let style = {
+      backgroundColor: "#FFFFFF",
+      labelsFontColor: "#000000",
+      lineColor: "#FF0000",
+      height: "150",
+      width: "500"
+    };
+
     let mockDataSet = {
       type: 'line',
         title: 'Demo Line Graph',
-        labels: {x:'Users',y:'Months'},
-        data: data
+        labels: {xAxisID:'Users',yAxisID:'Months'}, //may be blank
+        data: data,
+        style: style //may be blank
     }
 
     expect(component.generateDataSet(mockDataSet)).toEqual(true);

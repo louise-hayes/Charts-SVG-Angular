@@ -1,4 +1,4 @@
-<div class="chart">
+<div class="chart" [ngStyle]="chartStyle">
   <div class="chart-header">
     <h2 class="chart-title">Line Graph</h2>
   </div>
@@ -21,7 +21,12 @@
       <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" class="label-title">{{dataSet.labelyTitle.title}}</text>
     </g>
+    
   </svg>
+  <!-- //alternative lable for graph -->
+  <div style="text-align:center">
+      {{dataSet.labelxTitle.title}}
+    </div>
 
 
 </div>
