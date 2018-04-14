@@ -7,92 +7,43 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 
 export class ChartsComponent implements OnInit {
-  @Input() dataSetMain: any;
+  @Input() dataSet: any;
 
-  dataSet: any;
   leftOffset: number;
   ylineMargin: number;
   yLineTop: number;
-  lineHeight: number;
   lineWidth: number;
   chartStyle: object;
-  yLineBot: number;
+  lineStyle: object;
+  labelStyle: object;
   xLineBottomMargin: number;
-  yLineMargin: number;
-  yLineTopMargin: number;
   xLabelMargin: number;
   leftMargin: number;
-  yminval: number;
-  step: number;
+  yStep: number;
+  xStep: number;
   maxNm: number;
-  maxYval : number;
+  maxYval: number;
+  maxHeight: number;
+  rightMargin: number;
 
   //x 30 y 50 places a circle on the line graph to plot the data
   constructor() {
 
-    //the chartStyle will be populated from input() dataSet.chartStyle object
+    //the chartStyle will be populated from input() dataSet.Style object
     //but will default to the below
     this.chartStyle = {
-      "width.px": 500,
+      "width.px": 700,
       "height.px": 600
     }
 
     this.leftOffset = 150;
     this.leftMargin = 40;
     this.ylineMargin = 5;
-    this.yLineTop = 300;
-    this.yLineBot = 5;
-    this.lineWidth = this.chartStyle["width.px"];
+    this.yLineTop = 0;
     this.xLineBottomMargin = 20;
-    this.yLineTopMargin = 20;
     this.xLabelMargin = 60;
-    this.yminval = 0;
-    this.step = 60;
-    
-    // to be dynamically created by Input() dataSetMain
-    //dataSet populates graph, is rendered in the chart component html
-    this.dataSet = {
-      points: [ // Jan 
-        { x: this.leftOffset, y: 300 - 300 },
-        { x: this.step + this.leftOffset, y: 300 - 100 },
-        { x: this.step * 2 + this.leftOffset, y: 300 - 60 },
-        { x: this.step * 3 + this.leftOffset, y: 300 - 200 },
-        { x: this.step * 4 + this.leftOffset, y: 300 - 250 }
-      ],
-      xlabels: [
-        { x: this.ylineMargin + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "Jan" },
-        { x: this.step + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "Feb" },
-        { x: this.step * 2 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "March" },
-        { x: this.step * 3 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "April" },
-        { x: this.step * 4 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "May" }
-      ],
-      ylabels: [
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 300, text: "300" },
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 240, text: "240" },
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 180, text: "180" },
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 120, text: "120" },
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 60, text: "60" },
-        { x: this.leftOffset - this.ylineMargin, y: this.yLineTop, text: "0" }
-
-      ],
-      labelxTitle:
-        { x: this.lineWidth / 2 + this.leftOffset, y: this.yLineTop + this.xLabelMargin, title: "Month" },
-
-      labelyTitle:
-        { x: this.leftOffset - 100, y: this.yLineTop / 2, title: "Users" },
-
-      xline: // how long x horizontal line: x1 x2 specify how long line is 60-360 y1 and y2 specify where line appears
-        { x1: this.leftOffset, x2: this.lineWidth + this.leftOffset, y1: this.yLineTop, y2: this.yLineTop },
-
-      yline: //how long y vertical line top is 5 bottom is chart height e.g. 300
-        { x1: this.leftOffset, x2: this.leftOffset, y1: this.yLineTop, y2: 0 }
-
-    }
-    console.log(this.dataSetMain);
-    console.log("constructor is being fired");
-    // this.generateDataSet(this.dataSetMain);
-
-  }
+    this.rightMargin = 5;
+  };
 
   //function to generate line path using x y variables from points array
   // output used to render svg d: path('M 30 50 L 100 80 L 200 60 L 280 30');
@@ -110,92 +61,101 @@ export class ChartsComponent implements OnInit {
   }
 
   //function to generate graph dataset -  param dataSet received from parent App by Include()
-  
+
   generateDataSet(dataSet: any) {
-    console.log(this.dataSetMain);
-    // this.chartStyle = this.dataSet.chartStyle;
+    this.maxHeight = parseInt(this.dataSet.style["height.px"]) - this.xLabelMargin;
+    this.lineWidth = parseInt(this.dataSet.style["width.px"]);
+    this.chartStyle = this.dataSet.style;
+    this.labelStyle = this.dataSet.labelStyle;
+    this.lineStyle = this.dataSet.lineStyle;
     this.dataSet.ylabels = this.getYLabels(dataSet.data);
-    this.yLineTop = this.maxYval;    
+    this.yLineTop = this.maxHeight;
     this.dataSet.xlabels = this.getXLabels(dataSet.data);
     this.dataSet.points = this.getPoints(dataSet.data);
-    this.dataSet.xline = { x1: this.leftOffset, x2: this.lineWidth + this.leftOffset, y1: this.yLineTop, y2: this.yLineTop };
+    this.dataSet.xline = { x1: this.leftOffset, x2: this.lineWidth, y1: this.yLineTop, y2: this.yLineTop };
     this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.yLineTop, y2: 0 }
-    console.log(this.dataSet);
-    return true;//for unit test
+    this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.yLineTop + this.xLabelMargin, title: "Month" };
+    this.dataSet.labelyTitle = { x: this.leftOffset - 100, y: this.yLineTop / 2, title: "Users" };
   }
 
   //function to generate xAxisLabels array
   getXLabels(data) {
+    this.xStep = (this.lineWidth - (this.leftOffset + this.leftMargin + this.rightMargin)) / data.length;
+    
     let xlabels = [];
     data.forEach((item, index) => {
-      xlabels.push({ x: this.ylineMargin + this.leftOffset + this.step * index, y: this.yLineTop + this.xLineBottomMargin, text: item.xlabel });
-      console.log("xlabels " + xlabels);
+      xlabels.push({ x: this.ylineMargin + this.leftOffset + this.xStep * index, y: this.yLineTop + this.xLineBottomMargin, text: item.xlabel });
     });
     return xlabels;
-    // dataSet.forEach(function (data,index) {
-    //   xlabels.push({ x: this.ylineMargin + this.leftOffset + (this.step * index), y: this.yLineTop + this.xLineBottomMargin, text: data.xlabel });
-    //   console.log(xlabels);
-    // });
   }
 
   getYLabels(data) {
-    console.log(data);
+    this.dataSet.numyYlabels = this.dataSet.numYlabels? this.dataSet.numYlabels:5;
+    console.log("number of y labels: " + this.dataSet.numYlabels);
+
+    // function to caclulate the max value of Y , to plot the graph ticks/legends 
     function getMax() {
-      let maxNum = 0
+      let m = 0;
       data.forEach(item => {
-        if (item.value > maxNum) {
-          maxNum = item.value;
+        if (item.value > m) {
+          m = item.value;
         }
       });
-      console.log(maxNum);
-      return maxNum;
+      console.log("max Y axis Value (Max Nm : " + m);
+      return m;
     }
-    let ylabels = [];
-    // let maxNum = 300;
-    // maxNum = Math.max(dataSet.value);
-    //   maxNum = dataSet.data.reduce(function(a, b) {
-    //     return Math.max(a, b);
-    // });
 
+    let ylabels = [];
     this.maxNm = getMax();
     this.maxYval = this.maxNm;
+    // now round the highest y value (macNm) from dataSet.value to nearest 100th for graph readability
     this.maxNm = Math.ceil(this.maxNm / 100) * 100;
+    // interval between y axis legends/labels is determined by diving the max y axis value (maxNm) by the no. of labels (default 5)
+    this.yStep = this.maxHeight / this.dataSet.numYlabels; //calculate y Axis intervals between y Axis labels (line height / number of Y labels)
+    let yStepLabel = this.maxNm / this.dataSet.numYlabels; //calculate y Axis labels (Max Y Value / number of Y labels)
+    console.log("rounding max value to : " + this.maxNm.toString() + "and dividing by numYlabels " + this.dataSet.numYlabels + " Labels for Y Axis Steps: " + yStepLabel);
 
-    //function roundup maxNm 
+    for (var i = 0; i < this.dataSet.numYlabels; i++) {
+      //text for ylabel is computed from the Y Values passed via dataSet.value but rounded to meaningful 100's
+      //llabel x = (static for each ylabel) (leftoffSet - yLineMargin) to plot label behind Y (horizontal) Axis
+      //Ylabel y: increments in steps (steps = max value / array length) top of line = min Value e.g. 0, bottom of line = max value e.g. 300
+      let yLegend = this.maxNm - (yStepLabel * i);
+      ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.yStep * i, text: yLegend.toString() });
 
-    this.step = this.maxNm / data.length;
-
-
-    console.log(this.maxNm.toString() + "length " + data.length);
-
-
-    data.forEach((item, index) => {
-      //text for Ylabel is computed from the Y Values passed via dataSet.value
-      //YLabel x: static for each label, leftoffSet - yLineMargin to plot lable behind Y Line
-      //YLabel y: increments in steps (steps = max value / array length) top of line = min Value e.g. 0, bottom of line = max value e.g. 300
-      let num = this.maxNm - (this.step * index);
-      ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.step * index, text: num.toString() });
-      console.log("ylabel " + ylabels);
-
-    });
+    };
     return ylabels;
-
-
   }
 
 
   getPoints(data) {
-    let pointsT = [];
+    let points = [];
     data.forEach((item, index) => {
-      pointsT.push({ x: this.ylineMargin + this.leftOffset + (this.step * index), y: this.maxYval - item.value });
-      console.log("pointsT " + pointsT[index].y);
+      points.push({ x: this.ylineMargin + this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / item.value)) });
+      console.log("points " + points[index].y);
     });
-    return pointsT;
+    return points;
   }
 
   ngOnInit() {
     console.log("ngOnInit is being fired");
-    console.log(this.dataSetMain);
-    this.generateDataSet(this.dataSetMain);
+    console.log(this.dataSet);
+    //call function to populated dataSet array which will be rendered 
+    this.generateDataSet(this.dataSet);
+    
+    //sample to timeout to show how graph data could be updated dynamically - this is where updated dataSet can be added
+
+    // setTimeout( () => {
+    //   this.dataSet.data= [  
+    //     {xlabel: "Jan", value: 1234},
+    //     {xlabel: "Feb", value: 745} ,
+    //     {xlabel: "March", value: 300},
+    //     {xlabel: "April", value: 50} ,
+    //     {xlabel: "May", value: 700},
+    //     {xlabel: "June", value: 600}
+    //  ]
+    //  this.generateDataSet(this.dataSet);
+
+
+    // },10000)
   }
 }

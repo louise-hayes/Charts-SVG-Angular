@@ -15,6 +15,7 @@
   fill: none;
   stroke: red;
   stroke-width: 2px;
+  stroke-dasharray: 0; /* solid line could be 5,5 = dashed line */
 }
 
 .chart-circle {
@@ -24,7 +25,6 @@
 .graph .labels {
   font-family: Arial;
   font-size: 12px;
-  kerning: 1;
 }
 
 .graph .labels.x-labels {

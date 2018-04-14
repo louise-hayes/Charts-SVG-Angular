@@ -5,28 +5,45 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
-  title = 'app';
-   chartStyle = {
-    backgroundColor: "#FFFFFF",
-    labelsFontColor: "#000000",
-    lineColor: "#FF0000",
-    "height.px": "600",
-    "width.px": "500"
+  title = 'Angular5 Charts';
+
+  chartStyle = {
+    "height.px": 300,
+    "width.px": 600,
+    "font-family": "Arial"
   };
-  chartData = [  
-      {xlabel: "Dec", value: 488},
-      {xlabel: "Feb", value: 100} ,
-      {xlabel: "March", value: 250},
-      {xlabel: "April", value: 50} ,
-      {xlabel: "Aug", value: 80}
-   ];
-  dataSetMain = {
-      type: 'line',
-        title: 'Demo Line Graph',
-        labels: {xAxisID:'Users',yAxisID:'Months'}, //may be blank
-        data: this.chartData,
-        style: this.chartStyle //may be blank
+
+  lineStyle = {
+    stroke: "red",
+    "stroke-width": "1", //6=thicker
+    "stroke-dasharray": "5,5" // 0 = continous line
+  }
+
+  labelStyle = {
+    color: "#0000FF"
+  }
+
+  chartData = [
+    { xlabel: "Jan", value: 1234 },
+    { xlabel: "Feb", value: 745 },
+    { xlabel: "March", value: 300 },
+    { xlabel: "April", value: 50 },
+    { xlabel: "May", value: 400 },
+    { xlabel: "June", value: 600 },
+    { xlabel: "July", value: 156 },
+    { xlabel: "Aug", value: 236 },
+    { xlabel: "Sept", value: 119 },
+    { xlabel: "Oct", value: 234 },
+  ];
+  dataSet = {
+    type: 'line',
+    title: 'Demo Line Graph',
+    labels: { xAxisID: 'Users', yAxisID: 'Months' }, //optional 
+    numYlabels: 5, //default to 5 if none provided - optimal 5 or 10
+    data: this.chartData,
+    style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
+    lineStyle: this.lineStyle,
+    labelStyle: this.labelStyle
   }
 }

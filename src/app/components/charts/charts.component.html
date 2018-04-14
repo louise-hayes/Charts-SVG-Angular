@@ -5,7 +5,7 @@
  
   <svg class="graph" [ngStyle]="chartStyle">
 
-    <path class="chart-line" attr.d="{{linePath()}}"></path>
+    <path class="chart-line" [ngStyle]="lineStyle" attr.d="{{linePath()}}"></path>
     <circle class="chart-circle" r="5" *ngFor="let p of dataSet.points" attr.cx="{{p.x}}" attr.cy="{{p.y}}">
     </circle>
     <g class="grid x-grid">
@@ -14,11 +14,11 @@
     <g class="grid y-grid">
       <line attr.x1="{{dataSet.yline.x1}}" attr.x2="{{dataSet.yline.x2}}" attr.y1="{{dataSet.yline.y1}}" attr.y2="{{dataSet.yline.y2}}"></line>
     </g>
-    <g class="labels x-labels">
+    <g class="labels x-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}" class="label-title">{{dataSet.labelxTitle.title}}</text>
     </g>
-    <g class="labels y-labels">
+    <g class="labels y-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" class="label-title">{{dataSet.labelyTitle.title}}</text>
     </g>
