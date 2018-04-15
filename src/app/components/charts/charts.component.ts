@@ -26,7 +26,7 @@ export class ChartsComponent implements OnInit {
   rightMargin: number = 5;
 
   constructor() {
-    
+
   };
 
   // generate line path using x y variables from dataSet.points array
@@ -127,6 +127,15 @@ export class ChartsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.dataSet);
+    switch (this.dataSet.type) {
+      case "line":
+        //to do check type and render specific chart
+        break;
+
+      default:
+      //line
+    }
+
     //call function to populated dataSet array which will be rendered 
     this.generateDataSet(this.dataSet);
 
