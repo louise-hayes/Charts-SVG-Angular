@@ -62,8 +62,8 @@ export class ChartsComponent implements OnInit {
     this.dataSet.points = this.getPoints(dataSet.data);
     this.dataSet.xline = { x1: this.leftOffset, x2: this.lineWidth, y1: this.maxHeight, y2: this.maxHeight };
     this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.maxHeight, y2: 0 }
-    this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: "Month" };
-    this.dataSet.labelyTitle = { x: this.leftOffset - 100, y: this.maxHeight / 2, title: "Users" };
+    this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
+    this.dataSet.labelyTitle = { x: this.leftOffset - 100, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
   }
 
   //function to generate xAxisLabels array
