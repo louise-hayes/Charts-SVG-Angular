@@ -26,7 +26,7 @@ import { ChartsComponent } from './components/charts/charts.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartsComponent
     
   ],
 ```
