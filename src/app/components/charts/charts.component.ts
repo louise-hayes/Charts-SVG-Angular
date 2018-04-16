@@ -15,6 +15,7 @@ export class ChartsComponent implements OnInit {
   chartStyle: object;
   lineStyle: object;
   labelStyle: object;
+  axisLabelStyle: object;
   xLineBottomMargin: number = 20;
   xLabelMargin: number = 60;
   leftMargin: number = 40;
@@ -57,6 +58,7 @@ export class ChartsComponent implements OnInit {
     this.chartStyle = this.dataSet.style;
     this.labelStyle = this.dataSet.labelStyle;
     this.lineStyle = this.dataSet.lineStyle;
+    this.axisLabelStyle = this.dataSet.axisLabelStyle;
     this.dataSet.ylabels = this.getYLabels(dataSet.data);
     this.dataSet.xlabels = this.getXLabels(dataSet.data);
     this.dataSet.points = this.getPoints(dataSet.data);
@@ -68,8 +70,8 @@ export class ChartsComponent implements OnInit {
 
   //function to generate xAxisLabels array
   getXLabels(data) {
-    this.xStep = (this.lineWidth - (this.leftOffset + this.leftMargin + this.rightMargin)) / data.length;
-
+    this.xStep = (this.lineWidth - this.leftOffset) / data.length;
+    console.log("x step : " + this.xStep);
     let xlabels = [];
     data.forEach((item, index) => {
       xlabels.push({ x: this.ylineMargin + this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: item.xlabel });
@@ -99,6 +101,7 @@ export class ChartsComponent implements OnInit {
     // now round the highest y value (macNm) from dataSet.value to nearest 100th for graph readability
     this.maxNm = Math.ceil(this.maxNm / 100) * 100;
     // interval between y axis legends/labels is determined by diving the max y axis value (maxNm) by the no. of labels (default 5)
+    console.log("maxHeight: " + this.maxHeight)
     this.yStep = this.maxHeight / this.dataSet.numYlabels; //calculate y Axis intervals between y Axis labels (line height / number of Y labels)
     let yStepLabel = this.maxNm / this.dataSet.numYlabels; //calculate y Axis labels (Max Y Value / number of Y labels)
     //y labels are computed from the Y Values passed via dataSet.value rounded to meaningful 100's
@@ -110,6 +113,7 @@ export class ChartsComponent implements OnInit {
       //Ylabel y: increments in steps (steps = max value / array length) top of line = min Value e.g. 0, bottom of line = max value e.g. 300
       let yLegend = this.maxNm - (yStepLabel * i);
       ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.yStep * i, text: yLegend.toString() });
+      console.log("y step " + this.yStep);
 
     };
     return ylabels;
@@ -127,15 +131,6 @@ export class ChartsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.dataSet);
-    switch (this.dataSet.type) {
-      case "line":
-        //to do check type and render specific chart
-        break;
-
-      default:
-      //line
-    }
-
     //call function to populated dataSet array which will be rendered 
     this.generateDataSet(this.dataSet);
 

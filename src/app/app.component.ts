@@ -21,7 +21,11 @@ export class AppComponent {
   }
 
   labelStyle = {
-    color: "#0000FF"
+    fill: "blue"
+  }
+  
+  axisLabelStyle = {
+    fill: "red"
   }
 
   chartData = [
