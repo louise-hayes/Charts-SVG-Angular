@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ChartsComponent implements OnInit {
   @Input() dataSet: any;
 
-  leftOffset: number = 150; // leftmargin for Y Axis Main Label 
+  leftOffset: number = 50; // leftmargin for Y Axis Main Label 
   ylineMargin: number = 5;
   lineWidth: number = 500;
   chartStyle: object;
@@ -18,13 +18,14 @@ export class ChartsComponent implements OnInit {
   axisLabelStyle: object;
   xLineBottomMargin: number = 20;
   xLabelMargin: number = 60;
-  leftMargin: number = 40;
+  leftMargin: number = 5;
   yStep: number;
   xStep: number;
   maxNm: number;
   maxYval: number;
   maxHeight: number = 250;
   rightMargin: number = 5;
+  ylabelMargin: number = 0;
 
   constructor() {
 
@@ -65,7 +66,7 @@ export class ChartsComponent implements OnInit {
     this.dataSet.xline = { x1: this.leftOffset, x2: this.lineWidth, y1: this.maxHeight, y2: this.maxHeight };
     this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.maxHeight, y2: 0 }
     this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
-    this.dataSet.labelyTitle = { x: this.leftOffset - 100, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
+    this.dataSet.labelyTitle = { x: this.ylabelMargin, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
   }
 
   //function to generate xAxisLabels array

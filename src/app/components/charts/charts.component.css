@@ -36,6 +36,7 @@
 .graph .labels.y-labels {
   text-anchor: end;
 }
+
 .grid {
   stroke: #ccc;
   stroke-dasharray: 0;

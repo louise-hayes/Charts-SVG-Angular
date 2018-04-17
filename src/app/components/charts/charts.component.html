@@ -16,11 +16,11 @@
     </g>
     <g class="labels x-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
-      <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}" class="label-title">{{dataSet.labelxTitle.title}}</text>
+      <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}"  class="label-title" >{{dataSet.labelxTitle.title}}</text>
     </g>
     <g class="labels y-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
-      <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" class="label-title">{{dataSet.labelyTitle.title}}</text>
+      <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" attr.transform="rotate(270, {{dataSet.labelyTitle.x}} , {{dataSet.labelyTitle.y}} )" class="label-title">{{dataSet.labelyTitle.title}}</text>
     </g>
     
   </svg>
