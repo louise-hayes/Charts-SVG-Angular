@@ -1,6 +1,6 @@
 {
   "name": "chart-angular5",
-  "version": "0.0.0",
+  "version": "0.0.7",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
