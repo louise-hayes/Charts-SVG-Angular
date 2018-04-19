@@ -1,11 +1,11 @@
 # Angular5ChartsSvg2
 Angular5 SVG Charts from scratch
 
-This angular charts app contains no thrid party chart dependencies (such as d3, ngs-charts or highcharts).
+This angular5 charts app contains no thrid party chart dependencies (such as chart.js, d3.js, ngx-charts or highcharts).
 
 ## Git: https://github.com/louise-hayes/svgcharts.git
 
-![screen shot 2018-04-14 at 16 52 29](https://user-images.githubusercontent.com/29293985/38772440-a65a0e4a-4004-11e8-8654-81c6c56adde3.png)
+![screen shot 2018-04-17 at 12 46 51](https://user-images.githubusercontent.com/29293985/38884395-7eb4b63e-423d-11e8-92a8-e28e9ea228f1.png)
 
 ## To launch: 
 ```npm install```
@@ -20,6 +20,7 @@ This angular charts app contains no thrid party chart dependencies (such as d3, 
 ```
 import { ChartsComponent } from './components/charts/charts.component';
 ```
+
 
 ### Add the component to NgModule declarations:
 ```
@@ -90,6 +91,35 @@ In parent ```app.component.html```
 <app-charts [dataSet]="dataSet"></app-charts>
 ```
 
+
+# Alternatively use the npm package:
+### Import as an npm package
+```npm i chart-angular5```
+
+- In Parent ```app.module.ts``` 
+```import { ChartsComponent } from 'import { ChartsComponent } from 'chart-angular5';```
+- Add the component to NgModule imports:
+
+```
+imports: [
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    ChartsComponent
+]
+```
+
+## noramlisation of axis 
+Used an algorithim based on dataSet values, and followed below graph rules such as, 
+ - there should be a given number of y labels provided and assumption this would be 5 or 10 ticks on y axis, to make it legible and evenly divided
+ - the Y axis labels are auto generated from the passed in dataSet values and should be nice (round numbers etc) , there the labels are calculated by rounding the max y value to nearest 100th and dividing by number of y labels required.
+ - it assumes 0 is the min value and plots the max value based on data set values provided
+ y axis ticks will be spaced between these min (0) and max points based on the number of y labels required, and the height.
+ - it plots all the x values (loops through all dataSet.length).
+ - it plots the x values using the width / data set length as the steps between x values
+ - margins and offsets are included in the algorithim to ensure there is enough space for labels and margins,  and the space remaining is where the graph is plotted.
+- graph plot points are based on the xStep value combined and y values related to the max value and the height. e.g. with Feb having 745 as a value: 
+Y point = maxHeight (240) - (maxHeight (240)/ (maxNm 1300 / y value(745)) = y = 102 
+
 # Pass data to charts component via dataSet object: 
 contains information to create graph element attributes such as:
 ### dataset.points: creates the chart line:
@@ -157,6 +187,55 @@ this.dataSet = {
     }
 
 ```
+
+
+## Y axis: 
+![screen shot 2018-04-16 at 12 52 35](https://user-images.githubusercontent.com/29293985/38873502-e478989c-4223-11e8-926d-90f810364b5c.png)
+
+e.g. Y label <text> 1300, 1040, 780, 520, 260. in above sample. max value (1234) rounded to nearest 100th (=1300) for legibility, divided by quantity Y labels required as specified in `dataSet.numYlabels`.
+
+In the example shown,  Y label step/tick  'yStepLabel'  = 260. 
+`let yStepLabel = this.maxNm / this.dataSet.numYlabels`
+1300 / 5 = 260 (labels are "1300" - 260 = "1040", -260 = "780" etc).
+
+`this.maxNm = Math.ceil(this.maxNm / 100) * 100;`
+
+
+
+
+
+
+## Y-Axis ticks / Y labels: 
+
+`this.yStep = this.maxHeight / this.dataSet.numYlabels`
+
+dataSet.chartStyle.height(300) minus xLabelMargin(60)  = 240 , divided by  quantity Y labels (5) . This gives us the YStepLabel value of 48 : which is the intervals between Y positions. starting at y:0, add 48 each time to plot y ticks. 0, 48,96,144,192.
+
+
+
+
+## x Axis ticks / X labels: 
+![screen shot 2018-04-16 at 11 36 03](https://user-images.githubusercontent.com/29293985/38873504-e489d3e6-4223-11e8-9711-ec2beecf949b.png)
+
+The X-Axis label <text>  is the chartData.xlabel specified in dataSet (Jan/feb/March in sample dataSet above etc), 
+the quantity of xlabels is the dataSet length (10 in this case) 
+
+`xlabels.push({ x: this.ylineMargin + this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: item.xlabel });`
+
+
+ x ticks are generated from the xStep which is the dataSet.chartStyle.width (600 ) minus leftOffset(150) = 450  divided by dataSet.length.(10) = 45.
+
+X =  starting at `leftOffset` + `yLineMargin` (e.g. Jan = 155) + `xStep` (45) => Feb 200, + 45 => March 245 + 45 = April 290 etc
+
+## x,y Points:
+![screen shot 2018-04-16 at 11 36 01](https://user-images.githubusercontent.com/29293985/38873505-e49b60a2-4223-11e8-8c9c-5242eabf080b.png)
+
+`points.push({ x: this.ylineMargin + this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / item.value)) });`
+
+X,Y <circle> points are calcualted using the xStep above (Jan 155, Feb 200, March 245 , April 290 etc) along with the y axis as it relates to the value
+Y  : maxHeight  - (maxHeight / (maxNum / y value)  In the example of Feb having a value of 745 : 
+Y : 240 - (240 / (1300/745)) = 102.46
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 

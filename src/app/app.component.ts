@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -50,4 +50,12 @@ export class AppComponent {
     lineStyle: this.lineStyle,
     labelStyle: this.labelStyle
   }
+  
+  pointClicked(event): void {
+    console.log(event);
+
+    // console.log("Point was clicked");
+  }
 }
+
+

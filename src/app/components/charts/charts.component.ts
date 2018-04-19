@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-charts',
@@ -8,8 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class ChartsComponent implements OnInit {
   @Input() dataSet: any;
+  @Output() pClicked: EventEmitter<string>;
 
-  leftOffset: number = 150; // leftmargin for Y Axis Main Label 
+  leftOffset: number = 50; // leftmargin for Y Axis Main Label 
   ylineMargin: number = 5;
   lineWidth: number = 500;
   chartStyle: object;
@@ -18,16 +19,17 @@ export class ChartsComponent implements OnInit {
   axisLabelStyle: object;
   xLineBottomMargin: number = 20;
   xLabelMargin: number = 60;
-  leftMargin: number = 40;
+  leftMargin: number = 5;
   yStep: number;
   xStep: number;
   maxNm: number;
   maxYval: number;
   maxHeight: number = 250;
   rightMargin: number = 5;
+  ylabelMargin: number = 0;
 
   constructor() {
-
+    this.pClicked = new EventEmitter();
   };
 
   // generate line path using x y variables from dataSet.points array
@@ -46,6 +48,11 @@ export class ChartsComponent implements OnInit {
   }
 
   //function to generate graph dataset -  param dataSet received from parent App by Include()
+  pointClicked(event): void {
+    this.pClicked.emit(event);
+
+    // console.log("Point was clicked");
+  }
 
   generateDataSet(dataSet: any) {
 
@@ -65,7 +72,7 @@ export class ChartsComponent implements OnInit {
     this.dataSet.xline = { x1: this.leftOffset, x2: this.lineWidth, y1: this.maxHeight, y2: this.maxHeight };
     this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.maxHeight, y2: 0 }
     this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
-    this.dataSet.labelyTitle = { x: this.leftOffset - 100, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
+    this.dataSet.labelyTitle = { x: this.ylabelMargin, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
   }
 
   //function to generate xAxisLabels array
@@ -123,12 +130,13 @@ export class ChartsComponent implements OnInit {
   getPoints(data) {
     let points = [];
     data.forEach((item, index) => {
-      points.push({ x: this.ylineMargin + this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / item.value)) });
+      points.push({item:item, x: this.ylineMargin + this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / item.value)) });
       console.log("points " + points[index].y);
     });
     return points;
   }
 
+  
   ngOnInit() {
     console.log(this.dataSet);
     //call function to populated dataSet array which will be rendered 
