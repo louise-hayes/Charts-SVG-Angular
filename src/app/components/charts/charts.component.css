@@ -21,7 +21,11 @@
 }
 
 .chart-circle {
-  fill: grey;
+  /* fill: grey; */
+  fill: blue;
+  fill-opacity: 5;
+  stroke: blue;
+  stroke-width: 0;
 }
 
 .graph .labels {
@@ -42,6 +46,11 @@
   stroke-dasharray: 0;
   stroke-width: 1;
 }
+.ticks {
+  stroke: rgb(8, 8, 8);
+  stroke-dasharray: 0;
+  stroke-width: 1;
+}
 
 .labels {
   font-size: 13px;
@@ -57,4 +66,12 @@
 .data {
   fill: red;
   stroke-width: 1;
+}
+
+circle:hover {
+  stroke-opacity: 0;
+  stroke-width: 3px;
+  stroke: black;
+  stroke-dasharray: 5,5;
+  fill: red;
 }
