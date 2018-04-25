@@ -42,6 +42,7 @@ export class AppComponent {
   ];
   dataSet = {
     type: 'line',
+    grid: true,
     title: 'Demo Line Graph',
     labels: { xAxisID: 'Users', yAxisID: 'Months' }, //optional 
     numYlabels: 5, //default to 5 if none provided - optimal 5 or 10
@@ -52,7 +53,8 @@ export class AppComponent {
   }
   
   pointClicked(event): void {
-    console.log(event);
+    console.log(event.item.xlabel + " : " + event.item.value );
+    
 
     // console.log("Point was clicked");
   }
