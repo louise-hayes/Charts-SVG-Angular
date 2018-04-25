@@ -41,9 +41,15 @@
   text-anchor: end;
 }
 
-.grid {
+.axis {
   stroke: #ccc;
   stroke-dasharray: 0;
+  stroke-width: 1;
+}
+
+.grid {
+  stroke: #ccc;
+  stroke-dasharray: 5,5;
   stroke-width: 1;
 }
 .ticks {

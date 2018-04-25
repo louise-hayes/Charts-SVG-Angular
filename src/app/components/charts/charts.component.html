@@ -7,10 +7,10 @@
     <path class="chart-line" [ngStyle]="lineStyle" attr.d="{{linePath()}}"></path>
     <circle (click)="pointClicked(p)" class="chart-circle" r="5" *ngFor="let p of dataSet.points" attr.cx="{{p.x}}" attr.cy="{{p.y}}">
     </circle>
-    <g class="grid x-grid">
+    <g class="axis">
       <line attr.x1="{{dataSet.xline.x1}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{dataSet.xline.y1}}" attr.y2="{{dataSet.xline.y2}}"></line>
         </g>
-    <g class="grid y-grid">
+    <g class="axis">
       <line attr.x1="{{dataSet.yline.x1}}" attr.x2="{{dataSet.yline.x2}}" attr.y1="{{dataSet.yline.y1}}" attr.y2="{{dataSet.yline.y2}}"></line>
     </g>
     <g class="labels x-labels" [ngStyle]="labelStyle">
@@ -18,11 +18,11 @@
       <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}"  class="label-title" >{{dataSet.labelxTitle.title}}</text>
       <line class="grid" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1="{{l.y}}" attr.y2=0></line>
       <line class="ticks" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1=5 attr.y2=0></line>
-   
     </g>
     <g class="labels y-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" attr.transform="rotate(270, {{dataSet.labelyTitle.x}} , {{dataSet.labelyTitle.y}} )" class="label-title">{{dataSet.labelyTitle.title}}</text>
+      <line class="grid" *ngFor="let l of dataSet.ylabels" attr.x1="{{l.x}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{l.y}}" attr.y2="{{l.y}}"></line>   
     </g>
     
   </svg>
