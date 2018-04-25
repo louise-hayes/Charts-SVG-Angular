@@ -21,7 +21,7 @@
 
 /* Tooltip arrow */
  .tooltiptext::after {
-    content: "";
+    content: "Tooltiptext";
     position: absolute;
     top: 100%;
     left: 50%;
@@ -32,7 +32,8 @@
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.chart-circle:hover .tooltiptext {
+circle:hover .tooltiptext {
+    color: red;
     visibility: visible;
     opacity: 1;
 }

@@ -54,6 +54,11 @@ export class ChartsComponent implements OnInit {
     // console.log("Point was clicked");
   }
 
+  getClass() {
+    this.dataSet.gridChoice = this.dataSet.grid ? "grid" : "nogrid";
+    return this.dataSet.gridChoice;
+  }
+
   generateDataSet(dataSet: any) {
 
     //to do : check if style height & width provided and if none defaulted to chartStyle params
@@ -61,7 +66,8 @@ export class ChartsComponent implements OnInit {
       this.maxHeight = parseInt(this.dataSet.style["height.px"]) - this.xLabelMargin;
       this.lineWidth = parseInt(this.dataSet.style["width.px"]);
     };
-
+    
+    
     this.chartStyle = this.dataSet.style;
     this.labelStyle = this.dataSet.labelStyle;
     this.lineStyle = this.dataSet.lineStyle;
@@ -73,9 +79,9 @@ export class ChartsComponent implements OnInit {
     this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.maxHeight, y2: 0 }
     this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
     this.dataSet.labelyTitle = { x: this.ylabelMargin, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
-    
+
   }
-  
+
   //function to generate xAxisLabels array
   getXLabels(data) {
     this.xStep = (this.lineWidth - this.leftOffset) / data.length;
@@ -121,7 +127,7 @@ export class ChartsComponent implements OnInit {
       //Ylabel y: increments in steps (steps = max value / array length) top of line = min Value e.g. 0, bottom of line = max value e.g. 300
       let yLegend = this.maxNm - (yStepLabel * i);
       ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.yStep * i, text: yLegend.toString() });
-      
+
       console.log("y step " + this.yStep);
 
     };
