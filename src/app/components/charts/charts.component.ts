@@ -73,15 +73,16 @@ export class ChartsComponent implements OnInit {
     this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.maxHeight, y2: 0 }
     this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
     this.dataSet.labelyTitle = { x: this.ylabelMargin, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
+    
   }
-
+  
   //function to generate xAxisLabels array
   getXLabels(data) {
     this.xStep = (this.lineWidth - this.leftOffset) / data.length;
     console.log("x step : " + this.xStep);
     let xlabels = [];
     data.forEach((item, index) => {
-      xlabels.push({ x: this.ylineMargin + this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: item.xlabel });
+      xlabels.push({ x: this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: item.xlabel });
     });
     return xlabels;
   }
@@ -120,6 +121,7 @@ export class ChartsComponent implements OnInit {
       //Ylabel y: increments in steps (steps = max value / array length) top of line = min Value e.g. 0, bottom of line = max value e.g. 300
       let yLegend = this.maxNm - (yStepLabel * i);
       ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.yStep * i, text: yLegend.toString() });
+      
       console.log("y step " + this.yStep);
 
     };
@@ -130,13 +132,13 @@ export class ChartsComponent implements OnInit {
   getPoints(data) {
     let points = [];
     data.forEach((item, index) => {
-      points.push({item:item, x: this.ylineMargin + this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / item.value)) });
+      points.push({ item: item, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / item.value)) });
       console.log("points " + points[index].y);
     });
     return points;
   }
 
-  
+
   ngOnInit() {
     console.log(this.dataSet);
     //call function to populated dataSet array which will be rendered 

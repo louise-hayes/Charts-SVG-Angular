@@ -16,6 +16,9 @@
     <g class="labels x-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}"  class="label-title" >{{dataSet.labelxTitle.title}}</text>
+      <line class="grid" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1="{{l.y}}" attr.y2=0></line>
+      <line class="ticks" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1=5 attr.y2=0></line>
+   
     </g>
     <g class="labels y-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
