@@ -4,13 +4,36 @@
   </div>
 
   <svg class="graph" [ngStyle]="chartStyle">
-    <path class="chart-line" [ngStyle]="lineStyle" attr.d="{{linePath()}}"></path>
-    <circle (click)="pointClicked(p)" class="chart-circle" r="5" *ngFor="let p of dataSet.points" attr.cx="{{p.x}}" attr.cy="{{p.y}}">
-      
+
+    <!-- For Each Series -->
+    <!-- loop -->
+
+    <!-- check if type line -->
+
+    <!-- <path class="chart-line" *ngFor="let p of dataSet.points; let i = index" [ngStyle]="setStyles(i)" attr.d="{{linePath(i)}}"></path> -->
+
+    <circle (click)="pointClicked(p)" class="chart-circle" r="5" *ngFor="let p of dataSet.points[0].values" attr.cx="{{p.x}}"
+      attr.cy="{{p.y}}">
     </circle>
 
-    <app-tooltip *ngFor="let p of dataSet.points" [item]="p.item" >
-      </app-tooltip>
+    <!-- <path class="chart-bar"  *ngFor="let p of dataSet.points; let i = index" [ngStyle]="setStyles(i)" attr.d="{{barPath(i)}}"></path> -->
+    <g *ngFor="let p of dataSet.points; let i = index" >
+      <g *ngIf="p.type === 'line'">
+          
+          <!-- <g app-line-chart [dataSet]="dataSet.points[i]"></g> -->
+
+        <path class="chart-line" [ngStyle]="setStyles(i)" attr.d="{{linePath(dataSet.points[i])}}"></path>
+      </g>
+      <g *ngIf="p.type === 'bar'">
+        <g app-bar-chart [dataSet]="dataSet.points[i]"></g>
+      </g>
+
+    </g>
+
+    <app-tooltip *ngFor="let p of dataSet.points.values" [item]="p.item">
+    </app-tooltip>
+
+    <!-- Once per graph -->
     <g class="axis">
       <line attr.x1="{{dataSet.xline.x1}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{dataSet.xline.y1}}" attr.y2="{{dataSet.xline.y2}}"></line>
     </g>
@@ -20,24 +43,26 @@
     <g class="labels x-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}" class="label-title">{{dataSet.labelxTitle.title}}</text>
-     
+
       <line [ngClass]="getClass()" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1="{{l.y}}" attr.y2=0></line>
-    
+
       <!-- <line class="ticks" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1=5 attr.y2=0></line> -->
     </g>
     <g class="labels y-labels" [ngStyle]="labelStyle">
       <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" attr.transform="rotate(270, {{dataSet.labelyTitle.x}} , {{dataSet.labelyTitle.y}} )"
         class="label-title">{{dataSet.labelyTitle.title}}</text>
-      <line [ngClass]="getClass()" *ngFor="let l of dataSet.ylabels" attr.x1="{{l.x}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{l.y}}" attr.y2="{{l.y}}"></line>
+      <line [ngClass]="getClass()" *ngFor="let l of dataSet.ylabels" attr.x1="{{l.x}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{l.y}}"
+        attr.y2="{{l.y}}"></line>
     </g>
 
   </svg>
-
-  <!-- //alternative lable for graph -->
-  <!-- <div style="text-align:center">
+  <div>
+    <!-- <app-bar-chart></app-bar-chart> -->
+    <!-- //alternative lable for graph -->
+    <!-- <div style="text-align:center">
       {{dataSet.labelxTitle.title}}
     </div> -->
-
+  </div>
 
 </div>
