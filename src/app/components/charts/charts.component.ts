@@ -1,4 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { GraphService } from '../../services/graph.service';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { LineChartComponent } from './line-chart/line-chart.component';
+import { NgSwitch } from '@angular/common';
 
 @Component({
   selector: 'app-charts',
@@ -14,7 +18,6 @@ export class ChartsComponent implements OnInit {
   ylineMargin: number = 5;
   lineWidth: number = 500;
   chartStyle: object;
-  lineStyle: object;
   labelStyle: object;
   axisLabelStyle: object;
   xLineBottomMargin: number = 20;
@@ -28,23 +31,27 @@ export class ChartsComponent implements OnInit {
   rightMargin: number = 5;
   ylabelMargin: number = 0;
 
-  constructor() {
+  constructor(private graphService: GraphService ) {
     this.pClicked = new EventEmitter();
   };
 
   // generate line path using x y variables from dataSet.points array
   // output used to render svg d: path('M 30 50 L 100 80 L 200 60 L 280 30');
-  linePath() {
-    let pathParts = [], currentPoint, i;
-    for (i = 0; i < this.dataSet.points.length; i++) {
-      currentPoint = this.dataSet.points[i];
-      pathParts.push(currentPoint.x + "," + currentPoint.y);
-    }
-    // console.log("M" + pathParts.join(" L"));
-    // console.log(pathParts);
-    return "M" + pathParts.join(" L");
-    //returns "M 30 50 L 100 80 L 200 60 L 280 30"
+  // will be a service - draws a continuous line
 
+  linePath(data) {
+    let pathParts = [], currentPoint, i;
+ console.log ("linepath " + data);
+      for (i = 0; i < data.values.length; i++) {
+        currentPoint = data.values[i];
+        pathParts.push(currentPoint.x + "," + currentPoint.y);
+      }
+    
+      // console.log("M" + pathParts.join(" L"));
+      // console.log(pathParts);
+      return "M" + pathParts.join(" L");
+      //returns "M 30 50 L 100 80 L 200 60 L 280 30"
+    
   }
 
   //function to generate graph dataset -  param dataSet received from parent App by Include()
@@ -59,6 +66,17 @@ export class ChartsComponent implements OnInit {
     return this.dataSet.gridChoice;
   }
 
+ 
+  setStyles(i) {
+    //for line graph
+    let styles = {
+      stroke: this.dataSet.data.series[i].stroke, //color of line
+      "stroke-width": this.dataSet.data.series[i].strokewidth, //0 thin, 6=thicker line
+      "stroke-dasharray": this.dataSet.data.series[i].strokedasharray // 0 = continous line
+    }
+    return styles;
+  }
+
   generateDataSet(dataSet: any) {
 
     //to do : check if style height & width provided and if none defaulted to chartStyle params
@@ -66,11 +84,10 @@ export class ChartsComponent implements OnInit {
       this.maxHeight = parseInt(this.dataSet.style["height.px"]) - this.xLabelMargin;
       this.lineWidth = parseInt(this.dataSet.style["width.px"]);
     };
-    
-    
+
+
     this.chartStyle = this.dataSet.style;
     this.labelStyle = this.dataSet.labelStyle;
-    this.lineStyle = this.dataSet.lineStyle;
     this.axisLabelStyle = this.dataSet.axisLabelStyle;
     this.dataSet.ylabels = this.getYLabels(dataSet.data);
     this.dataSet.xlabels = this.getXLabels(dataSet.data);
@@ -83,42 +100,38 @@ export class ChartsComponent implements OnInit {
   }
 
   //function to generate xAxisLabels array
+  //this will become a serivce
   getXLabels(data) {
-    this.xStep = (this.lineWidth - this.leftOffset) / data.length;
+    this.xStep = (this.lineWidth - this.leftOffset) / data.xlabels.length;
     console.log("x step : " + this.xStep);
     let xlabels = [];
-    data.forEach((item, index) => {
-      xlabels.push({ x: this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: item.xlabel });
+    data.xlabels.forEach((item, index) => {
+      xlabels.push({ x: this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: item });
     });
+    xlabels.forEach(function (item, index, array) {
+      console.log("dataSet.xlabels :" , item, " " , index);
+    })
     return xlabels;
   }
 
   getYLabels(data) {
     this.dataSet.numyYlabels = this.dataSet.numYlabels ? this.dataSet.numYlabels : 5;
     console.log("number of y labels: " + this.dataSet.numYlabels);
-
-    // function to caclulate the max value of Y , to plot the graph ticks/legends 
-    function getMax() {
-      let m = 0;
-      data.forEach(item => {
-        if (item.value > m) {
-          m = item.value;
-        }
-      });
-      console.log("max Y axis Value (Max Nm : " + m);
-      return m;
-    }
+    data.series.forEach(function (item, index, array) {
+      console.log("dataSet.series :" , item, " " , index);
+    })
+    // caclulate the max value of Y , to determine max height of y axis
 
     let ylabels = [];
-    this.maxNm = getMax();
+    this.maxNm = this.graphService.getMax(data);
     this.maxYval = this.maxNm;
-    // now round the highest y value (macNm) from dataSet.value to nearest 100th for graph readability
+    // now round the highest y value (maxNm) from dataSet.series.yval to nearest 100th for graph readability
     this.maxNm = Math.ceil(this.maxNm / 100) * 100;
-    // interval between y axis legends/labels is determined by diving the max y axis value (maxNm) by the no. of labels (default 5)
+    // interval between y axis : diving the max y axis value (maxNm) by the no. of labels (default 5)
     console.log("maxHeight: " + this.maxHeight)
     this.yStep = this.maxHeight / this.dataSet.numYlabels; //calculate y Axis intervals between y Axis labels (line height / number of Y labels)
     let yStepLabel = this.maxNm / this.dataSet.numYlabels; //calculate y Axis labels (Max Y Value / number of Y labels)
-    //y labels are computed from the Y Values passed via dataSet.value rounded to meaningful 100's
+    //y labels are computed from the Y Values passed via dataSet.series.yval rounded to meaningful 100's
 
     console.log("rounding max value to : " + this.maxNm.toString() + "and dividing by numYlabels " + this.dataSet.numYlabels + " Labels for Y Axis Steps: " + yStepLabel);
 
@@ -134,13 +147,24 @@ export class ChartsComponent implements OnInit {
     return ylabels;
   }
 
+  //servive : to be called for all series of dataSet
 
   getPoints(data) {
     let points = [];
-    data.forEach((item, index) => {
-      points.push({ item: item, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / item.value)) });
-      console.log("points " + points[index].y);
+    data.series.forEach((item, index) => {
+      console.log("item " + item.type);
+      let seriesNum = index;
+      points.push({ type: item.type, values: [] });
+      item.yval.forEach((yval, index) => {
+        console.log("yvals " + yval);
+        points[seriesNum].values.push({ item: yval, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / yval)) });
+        console.log("Y " + points[seriesNum].values[index].y);
+        console.log("points " + Object.values(points[seriesNum].values[index]));
+      })
     });
+    points.forEach(function (item, index, array) {
+      console.log("getPoints Item :",  item, "getPoints Index : " , index);
+    })
     return points;
   }
 
@@ -150,20 +174,10 @@ export class ChartsComponent implements OnInit {
     //call function to populated dataSet array which will be rendered 
     this.generateDataSet(this.dataSet);
 
-    //sample to timeout to show how graph data could be updated dynamically - this is where updated dataSet can be added
-
+    //sample timeout to show how graph data could be updated dynamically - this is where updates can be added pulled in
     // setTimeout( () => {
-    //   this.dataSet.data= [  
-    //     {xlabel: "Jan", value: 1234},
-    //     {xlabel: "Feb", value: 745} ,
-    //     {xlabel: "March", value: 300},
-    //     {xlabel: "April", value: 50} ,
-    //     {xlabel: "May", value: 700},
-    //     {xlabel: "June", value: 600}
-    //  ]
+    //   this.dataSet.data = getLatestData();
     //  this.generateDataSet(this.dataSet);
-
-
     // },10000)
   }
 }
