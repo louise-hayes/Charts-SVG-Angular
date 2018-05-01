@@ -1,0 +1,22 @@
+.chart-line {
+    fill: none;
+    stroke: red;
+    stroke-width: 2px;
+    stroke-dasharray: 0; /* solid line could be 5,5 = dashed line */
+  }
+  .chart-circle {
+    /* fill: grey; */
+    fill: blue;
+    fill-opacity: 5;
+    stroke: blue;
+    stroke-width: 0;
+  }
+  circle:hover {
+    stroke-opacity: 0;
+    stroke-width: 3px;
+    stroke: black;
+    stroke-dasharray: 5,5;
+    fill: red;
+  }
+
+  

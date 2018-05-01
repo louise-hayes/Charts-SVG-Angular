@@ -35,37 +35,21 @@ export class ChartsComponent implements OnInit {
     this.pClicked = new EventEmitter();
   };
 
-  // generate line path using x y variables from dataSet.points array
-  // output used to render svg d: path('M 30 50 L 100 80 L 200 60 L 280 30');
-  // will be a service - draws a continuous line
 
-  linePath(data) {
-    let pathParts = [], currentPoint, i;
- console.log ("linepath " + data);
-      for (i = 0; i < data.values.length; i++) {
-        currentPoint = data.values[i];
-        pathParts.push(currentPoint.x + "," + currentPoint.y);
-      }
-    
-      // console.log("M" + pathParts.join(" L"));
-      // console.log(pathParts);
-      return "M" + pathParts.join(" L");
-      //returns "M 30 50 L 100 80 L 200 60 L 280 30"
-    
-  }
 
-  //function to generate graph dataset -  param dataSet received from parent App by Include()
-  pointClicked(event): void {
-    this.pClicked.emit(event);
+  //trigger event upon cicrle/point click 
+  // pointClicked(event): void {
+  //   this.pClicked.emit(event);
+  // }
 
-    // console.log("Point was clicked");
-  }
-
-  getClass() {
+  //set css class to 'grid' to show grid if dataSet.grid = true
+    getGridClass() {
     this.dataSet.gridChoice = this.dataSet.grid ? "grid" : "nogrid";
     return this.dataSet.gridChoice;
   }
+  //set css class to 'legend' + number (1-5) to show legend colours
 
+  
  
   setStyles(i) {
     //for line graph
@@ -120,7 +104,6 @@ export class ChartsComponent implements OnInit {
     data.series.forEach(function (item, index, array) {
       console.log("dataSet.series :" , item, " " , index);
     })
-    // caclulate the max value of Y , to determine max height of y axis
 
     let ylabels = [];
     this.maxNm = this.graphService.getMax(data);
@@ -157,7 +140,7 @@ export class ChartsComponent implements OnInit {
       points.push({ type: item.type, values: [] });
       item.yval.forEach((yval, index) => {
         console.log("yvals " + yval);
-        points[seriesNum].values.push({ item: yval, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / yval)) });
+        points[seriesNum].values.push({ item: { item: item, xlabel: data.xlabels[index]}, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / yval)) });
         console.log("Y " + points[seriesNum].values[index].y);
         console.log("points " + Object.values(points[seriesNum].values[index]));
       })
@@ -166,8 +149,15 @@ export class ChartsComponent implements OnInit {
       console.log("getPoints Item :",  item, "getPoints Index : " , index);
     })
     return points;
+
   }
 
+  pointClicked(event): void {
+    // console.log(event);
+    this.pClicked.emit(event);
+
+    // console.log("Point was clicked");
+  }
 
   ngOnInit() {
     console.log(this.dataSet);

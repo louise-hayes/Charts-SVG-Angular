@@ -2,14 +2,18 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgSwitch } from '@angular/common';
 
 @Component({
-  selector: 'app-line-chart',
+  selector: 'g[app-line-chart]',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.css']
 })
 export class LineChartComponent implements OnInit {
+  @Input() series: any; 
+  @Input() seriesIndex: any;
   @Input() dataSet: any;
+  
   @Output() pClicked: EventEmitter<string>;
-  constructor() { }
+
+  constructor() {this.pClicked = new EventEmitter(); }
 
   linePath(data) {
     let pathParts = [], currentPoint, i;
@@ -25,7 +29,8 @@ export class LineChartComponent implements OnInit {
     //returns "M 30 50 L 100 80 L 200 60 L 280 30"
 
   }
-  setStyles(i) {
+
+  setStyles(i,dataSet) {
     //for line graph
     let styles = {
       stroke: this.dataSet.data.series[i].stroke, //color of line
@@ -34,9 +39,15 @@ export class LineChartComponent implements OnInit {
     }
     return styles;
   }
+ //trigger event upon cicrle/point click 
+ pointClicked(event): void {
+  this.pClicked.emit(event);
+}
 
 
   ngOnInit() {
+    console.log("line-chart " , this.dataSet);
+    
   }
 
 }
