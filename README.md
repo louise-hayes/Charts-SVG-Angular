@@ -2,6 +2,7 @@
 Angular5 SVG Charts from scratch
 
 This angular5 charts app contains no thrid party chart dependencies (such as chart.js, d3.js, ngx-charts or highcharts).
+You also need the GraphSerivce in app/serices/graph.service.ts
 
 ## Git: https://github.com/louise-hayes/svgcharts.git
 
@@ -17,19 +18,23 @@ This angular5 charts app contains no thrid party chart dependencies (such as cha
 ### Import the component
 - In Parent ```app.module.ts``` 
 
-```
-import { ChartsComponent } from './components/charts/charts.component';
-```
-
-
-### Add the component to NgModule declarations:
+``` 
+### Add the ChartsComponent and GraphService to NgModule declarations:
 ```
 @NgModule({
   declarations: [
     AppComponent,
-    ChartsComponent
-    
+    ChartsComponent,
+    TooltipComponent
   ],
+  imports: [
+    BrowserModule,
+    CommonModule
+  ],
+  providers: [
+    GraphService
+  ],
+  bootstrap: [AppComponent]
 ```
 
 
@@ -44,12 +49,6 @@ chartStyle = {
     "height.px": 400,
     "width.px": 600,
     "font-family": "Arial"
-  };
-
-  lineStyle = {
-    stroke: "red",
-    "stroke-width": "1", //6=thicker
-    "stroke-dasharray": "5,5" // 0 = continous line
   }
 
   labelStyle = {
@@ -57,18 +56,14 @@ chartStyle = {
   }
 
   chartData = [
-    { xlabel: "Jan", value: 1234 },
-    { xlabel: "Feb", value: 745 },
-    { xlabel: "March", value: 300 },
-    { xlabel: "April", value: 50 },
-    { xlabel: "May", value: 400 },
-    { xlabel: "June", value: 600 },
-    { xlabel: "July", value: 156 },
-    { xlabel: "Aug", value: 236 },
-    { xlabel: "Sept", value: 119 },
-    { xlabel: "Oct", value: 234 },
-  ];
+    xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
+    series: [
+      { type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , legend: 2016, yval: [100, 300, 400, 300, 200, 100] },
+      { type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0", legend: 2017, yval: [150, 250, 350, 450, 350, 250] },
+      { type: "bar", legend: 2018, yval: [125, 275, 375, 275, 175, 100] }
 
+    ]
+  }
 
   dataSet = {
     type: 'line',
@@ -76,7 +71,6 @@ chartStyle = {
     labels: { xAxisID: 'Users', yAxisID: 'Months' }, //optional 
     data: this.chartData,
     style: this.chartStyle,
-    lineStyle: this.lineStyle,
     labelStyle: this.labelStyle
   }
 }
@@ -145,44 +139,52 @@ All styles are optional, component provides defaults - if passing params, they w
 
 ### Sample of `dataSet` object generated dynamically using values from `Input() dataSet` 
 
+### sample points
+```
+  points: [{
+    type: "line",
+    values: [item: yval, x:100, y:100]
+  },
+  {
+    type: "line",
+    values: [item: yval, x:200, y:300]
+  }
+  ]
+  ```
 
 
 ```
+
+
+
 this.dataSet = {
-      points: [
-        { x: this.leftOffset, y: 300 - 300 },
-        { x: this.step + this.leftOffset, y: 300 - 100},
-        { x: this.step * 2 + this.leftOffset, y: 300 - 60},
-        { x: this.step * 3 + this.leftOffset, y: 300 - 200},
-        { x: this.step * 4 + this.leftOffset, y: 300 - 250}
+  
+
+
+      points: [{ 
+      type: item.type,
+      values: 
+      [
+        { item: yval, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / yval)) }
       ],
       xlabels: [
-        { x: this.ylineMargin + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "Jan" },
-        { x: this.step + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "Feb" },
-        { x: this.step * 2 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "March" },
-        { x: this.step * 3 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "April" },
-        { x: this.step * 4 + this.leftOffset, y: this.yLineTop + this.xLineBottomMargin, text: "May" }
+        { x: this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: chartData.xlabels },
       ],
       ylabels: [
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 300, text: "300" },
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 240, text: "240" },
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 180, text: "180" },
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 120, text: "120" },
-        { x: this.leftOffset - this.ylineMargin, y: 300 - 60, text: "60" },
-        { x: this.leftOffset - this.ylineMargin, y: this.yLineTop, text: "0" }
-
+        { x: this.leftOffset - this.ylineMargin, y: this.yStep * i, text: yLegend.toString() },
+        
       ],
       labelxTitle:
-        { x: this.lineWidth / 2 + this.leftOffset, y: this.yLineTop + this.xLabelMargin, title: "Month" },
+        { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID },
 
       labelyTitle:
-        { x: this.leftOffset - 100, y: this.yLineTop / 2, title: "Users" },
+        { x: this.ylabelMargin, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID },
 
       xline: // how long x horizontal Axis: `x1, x2` specify how long line is e.g. 60-360. `y1, y2` specify where line appears
-        { x1: this.leftOffset, x2: this.lineWidth + this.leftOffset, y1: this.yLineTop, y2: this.yLineTop },
+        { x1: this.leftOffset, x2: this.lineWidth, y1: this.maxHeight, y2: this.maxHeight },
 
       yline: //how long y vertical line top is 5 bottom is chart height e.g. 300
-        { x1: this.leftOffset, x2: this.leftOffset, y1: this.yLineTop, y2: 0 }
+        { x1: this.leftOffset, x2: this.leftOffset, y1: this.maxHeight, y2: 0 }
 
     }
 
@@ -235,6 +237,11 @@ X =  starting at `leftOffset` + `yLineMargin` (e.g. Jan = 155) + `xStep` (45) =>
 X,Y <circle> points are calcualted using the xStep above (Jan 155, Feb 200, March 245 , April 290 etc) along with the y axis as it relates to the value
 Y  : maxHeight  - (maxHeight / (maxNum / y value)  In the example of Feb having a value of 745 : 
 Y : 240 - (240 / (1300/745)) = 102.46
+
+SVG Tips:
+
+for anything SVG specific, the attr. prefix is required because the SVG DOM generally does not expose attributes as properties like the HTML DOM does.
+https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
