@@ -6,7 +6,8 @@ You also need the GraphSerivce in app/serices/graph.service.ts
 
 ## Git: https://github.com/louise-hayes/svgcharts.git
 
-![screen shot 2018-04-17 at 12 46 51](https://user-images.githubusercontent.com/29293985/38884395-7eb4b63e-423d-11e8-92a8-e28e9ea228f1.png)
+![screen shot 2018-05-01 at 13 37 21](https://user-images.githubusercontent.com/29293985/39484790-de0539a8-4d44-11e8-8dce-b0b7d1ee314c.png)
+
 
 ## To launch: 
 ```npm install```
@@ -44,35 +45,51 @@ You also need the GraphSerivce in app/serices/graph.service.ts
 
 
 ```
-export class AppComponent {
-chartStyle = {
-    "height.px": 400,
+ chartStyle = {
+    "height.px": 300,
     "width.px": 600,
     "font-family": "Arial"
-  }
+  };
 
   labelStyle = {
-    color: "#0000FF"
+    fill: "blue"
   }
 
-  chartData = [
+  axisLabelStyle = {
+    fill: "red"
+  }
+
+  chartData = {
+
     xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
     series: [
-      { type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , legend: 2016, yval: [100, 300, 400, 300, 200, 100] },
-      { type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0", legend: 2017, yval: [150, 250, 350, 450, 350, 250] },
-      { type: "bar", legend: 2018, yval: [125, 275, 375, 275, 175, 100] }
+      { legend: 2016, type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , yval: [100, 300, 400, 300, 200, 100] },
+      { legend: 2017, type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0",  yval: [150, 250, 350, 450, 350, 250] },
+      { legend: 2018, type: "bar", barIndex: 1, fill: "yellow",  yval: [125, 275, 375, 275, 175, 100] },
+      { legend: 2019, type: "bar", barIndex: 0, fill: "red",  yval: [300, 100, 200, 150, 300, 200] }
+      
 
     ]
   }
 
-  dataSet = {
-    type: 'line',
-    title: 'Demo Line Graph',
+  chartOptions = {
+    axis: true, //if line or bar must be true
+    grid: true, //optional
+    legend: "right-top", 
+    title: 'Demo Graph',
     labels: { xAxisID: 'Users', yAxisID: 'Months' }, //optional 
+    numYlabels: 5, //default to 5 if none provided - optimal 5 or 10
     data: this.chartData,
-    style: this.chartStyle,
+    style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
     labelStyle: this.labelStyle
   }
+  
+```
+### define function to handle chart clicks events
+  pointClicked(event): void {
+    console.log(event); // insert your code here
+  }
+
 }
 
 ```

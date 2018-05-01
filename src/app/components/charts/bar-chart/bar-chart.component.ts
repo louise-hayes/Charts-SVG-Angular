@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NgSwitch } from '@angular/common';
 import { GraphService } from '../../../services/graph.service';
 
 @Component({
@@ -9,28 +8,24 @@ import { GraphService } from '../../../services/graph.service';
 })
 export class BarChartComponent implements OnInit {
   @Input() dataSet: any;
-  @Input() series: any;
-  @Input() index: any;
+  @Input() seriesIndex: any;
 
   @Output() pClicked: EventEmitter<string>;
 
-  barcnt: any = 0;
-  oldCountValue: Number = 0;
-
   constructor(private graphService: GraphService) { }
 
-  translateFunc(values) {
+  //generate transform values for bar chart svg <rect> values
+  //to do : normalise y values as percentage of y max height
 
-      this.barcnt=2;
-
-      let barpoints = [];
-      barpoints.push(values.x + (20  * this.series.index), (240 - values.y));
-      return "translate(" + barpoints + ")";
+  translateFunc(val,i) {
+      let barxypoints = [];
+      barxypoints.push(val.x + (20  * this.dataSet.data.series[this.seriesIndex].barIndex), (this.dataSet.maxHeight - val.y));
+      return "translate(" + barxypoints + ")";
     }
 
 
     ngOnInit() {
-      console.log("bar ", this.series);
+      console.log("bar xypoints", this.dataSet.xypoints[this.seriesIndex]);
     }
 
   }

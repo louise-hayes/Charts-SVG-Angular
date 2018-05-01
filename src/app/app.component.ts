@@ -26,20 +26,20 @@ export class AppComponent {
 
     xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
     series: [
-      { type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , legend: 2016, yval: [100, 300, 400, 300, 200, 100] },
-      { type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0", legend: 2017, yval: [150, 250, 350, 450, 350, 250] },
-      { type: "bar", index: 1, fill: "yellow", legend: 2018, yval: [125, 275, 375, 275, 175, 100] },
-      { type: "bar", index: 0, fill: "red", legend: 2019, yval: [300, 100, 200, 150, 300, 200] }
+      { legend: 2016, type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , yval: [100, 300, 400, 300, 200, 100] },
+      { legend: 2017, type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0",  yval: [150, 250, 350, 450, 350, 250] },
+      { legend: 2018, type: "bar", barIndex: 1, fill: "yellow",  yval: [125, 275, 375, 275, 175, 100] },
+      { legend: 2019, type: "bar", barIndex: 0, fill: "red",  yval: [300, 100, 200, 150, 300, 200] }
       
 
     ]
   }
 
   chartOptions = {
-    axis: true,
-    grid: true,
+    axis: true, //if line or bar must be true
+    grid: true, //optional
     legend: "right-top", 
-    title: 'Demo Line Graph',
+    title: 'Demo Graph',
     labels: { xAxisID: 'Users', yAxisID: 'Months' }, //optional 
     numYlabels: 5, //default to 5 if none provided - optimal 5 or 10
     data: this.chartData,
@@ -49,9 +49,6 @@ export class AppComponent {
 
   pointClicked(event): void {
     console.log(event);
-
-
-    // console.log("Point was clicked");
   }
 }
 

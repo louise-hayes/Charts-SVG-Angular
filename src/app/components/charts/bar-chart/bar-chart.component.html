@@ -1,7 +1,7 @@
 <svg class="chart" >
-    <g *ngFor="let v of series.values; let i=index" 
-    attr.transform="{{translateFunc(v)}}">
-          <rect [ngStyle]="graphService.setStyles(index,dataSet)" attr.width="{{20}}" attr.height="{{v.y}}"></rect>
+    <g *ngFor="let v of dataSet.xypoints[seriesIndex].values; let i=index" 
+    attr.transform="{{translateFunc(v,seriesIndex)}}">
+          <rect [ngStyle]="graphService.setStyles(seriesIndex,dataSet)" attr.width="{{20}}" attr.height="{{v.y}}"></rect>
           <text attr.x={{10}} index attr.y="9.5" attr.dy="10">{{v.y}}</text>
       </g>
 </svg>

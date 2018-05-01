@@ -1,0 +1,15 @@
+<svg class="legend">
+    <text class="title-legend" attr.x="200" attr.y={{10}}></text>
+  
+    <g *ngFor="let l of dataSet.data.series; let i=index;">
+      <g *ngIf="l.type === 'line'">
+        <line [ngStyle]="graphService.setStyles(i,dataSet)" attr.x1={{60}} attr.x2={{120}} attr.y1={{15*i+20}} attr.y2={{15*i+20}}></line>
+        <text class="text-legend" attr.x="200" attr.y={{15*i+25}}>{{l.legend}}</text>
+      </g>
+      <g *ngIf="l.type === 'bar'" >
+        <rect [ngStyle]="graphService.setStyles(i,dataSet)" attr.transform="{{translateLegendFunc(i)}}" attr.width="{{60}}" attr.height="{{10}}"></rect>
+        <text class="text-legend" attr.x="200" attr.y={{15*i+30}}>{{l.legend}}</text>
+      </g>
+  
+    </g>
+  </svg>
