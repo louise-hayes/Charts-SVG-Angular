@@ -13,21 +13,6 @@
   font-family: Arial, Helvetica, sans-serif
 }
 
-.chart-line {
-  fill: none;
-  stroke: red;
-  stroke-width: 2px;
-  stroke-dasharray: 0; /* solid line could be 5,5 = dashed line */
-}
-
-.chart-circle {
-  /* fill: grey; */
-  fill: blue;
-  fill-opacity: 5;
-  stroke: blue;
-  stroke-width: 0;
-}
-
 .graph .labels {
   font-family: Arial;
   font-size: 12px;
@@ -74,10 +59,25 @@
   stroke-width: 1;
 }
 
-circle:hover {
-  stroke-opacity: 0;
-  stroke-width: 3px;
-  stroke: black;
-  stroke-dasharray: 5,5;
-  fill: red;
+.legend {
+  font-size:12px;
+  width: 200px;
+  height: 100px;
+  list-style: none;
+  color: steelblue;
+  border: 1px solid steelblue;
+  background-color: lightgrey;
+  text-align: center;
+  padding:20px;
+  padding-top:0px;
+  margin: 10px;
 }
+
+
+/* .legend li { float: left; margin-right: 30px; } */
+/* 
+span.legend1 { border: 1px solid red; float: left};
+span.legend2 { border: 1px solid blue; float: left};
+span.legend3 { border: 1px solid yellow; float: left};
+span.legend4 { border: 1px solid red; float: left}; */
+
