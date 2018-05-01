@@ -15,11 +15,11 @@ export class LineChartComponent implements OnInit {
 
   constructor() {this.pClicked = new EventEmitter(); }
 
-  linePath(data) {
+  linePath(xypoints) {
     let pathParts = [], currentPoint, i;
-    console.log("linepath " + data);
-    for (i = 0; i < data.values.length; i++) {
-      currentPoint = data.values[i];
+    console.log("linepath " + xypoints);
+    for (i = 0; i < xypoints.values.length; i++) {
+      currentPoint = xypoints.values[i];
       pathParts.push(currentPoint.x + "," + currentPoint.y);
     }
 

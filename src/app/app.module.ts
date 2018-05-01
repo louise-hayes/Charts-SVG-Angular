@@ -8,6 +8,8 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { GraphService } from './services/graph.service';
 import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
+import { AxesComponent } from './components/charts/axes/axes.component';
+import { LegendComponent } from './components/charts/legend/legend.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
     ChartsComponent,
     TooltipComponent,
     BarChartComponent,
-    LineChartComponent
+    LineChartComponent,
+    AxesComponent,
+    LegendComponent
   ],
   imports: [
     BrowserModule,
