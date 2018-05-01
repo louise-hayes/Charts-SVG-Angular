@@ -1,8 +1,7 @@
-<svg class="chart">
-  <!-- <path class="chart-bar"  *ngFor="let p of dataSet.points; let i = index" [ngStyle]="setStyles(i)" attr.d="{{barPath(i)}}"></path> -->
-    <g *ngFor="let v of dataSet.values;let i=index" 
+<svg class="chart" >
+    <g *ngFor="let v of series.values; let i=index" 
     attr.transform="{{translateFunc(v)}}">
-          <rect width="30" attr.height="{{v.y}}"></rect>
-          <text x="20" y="9.5" dy="10">{{v.y}}</text>
+          <rect [ngStyle]="graphService.setStyles(index,dataSet)" attr.width="{{20}}" attr.height="{{v.y}}"></rect>
+          <text attr.x={{10}} index attr.y="9.5" attr.dy="10">{{v.y}}</text>
       </g>
 </svg>

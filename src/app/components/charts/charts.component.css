@@ -71,13 +71,8 @@
   padding:20px;
   padding-top:0px;
   margin: 10px;
+  position: fixed;
+  top:90px;
 }
 
-
-/* .legend li { float: left; margin-right: 30px; } */
-/* 
-span.legend1 { border: 1px solid red; float: left};
-span.legend2 { border: 1px solid blue; float: left};
-span.legend3 { border: 1px solid yellow; float: left};
-span.legend4 { border: 1px solid red; float: left}; */
 

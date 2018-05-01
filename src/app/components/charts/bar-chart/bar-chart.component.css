@@ -1,5 +1,6 @@
 .chart rect {
     fill: steelblue;
+    opacity: .5;
   }
   
   .chart text {

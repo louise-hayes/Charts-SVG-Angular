@@ -43,7 +43,7 @@ export class ChartsComponent implements OnInit {
   // }
 
   //set css class to 'grid' to show grid if dataSet.grid = true
-    getGridClass() {
+  getGridClass() {
     this.dataSet.gridChoice = this.dataSet.grid ? "grid" : "nogrid";
     return this.dataSet.gridChoice;
   }
@@ -51,15 +51,7 @@ export class ChartsComponent implements OnInit {
 
   
  
-  setStyles(i) {
-    //for line graph
-    let styles = {
-      stroke: this.dataSet.data.series[i].stroke, //color of line
-      "stroke-width": this.dataSet.data.series[i].strokewidth, //0 thin, 6=thicker line
-      "stroke-dasharray": this.dataSet.data.series[i].strokedasharray // 0 = continous line
-    }
-    return styles;
-  }
+ 
 
   generateDataSet(dataSet: any) {
 
@@ -137,9 +129,10 @@ export class ChartsComponent implements OnInit {
     data.series.forEach((item, index) => {
       console.log("item " + item.type);
       let seriesNum = index;
-      points.push({ type: item.type, values: [] });
+      points.push({ type: item.type, index: item.index, values: [] });
       item.yval.forEach((yval, index) => {
         console.log("yvals " + yval);
+        //call service normalise y val
         points[seriesNum].values.push({ item: { item: item, xlabel: data.xlabels[index]}, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / yval)) });
         console.log("Y " + points[seriesNum].values[index].y);
         console.log("points " + Object.values(points[seriesNum].values[index]));

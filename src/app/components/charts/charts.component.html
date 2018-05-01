@@ -14,14 +14,15 @@
       </g>
       <g *ngIf="p.type === 'bar'">
         <!--  bar graphs-->
-        <g app-bar-chart [dataSet]="dataSet.points[i]"></g>
+        <g app-bar-chart [series]="dataSet.points[i]" [dataSet]="dataSet" [index]="i"></g>
       </g>
     </g>
 
     <!-- tooltip: come back to this when decision made about materialise or angular material -->
     <!-- <app-tooltip *ngFor="let p of dataSet.points.values" [item]="p.item">
     </app-tooltip> -->
-    <!-- check type if chart if pe or donut do not show -->
+
+    <!-- to do: check type if chart if pie or donut do not show -->
     <!-- ***Static part of graph*** -->
     <g class="axis">
       <!-- x-axis-->
@@ -61,7 +62,7 @@
   <svg class="legend">
     <text attr.x="200" attr.y={{10}}>Legend</text>
     <g *ngFor="let l of dataSet.data.series; let i=index;">
-      <line [ngStyle]="setStyles(i)" attr.x1={{60}} attr.x2={{120}} attr.y1={{15*i+20}} attr.y2={{15*i+20}}></line>
+      <line [ngStyle]="graphService.setStyles(i, dataSet)" attr.x1={{60}} attr.x2={{120}} attr.y1={{15*i+20}} attr.y2={{15*i+20}}></line>
       <text attr.x="200" attr.y={{15*i+20}}>{{l.legend}}</text>
     </g>
   </svg>
