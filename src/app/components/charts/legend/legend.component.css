@@ -18,9 +18,10 @@
  
   .text-legend {
       /* fill:yellow; */
+      font-size:13px;
   }
 
   .title-legend{
       font-size:15px;
-      /* fill: blue; */
+      fill: blue;
   }

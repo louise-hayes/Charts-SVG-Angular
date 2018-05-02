@@ -56,16 +56,14 @@ export class GraphService {
         //returns "M 30 50 L 100 80 L 200 60 L 280 30"
 
     }
+// takes in a value, a max value and a max height
+// returns y pixel of horizontal axis, for that y value, 
+// as a percentage of the max value 
 
-    //   setStyles(i) {
-    //     //for line graph
-    //     let styles = {
-    //       stroke: this.dataSet.data.series[i].stroke, //color of line
-    //       "stroke-width": this.dataSet.data.series[i].strokewidth, //0 thin, 6=thicker line
-    //       "stroke-dasharray": this.dataSet.data.series[i].strokedasharray // 0 = continous line
-    //     }
-    //     return styles;
-    //   }
+normaliseY(val, max, maxHeight){
+    let n = (maxHeight - (maxHeight / (max / val)));
+    return n;
+}
 
     setStyles(i, dataSet) {
         let styles : any;

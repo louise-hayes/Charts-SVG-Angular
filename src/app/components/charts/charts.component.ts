@@ -103,7 +103,8 @@ export class ChartsComponent implements OnInit {
     // now round the highest y value (maxNm) from dataSet.series.yval to nearest 100th for graph readability
     this.maxNm = Math.ceil(this.maxNm / 100) * 100;
     // interval between y axis : diving the max y axis value (maxNm) by the no. of labels (default 5)
-    console.log("maxHeight: " + this.maxHeight)
+    console.log("maxHeight: " + this.maxHeight);
+
     this.yStep = this.maxHeight / this.dataSet.numYlabels; //calculate y Axis intervals between y Axis labels (line height / number of Y labels)
     let yStepLabel = this.maxNm / this.dataSet.numYlabels; //calculate y Axis labels (Max Y Value / number of Y labels)
     //y labels are computed from the Y Values passed via dataSet.series.yval rounded to meaningful 100's
@@ -133,9 +134,10 @@ export class ChartsComponent implements OnInit {
       item.yval.forEach((yval, index) => {
         console.log("yvals " + yval);
         //call service normalise y
-        xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / yval)) });
+        let y = this.graphService.normaliseY(yval,this.maxNm,this.maxHeight)
+        xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * index), y: y });
         console.log("Y " + xypoints[seriesIndex].values[index].y);
-        console.log("xypoints " + Object.values(xypoints[seriesIndex].values[index]));
+        console.log("line xypoints " + Object.values(xypoints[seriesIndex].values[index]));
       })
     });
     xypoints.forEach(function (item, index, array) {
