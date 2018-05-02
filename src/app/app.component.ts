@@ -28,8 +28,8 @@ export class AppComponent {
     series: [
       { legend: 2016, type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , yval: [100, 300, 400, 300, 200, 100] },
       { legend: 2017, type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0",  yval: [150, 250, 350, 450, 350, 250] },
-      { legend: 2018, type: "bar", barIndex: 1, fill: "yellow",  yval: [125, 275, 375, 275, 175, 100] },
-      { legend: 2019, type: "bar", barIndex: 0, fill: "red",  yval: [300, 100, 200, 150, 300, 200] }
+      { legend: 2018, type: "bar", barIndex: 0, fill: "yellow",  yval: [100, 300, 400, 300, 200, 100] },
+      { legend: 2019, type: "bar", barIndex: 1, fill: "red",  yval: [150, 250, 350, 450, 350, 250] }
       
 
     ]

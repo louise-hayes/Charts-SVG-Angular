@@ -19,7 +19,7 @@ export class BarChartComponent implements OnInit {
 
   translateFunc(val,i) {
       let barxypoints = [];
-      barxypoints.push(val.x + (20  * this.dataSet.data.series[this.seriesIndex].barIndex), (this.dataSet.maxHeight - val.y));
+      barxypoints.push(val.x + (20  * this.dataSet.data.series[this.seriesIndex].barIndex), val.y);
       return "translate(" + barxypoints + ")";
     }
 
