@@ -67,7 +67,7 @@ export class ChartsComponent implements OnInit {
     this.axisLabelStyle = this.dataSet.axisLabelStyle;
     this.dataSet.ylabels = this.getYLabels(dataSet.data);
     this.dataSet.xlabels = this.getXLabels(dataSet.data);
-    this.dataSet.xypoints = this.getPoints(dataSet.data);
+    this.dataSet.xypoints = this.getxyPoints(dataSet.data);
     this.dataSet.xline = { x1: this.leftOffset, x2: this.lineWidth, y1: this.maxHeight, y2: this.maxHeight };
     this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.maxHeight, y2: 0 }
     this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
@@ -82,7 +82,7 @@ export class ChartsComponent implements OnInit {
     console.log("x step : " + this.xStep);
     let xlabels = [];
     data.xlabels.forEach((item, index) => {
-      xlabels.push({ x: this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: item });
+      xlabels.push({ x: this.leftOffset + this.xStep * (index+1), y: this.maxHeight + this.xLineBottomMargin, text: item });
     });
     xlabels.forEach(function (item, index, array) {
       console.log("dataSet.xlabels :", item, " ", index);
@@ -92,10 +92,9 @@ export class ChartsComponent implements OnInit {
 
   getYLabels(data) {
     this.dataSet.numyYlabels = this.dataSet.numYlabels ? this.dataSet.numYlabels : 5;
-    console.log("number of y labels: " + this.dataSet.numYlabels);
-    data.series.forEach(function (item, index, array) {
-      console.log("dataSet.series :", item, " ", index);
-    })
+    // data.series.forEach(function (item, index, array) {
+    //   console.log("dataSet.series :", item, " ", index);
+    // })
 
     let ylabels = [];
     this.maxNm = this.graphService.getMax(data);
@@ -125,7 +124,7 @@ export class ChartsComponent implements OnInit {
 
   //servive : to be called for all series of dataSet
 
-  getPoints(data) {
+  getxyPoints(data) {
     let xypoints = [];
     data.series.forEach((item, index) => {
       console.log("item " + item.type);
@@ -134,8 +133,8 @@ export class ChartsComponent implements OnInit {
       item.yval.forEach((yval, index) => {
         console.log("yvals " + yval);
         //call service normalise y
-        let y = this.graphService.normaliseY(yval,this.maxNm,this.maxHeight)
-        xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * index), y: y });
+        let y = this.graphService.normaliseY(yval,this.maxNm,this.maxHeight);
+        xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * (index+1)), y: y });
         console.log("Y " + xypoints[seriesIndex].values[index].y);
         console.log("line xypoints " + Object.values(xypoints[seriesIndex].values[index]));
       })

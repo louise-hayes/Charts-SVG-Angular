@@ -10,7 +10,7 @@ export class AppComponent {
 
   chartStyle = {
     "height.px": 300,
-    "width.px": 600,
+    "width.px": 500,
     "font-family": "Arial"
   };
 
