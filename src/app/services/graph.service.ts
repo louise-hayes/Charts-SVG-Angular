@@ -16,16 +16,15 @@ export class GraphService {
     // E.G. get max Y value from a series of data, to determine max height of y axis
 
     getMax(dataArray) {
-        console.log("in service getMax");
         this.yvalsArray = dataArray;
         let m = 0;
         this.yvalsArray.series.forEach(item => {
-            console.log("ite " + Math.max.apply(null, item.yval));
+            // console.log("ite " + Math.max.apply(null, item.yval));
             if (Math.max.apply(null, item.yval) > m) {
                 m = Math.max.apply(null, item.yval);
             }
         });
-        console.log("max Y axis Value (Max Nm : " + m);
+        console.log("Max Nm : " + m);
         return m;
 
     }

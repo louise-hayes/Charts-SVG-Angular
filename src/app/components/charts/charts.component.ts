@@ -82,11 +82,11 @@ export class ChartsComponent implements OnInit {
     console.log("x step : " + this.xStep);
     let xlabels = [];
     data.xlabels.forEach((item, index) => {
-      xlabels.push({ x: this.leftOffset + this.xStep * (index+1), y: this.maxHeight + this.xLineBottomMargin, text: item });
+      xlabels.push({ x: this.leftOffset + this.xStep * (index + 1), y: this.maxHeight + this.xLineBottomMargin, text: item });
     });
-    xlabels.forEach(function (item, index, array) {
-      console.log("dataSet.xlabels :", item, " ", index);
-    })
+    // xlabels.forEach(function (item, index, array) {
+    //   console.log("dataSet.xlabels :", item, " ", index);
+    // })
     return xlabels;
   }
 
@@ -99,7 +99,7 @@ export class ChartsComponent implements OnInit {
     let ylabels = [];
     this.maxNm = this.graphService.getMax(data);
     this.maxYval = this.maxNm;
-    // now round the highest y value (maxNm) from dataSet.series.yval to nearest 100th for graph readability
+    // round largest y value (maxNm) from dataSet.series.yval to nearest 100th for graph readability
     this.maxNm = Math.ceil(this.maxNm / 100) * 100;
     // interval between y axis : diving the max y axis value (maxNm) by the no. of labels (default 5)
     console.log("maxHeight: " + this.maxHeight);
@@ -108,7 +108,7 @@ export class ChartsComponent implements OnInit {
     let yStepLabel = this.maxNm / this.dataSet.numYlabels; //calculate y Axis labels (Max Y Value / number of Y labels)
     //y labels are computed from the Y Values passed via dataSet.series.yval rounded to meaningful 100's
 
-    console.log("rounding max value to : " + this.maxNm.toString() + "and dividing by numYlabels " + this.dataSet.numYlabels + " Labels for Y Axis Steps: " + yStepLabel);
+    console.log("rounding max y value to : " + this.maxNm.toString() + " dividing by numYlabels " + this.dataSet.numYlabels + " YStelLabel " + yStepLabel);
 
     for (var i = 0; i < this.dataSet.numYlabels; i++) {
       //ylabel x: is static for each ylabel (leftoffSet - yLineMargin) to plot label behind Y (horizontal) Axis
@@ -116,7 +116,7 @@ export class ChartsComponent implements OnInit {
       let yLegend = this.maxNm - (yStepLabel * i);
       ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.yStep * i, text: yLegend.toString() });
 
-      console.log("y step " + this.yStep);
+      console.log("yStep " + this.yStep);
 
     };
     return ylabels;
@@ -133,8 +133,8 @@ export class ChartsComponent implements OnInit {
       item.yval.forEach((yval, index) => {
         console.log("yvals " + yval);
         //call service normalise y
-        let y = this.graphService.normaliseY(yval,this.maxNm,this.maxHeight);
-        xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * (index+1)), y: y });
+        let y = this.graphService.normaliseY(yval, this.maxNm, this.maxHeight);
+        xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * (index + 1)), y: y });
         console.log("Y " + xypoints[seriesIndex].values[index].y);
         console.log("line xypoints " + Object.values(xypoints[seriesIndex].values[index]));
       })
@@ -151,6 +151,18 @@ export class ChartsComponent implements OnInit {
     this.pClicked.emit(event);
 
     // console.log("Point was clicked");
+  }
+
+  // get number of bar charts - to determine x pixel of bar chart / poistion of bar centered either side of grid line
+  numBarCharts() {
+    let numBarCharts: number = 0;
+    this.dataSet.xypoints.forEach(item => {
+      if (item.type === 'bar') {
+        numBarCharts++;
+      }
+    })
+
+    return numBarCharts;
   }
 
   ngOnInit() {

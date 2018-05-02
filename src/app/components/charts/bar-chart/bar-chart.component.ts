@@ -8,24 +8,33 @@ import { GraphService } from '../../../services/graph.service';
 })
 export class BarChartComponent implements OnInit {
   @Input() dataSet: any;
-  @Input() seriesIndex: any;
+  @Input() seriesIndex: number;
+  @Input() numBarCharts: number;
 
   @Output() pClicked: EventEmitter<string>;
 
-  constructor(private graphService: GraphService) { }
+  constructor(private graphService: GraphService) {
+
+  }
 
   //generate transform values for bar chart svg <rect> values
   //to do : normalise y values as percentage of y max height
 
-  translateFunc(val,i) {
-      let barxypoints = [];
-      barxypoints.push((val.x-20) + (20  * this.dataSet.data.series[this.seriesIndex].barIndex), val.y);
-      return "translate(" + barxypoints + ")";
-    }
-
-
-    ngOnInit() {
-      console.log("bar xypoints", this.dataSet.xypoints[this.seriesIndex]);
-    }
-
+  translateFunc(val, i) {
+    let barxypoints = [];
+    let startX = (this.getWidthBar()/2 * this.numBarCharts);
+    barxypoints.push((val.x - startX) + (this.getWidthBar() * this.dataSet.data.series[this.seriesIndex].barIndex), val.y);
+    return "translate(" + barxypoints + ")";
   }
+
+  getWidthBar() {
+    let barWidth = (this.dataSet.barWidth ? this.dataSet.barWidth : 60) / this.numBarCharts;
+    
+    return barWidth;
+  }
+
+  ngOnInit() {
+    // console.log("bar xypoints", this.dataSet.xypoints[this.seriesIndex]);
+  }
+
+}

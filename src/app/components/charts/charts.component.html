@@ -14,7 +14,7 @@
       </g>
       <g *ngIf="p.type === 'bar'">
         <!--  bar -->
-        <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i"></g>
+        <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i" [numBarCharts]="numBarCharts()"></g>
       </g>
     </g>
 
