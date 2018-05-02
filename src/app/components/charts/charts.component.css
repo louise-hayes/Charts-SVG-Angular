@@ -3,7 +3,7 @@
 
 }
 .graph {
-  width: 500px;
+  width: 700px;
   height: 300px;
   background: #fff;
   padding:10px;
@@ -59,20 +59,6 @@
   stroke-width: 1;
 }
 
-.legend {
-  font-size:12px;
-  width: 200px;
-  height: 100px;
-  list-style: none;
-  color: steelblue;
-  border: 1px solid steelblue;
-  background-color: lightgrey;
-  text-align: center;
-  padding:20px;
-  padding-top:0px;
-  margin: 10px;
-  position: fixed;
-  top:90px;
-}
+
 
 

@@ -16,68 +16,41 @@ export class GraphService {
     // E.G. get max Y value from a series of data, to determine max height of y axis
 
     getMax(dataArray) {
-        console.log("in service getMax");
         this.yvalsArray = dataArray;
         let m = 0;
         this.yvalsArray.series.forEach(item => {
-            console.log("ite " + Math.max.apply(null, item.yval));
+            // console.log("ite " + Math.max.apply(null, item.yval));
             if (Math.max.apply(null, item.yval) > m) {
                 m = Math.max.apply(null, item.yval);
             }
         });
-        console.log("max Y axis Value (Max Nm : " + m);
+        console.log("Max Nm : " + m);
         return m;
 
     }
 
-    Path(index, dataSet) {
-        let path = [], currentPoint, i;
-        if (dataSet.points[index].type === 'line') {
-            for (i = 0; i < dataSet.points[index].values.length; i++) {
-                currentPoint = dataSet.points[index].values[i];
-                path.push(currentPoint.x + "," + currentPoint.y);
-            }
-            //returns "M 30 50 L 100 80 L 200 60 L 280 30"
-            return "M" + path.join(" L");
-        }
+    // takes in a y value, a max y value and a max graph height
+    // returns y pixel of horizontal axis for that y value, 
+    // which is determined by evaluating y val as a percentage of the max value 
 
+    normaliseY(val, max, maxHeight) {
+        let n = (maxHeight - (maxHeight / (max / val)));
+        return n;
     }
-
-    linePath(data) {
-        let pathParts = [], currentPoint, i;
-        for (i = 0; i < data.values.length; i++) {
-            currentPoint = data.values[i];
-            pathParts.push(currentPoint.x + "," + currentPoint.y);
-        }
-
-        // console.log("M" + pathParts.join(" L"));
-        // console.log(pathParts);
-        return "M" + pathParts.join(" L");
-        //returns "M 30 50 L 100 80 L 200 60 L 280 30"
-
-    }
-// takes in a value, a max value and a max height
-// returns y pixel of horizontal axis, for that y value, 
-// as a percentage of the max value 
-
-normaliseY(val, max, maxHeight){
-    let n = (maxHeight - (maxHeight / (max / val)));
-    return n;
-}
 
     setStyles(i, dataSet) {
-        let styles : any;
+        let styles: any;
         //for line graph
 
         if (dataSet.data.series[i].type === "line") {
-             styles = {
+            styles = {
                 stroke: dataSet.data.series[i].stroke, //color of line
                 "stroke-width": dataSet.data.series[i].strokewidth, //0 thin, 6=thicker line
                 "stroke-dasharray": dataSet.data.series[i].strokedasharray // 0 = continous line
             }
         }
         else if (dataSet.data.series[i].type === "bar") {
-             styles = {
+            styles = {
                 fill: dataSet.data.series[i].fill //color of bar
 
             }
