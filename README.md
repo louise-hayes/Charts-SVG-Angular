@@ -8,7 +8,6 @@ You also need the GraphSerivce in app/serices/graph.service.ts
 
 ![screen shot 2018-05-01 at 13 37 21](https://user-images.githubusercontent.com/29293985/39484790-de0539a8-4d44-11e8-8dce-b0b7d1ee314c.png)
 
-
 ## To launch: 
 ```npm install```
 ```ng serve```
@@ -83,7 +82,7 @@ You also need the GraphSerivce in app/serices/graph.service.ts
     style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
     labelStyle: this.labelStyle
   }
-  
+
 ```
 ### define function to handle chart clicks events
   pointClicked(event): void {
