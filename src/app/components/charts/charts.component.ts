@@ -30,7 +30,7 @@ export class ChartsComponent implements OnInit {
   maxHeight: number = 250;
   rightMargin: number = 5;
   ylabelMargin: number = 0;
-  
+
 
   constructor(private graphService: GraphService) {
     this.pClicked = new EventEmitter();
@@ -72,7 +72,7 @@ export class ChartsComponent implements OnInit {
     this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
     this.dataSet.labelyTitle = { x: this.ylabelMargin, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
     this.dataSet.maxHeight = this.maxHeight;
-   
+
   }
 
   //function to generate xAxisLabels array
@@ -165,8 +165,16 @@ export class ChartsComponent implements OnInit {
     return numBarCharts;
   }
 
+  addBlanksStartChart() {
+    this.dataSet.data.xlabels.unshift("");
+    this.dataSet.data.series.forEach((series, index) => {
+      this.dataSet.data.series[index].yval.unshift(0);
+    })
+  }
+
   ngOnInit() {
     console.log(this.dataSet);
+    this.addBlanksStartChart();
     //call function to populated dataSet array which will be rendered 
     this.generateDataSet(this.dataSet);
 

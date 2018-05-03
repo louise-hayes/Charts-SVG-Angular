@@ -24,13 +24,13 @@ export class AppComponent {
 
   chartData = {
 
-    xlabels: ["", "Jan", "Feb", "March", "April", "May", "June"],
+    xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
     series: [
-      { legend: 2016, type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , yval: [0,100, 300, 400, 300, 200, 100] },
-      { legend: 2017, type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0",  yval: [0, 150, 250, 350, 450, 350, 250] },
-      { legend: 2018, type: "bar", barIndex: 0, fill: "yellow",  yval: [0,100, 300, 400, 300, 200, 100] },
-      { legend: 2019, type: "bar", barIndex: 1, fill: "red",  yval: [0, 150, 250, 350, 450, 350, 250] },
-      { legend: 2020, type: "bar", barIndex: 2, fill: "orange",  yval: [0, 150, 250, 350, 450, 350, 250] },
+      { legend: 2016, type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , yval: [100, 300, 400, 300, 200, 100] },
+      { legend: 2017, type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0",  yval: [150, 250, 350, 450, 350, 250] },
+      { legend: 2018, type: "bar", barIndex: 0, fill: "yellow",  yval: [100, 300, 400, 300, 200, 100] },
+      { legend: 2019, type: "bar", barIndex: 1, fill: "red",  yval: [150, 250, 350, 450, 350, 250] },
+      { legend: 2020, type: "bar", barIndex: 2, fill: "orange",  yval: [ 150, 250, 350, 450, 350, 250] },
       
 
     ]
