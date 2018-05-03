@@ -30,6 +30,7 @@ export class ChartsComponent implements OnInit {
   maxHeight: number = 250;
   rightMargin: number = 5;
   ylabelMargin: number = 0;
+  
 
   constructor(private graphService: GraphService) {
     this.pClicked = new EventEmitter();
@@ -54,13 +55,11 @@ export class ChartsComponent implements OnInit {
 
 
   generateDataSet(dataSet: any) {
-
     //to do : check if style height & width provided and if none defaulted to chartStyle params
     if (this.dataSet.style["height.px"]) {
       this.maxHeight = parseInt(this.dataSet.style["height.px"]) - this.xLabelMargin;
-      this.lineWidth = parseInt(this.dataSet.style["width.px"]);
+      this.lineWidth = parseInt(this.dataSet.style["width.px"]) - 30;
     };
-
 
     this.chartStyle = this.dataSet.style;
     this.labelStyle = this.dataSet.labelStyle;
@@ -73,6 +72,7 @@ export class ChartsComponent implements OnInit {
     this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
     this.dataSet.labelyTitle = { x: this.ylabelMargin, y: this.maxHeight / 2, title: this.dataSet.labels.yAxisID };
     this.dataSet.maxHeight = this.maxHeight;
+   
   }
 
   //function to generate xAxisLabels array
@@ -82,7 +82,7 @@ export class ChartsComponent implements OnInit {
     console.log("x step : " + this.xStep);
     let xlabels = [];
     data.xlabels.forEach((item, index) => {
-      xlabels.push({ x: this.leftOffset + this.xStep * (index + 1), y: this.maxHeight + this.xLineBottomMargin, text: item });
+      xlabels.push({ x: this.leftOffset + this.xStep * (index), y: this.maxHeight + this.xLineBottomMargin, text: item });
     });
     // xlabels.forEach(function (item, index, array) {
     //   console.log("dataSet.xlabels :", item, " ", index);
@@ -134,7 +134,7 @@ export class ChartsComponent implements OnInit {
         console.log("yvals " + yval);
         //call service normalise y
         let y = this.graphService.normaliseY(yval, this.maxNm, this.maxHeight);
-        xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * (index + 1)), y: y });
+        xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * (index)), y: y });
         console.log("Y " + xypoints[seriesIndex].values[index].y);
         console.log("line xypoints " + Object.values(xypoints[seriesIndex].values[index]));
       })
