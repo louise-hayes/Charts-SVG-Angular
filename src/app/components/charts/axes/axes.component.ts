@@ -9,9 +9,16 @@ import { GraphService } from '../../../services/graph.service';
 })
 export class AxesComponent implements OnInit {
   @Input() dataSet: any;
-  @Input() index: any;
+  @Input() labelStyle: any;
 
   constructor() { }
+
+  //set css class to 'grid' to show grid if dataSet.grid = true
+  getGridClass() {
+    this.dataSet.gridChoice = this.dataSet.grid ? "grid" : "nogrid";
+    return this.dataSet.gridChoice;
+  }
+
 
   ngOnInit() {
   }

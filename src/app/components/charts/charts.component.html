@@ -8,14 +8,15 @@
     <!-- For Each Data Series -->
     <!-- check type line / bar -->
     <g *ngFor="let p of dataSet.xypoints; let i = index">
-      <g *ngIf="p.type === 'line'">
+      <g id="line" *ngIf="p.type === 'line'">
         <!--  line  -->
         <g app-line-chart [seriesIndex]="i" [dataSet]="dataSet" (pClicked)="pointClicked($event)"></g>
       </g>
-      <g *ngIf="p.type === 'bar'">
+      <g id="bar" *ngIf="p.type === 'bar'">
         <!--  bar -->
         <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i" [numBarCharts]="numBarCharts()"></g>
       </g>
+      <use id="use" xlink:href="#line" />
     </g>
 
     <!-- tooltip: come back to this when decision made about materialise or angular material -->
@@ -24,39 +25,7 @@
 
     <!-- to do: check type if chart if pie or donut do not show -->
     <!-- ***Static part of graph*** -->
-    <g class="axis">
-      <!-- x-axis-->
-      <line attr.x1="{{dataSet.xline.x1}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{dataSet.xline.y1}}" attr.y2="{{dataSet.xline.y2}}"></line>
-    </g>
-    <g class="axis">
-      <!-- y-axis -->
-      <line attr.x1="{{dataSet.yline.x1}}" attr.x2="{{dataSet.yline.x2}}" attr.y1="{{dataSet.yline.y1}}" attr.y2="{{dataSet.yline.y2}}"></line>
-    </g>
-    <g class="labels x-labels" [ngStyle]="labelStyle">
-      <!--  X-axis labels-->
-      <text class="chart-labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
-      <!-- X-axis title -->
-      <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}" class="label-title">{{dataSet.labelxTitle.title}}</text>
-      <!-- X-GRID -->
-      <!-- only show if dataSet.grid = true -->
-      <line [ngClass]="getGridClass()" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1="{{l.y}}"
-        attr.y2=0></line>
-      <!-- X axis ticks to come back to -->
-      <!-- <line class="ticks" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1=5 attr.y2=0></line> -->
-    </g>
-    <g class="labels y-labels" [ngStyle]="labelStyle">
-      <!--  Y-axis labels-->
-      <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
-      <!-- Y-axis title -->
-      <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" attr.transform="rotate(270, {{dataSet.labelyTitle.x}} , {{dataSet.labelyTitle.y}} )"
-        class="label-title">{{dataSet.labelyTitle.title}}</text>
-      <!-- Y-GRID -->
-      <!-- only show if dataSet.grid = true -->
-      <line [ngClass]="getGridClass()" *ngFor="let l of dataSet.ylabels" attr.x1="{{l.x}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{l.y}}"
-        attr.y2="{{l.y}}"></line>
-
-
-    </g>
+    <g app-axes [dataSet]="dataSet" [labelStyle]="labelStyle"></g>
   </svg>
   <!-- Legend -->
   <g app-legend [dataSet]="dataSet">

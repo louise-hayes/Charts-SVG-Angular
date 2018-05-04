@@ -12,52 +12,15 @@
 .chart-header {
   font-family: Arial, Helvetica, sans-serif
 }
-
-.graph .labels {
-  font-family: Arial;
-  font-size: 12px;
+svg{
+  pointer-events: all;
 }
 
-.graph .labels.x-labels {
-  text-anchor: middle;
-}
 
-.graph .labels.y-labels {
-  text-anchor: end;
-}
 
-.axis {
-  stroke: #ccc;
-  stroke-dasharray: 0;
-  stroke-width: 1;
-}
 
-.grid {
-  stroke: #ccc;
-  stroke-dasharray: 5,5;
-  stroke-width: 1;
-}
-.ticks {
-  stroke: rgb(8, 8, 8);
-  stroke-dasharray: 0;
-  stroke-width: 1;
-}
 
-.labels {
-  font-size: 13px;
-}
 
-.label-title {
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 10px;
-  fill: black;
-}
-
-.data {
-  fill: red;
-  stroke-width: 1;
-}
 
 
 

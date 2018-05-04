@@ -3,20 +3,30 @@
     stroke: red;
     stroke-width: 2px;
     stroke-dasharray: 0; /* solid line could be 5,5 = dashed line */
+    /* z-index: 0; */
   }
   .chart-circle {
-    /* fill: grey; */
     fill: blue;
-    fill-opacity: 5;
-    stroke: blue;
-    stroke-width: 0;
+    /* stroke: blue; */
+    stroke-width: 4;
+    z-index: 5;
   }
   circle:hover {
-    stroke-opacity: 0;
-    stroke-width: 3px;
-    stroke: black;
-    stroke-dasharray: 5,5;
-    fill: red;
+    /* stroke-opacity: 0; */
+    stroke-width: 4px;
+    stroke: red;
+    stroke-dasharray: 0;
+    fill:red;
+    z-index:5;
+   
+  }
+ 
+  circle#circle.chart-circle{
+    fill:blue;
+    z-index:5;
   }
 
+  circle#circle.chart-circle:hover svg {
+    fill:orange;
+  }
   
