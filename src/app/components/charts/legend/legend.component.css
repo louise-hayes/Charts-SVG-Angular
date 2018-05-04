@@ -10,7 +10,7 @@
     padding:20px;
     padding-top:0px;
     margin: 10px;
-    position: fixed;
+    position: relative;
     top:90px;
     text-align: center;
     border:1px solid black;

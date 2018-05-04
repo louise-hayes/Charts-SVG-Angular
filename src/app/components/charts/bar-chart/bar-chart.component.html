@@ -2,6 +2,6 @@
     <g *ngFor="let v of dataSet.xypoints[seriesIndex].values; let i=index" 
     attr.transform="{{translateFunc(v,seriesIndex)}}">
           <rect [ngStyle]="graphService.setStyles(seriesIndex,dataSet)" attr.width="{{getWidthBar()}}" attr.height="{{dataSet.maxHeight - v.y}}"></rect>
-          <text attr.x={{10}} index attr.y="9.5" attr.dy="10">{{v.y}}</text>
+          <!-- <text attr.x={{v.x}} index attr.y="9.5" attr.dy="10">{{v.y}}</text> -->
       </g>
 </svg>

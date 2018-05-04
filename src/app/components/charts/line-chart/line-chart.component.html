@@ -1,11 +1,12 @@
 <svg>
   <g>
-    <!--  line graph -->
-    <path class="chart-line" [ngStyle]="setStyles(seriesIndex, dataSet)" attr.d="{{linePath(dataSet.xypoints[seriesIndex])}}"></path>
     <!-- circles on each x,y point, click trigger event -->
-    <circle (click)="pointClicked(p)" class="chart-circle" r="5" *ngFor="let p of dataSet.xypoints[seriesIndex].values" attr.cx="{{p.x}}"
-          attr.cy="{{p.y}}">
-        </circle>
-
+    <circle id="circle" (click)="pointClicked(p)" class="chart-circle" r="5" *ngFor="let p of dataSet.xypoints[seriesIndex].values"
+      attr.cx="{{p.x}}" attr.cy="{{p.y}}">
+    </circle>
+    <!--  line graph -->
+    <path id="line" class="chart-line" [ngStyle]="setStyles(seriesIndex, dataSet)" attr.d="{{linePath(dataSet.xypoints[seriesIndex])}}"></path>
+    
   </g>
+  <use id="use" xlink:href="#circle" />
 </svg>
