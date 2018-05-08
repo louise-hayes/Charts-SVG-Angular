@@ -8,6 +8,7 @@
     <!-- For Each Data Series -->
     <!-- check type line / bar -->
     <g *ngFor="let p of dataSet.xypoints; let i = index">
+   
       <g id="line" *ngIf="p.type === 'line'">
         <!--  line  -->
         <g app-line-chart [seriesIndex]="i" [dataSet]="dataSet" (pClicked)="pointClicked($event)"></g>
@@ -15,8 +16,17 @@
       <g id="bar" *ngIf="p.type === 'bar'">
         <!--  bar -->
         <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i" [numBarCharts]="numBarCharts()"></g>
+        <use id="use" href="#line" />
       </g>
-      <use id="use" xlink:href="#line" />
+      
+      <use id="use" href="#line" />
+    </g>
+    <g *ngFor="let p of dataSet.xypoints; let i = index">
+      <g id="line" *ngIf="p.type === 'line'">
+        <!--  line  -->
+        <g app-line-chart-circle [seriesIndex]="i" [dataSet]="dataSet" (pClicked)="pointClicked($event)"></g>
+      </g>
+      <!-- <use id="use" href="#line" /> -->
     </g>
 
     <!-- tooltip: come back to this when decision made about materialise or angular material -->
