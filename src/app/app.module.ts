@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatTooltip } from '@angular/material';
 import { AppComponent } from './app.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
@@ -10,6 +10,7 @@ import { BarChartComponent } from './components/charts/bar-chart/bar-chart.compo
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
 import { AxesComponent } from './components/charts/axes/axes.component';
 import { LegendComponent } from './components/charts/legend/legend.component';
+import { LineChartCircleComponent } from './components/charts/line-chart-circle/line-chart-circle.component';
 
 
 @NgModule({
@@ -20,7 +21,10 @@ import { LegendComponent } from './components/charts/legend/legend.component';
     BarChartComponent,
     LineChartComponent,
     AxesComponent,
-    LegendComponent
+    LegendComponent,
+    MatTooltip,
+    LineChartCircleComponent
+    
   ],
   imports: [
     BrowserModule,

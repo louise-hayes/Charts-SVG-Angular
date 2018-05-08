@@ -31,7 +31,7 @@ export class ChartsComponent implements OnInit {
   maxYval: number;
   maxHeight: number = 250;
   rightMargin: number = 5;
-  ylabelMargin: number = 0;
+  ylabelMargin: number = 10;
 
 
   constructor(private graphService: GraphService) {
@@ -44,14 +44,6 @@ export class ChartsComponent implements OnInit {
   // pointClicked(event): void {
   //   this.pClicked.emit(event);
   // }
-
-  //set css class to 'grid' to show grid if dataSet.grid = true
-  getGridClass() {
-    this.dataSet.gridChoice = this.dataSet.grid ? "grid" : "nogrid";
-    return this.dataSet.gridChoice;
-  }
-  //set css class to 'legend' + number (1-5) to show legend colours
-
 
 
 

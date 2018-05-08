@@ -1,11 +1,4 @@
-.chart-line {
-    fill: none;
-    stroke: red;
-    stroke-width: 2px;
-    stroke-dasharray: 0; /* solid line could be 5,5 = dashed line */
-    /* z-index: 0; */
-  }
-  .chart-circle {
+.chart-circle {
     fill: blue;
     /* stroke: blue; */
     stroke-width: 4;

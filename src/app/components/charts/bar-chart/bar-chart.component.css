@@ -1,6 +1,6 @@
 .chart rect {
     fill: steelblue;
-    /* opacity: .5; */
+    opacity: .5;
     /* z-index: -1; */
   }
   
