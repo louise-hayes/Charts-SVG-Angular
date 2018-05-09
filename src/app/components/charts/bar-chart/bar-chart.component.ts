@@ -32,6 +32,13 @@ export class BarChartComponent implements OnInit {
     
     return barWidth;
   }
+  getToolTipValues(seriesIndex, yindex, dataSet) {
+    let toolTipVals = {};
+    toolTipVals = dataSet.data.xlabels[yindex]   + ' : ' + dataSet.data.series[seriesIndex].yval[yindex] + ' ' + dataSet.labels.yAxisID;
+
+    return toolTipVals;
+
+}
 
   ngOnInit() {
     // console.log("bar xypoints", this.dataSet.xypoints[this.seriesIndex]);

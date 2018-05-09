@@ -58,5 +58,11 @@ export class GraphService {
 
         return styles;
     }
+    getToolTipValues(seriesIndex, yindex, dataSet) {
+        let toolTipVals = {};
+        toolTipVals = dataSet.data.series[seriesIndex].yval[yindex];
+        return toolTipVals;
+
+    }
 
 }
