@@ -3,6 +3,7 @@ import { GraphService } from '../../services/graph.service';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { AxesComponent } from './axes/axes.component';
+import { MatTooltip } from '@angular/material';
 
 import { NgSwitch } from '@angular/common';
 
@@ -15,6 +16,7 @@ import { NgSwitch } from '@angular/common';
 export class ChartsComponent implements OnInit {
   @Input() dataSet: any;
   @Output() pClicked: EventEmitter<string>;
+  position = 'before';
 
   leftOffset: number = 50; // leftmargin for Y Axis Main Label 
   ylineMargin: number = 5;

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-tooltip',
+  selector: 'g[app-tooltip]',
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.css']
 })
@@ -15,7 +15,7 @@ export class TooltipComponent implements OnInit {
   }
 
 showText() {
-console.log(this.item);  
+console.log("tooltip " + this.item);  
 }
 
 }

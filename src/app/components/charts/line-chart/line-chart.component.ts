@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NgSwitch } from '@angular/common';
 
 @Component({
   selector: 'g[app-line-chart]',
@@ -19,7 +18,6 @@ export class LineChartComponent implements OnInit {
   //returns "M 30 50 L 100 80 L 200 60 L 280 30"
   linePath(xypoints) {
     let pathParts = [], currentPoint, i;
-    console.log("linepath " + xypoints);
     for (i = 0; i < xypoints.values.length; i++) {
       currentPoint = xypoints.values[i];
       pathParts.push(currentPoint.x + "," + currentPoint.y);

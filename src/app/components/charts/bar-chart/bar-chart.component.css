@@ -11,5 +11,13 @@
   }
   
   rect:hover {
-    fill: red;
+    fill: black;
   }
+
+ .bar:hover{
+fill:black;
+padding:10px;
+ }
+ .chart rect:hover{
+   fill:blue!important;
+ }

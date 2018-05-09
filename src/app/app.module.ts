@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTooltip } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { MatButtonModule } from '@angular/material/';
 import { AppComponent } from './app.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
@@ -14,6 +17,10 @@ import { LineChartCircleComponent } from './components/charts/line-chart-circle/
 
 
 @NgModule({
+  exports: [
+    MatTooltipModule,
+    MatButtonModule
+  ],
   declarations: [
     AppComponent,
     ChartsComponent,
@@ -22,14 +29,20 @@ import { LineChartCircleComponent } from './components/charts/line-chart-circle/
     LineChartComponent,
     AxesComponent,
     LegendComponent,
-    MatTooltip,
     LineChartCircleComponent
     
   ],
   imports: [
     BrowserModule,
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule,
+    MatTooltipModule,
+    MatButtonModule
+    
+
+    
   ],
+  
   providers: [
     GraphService
   ],
