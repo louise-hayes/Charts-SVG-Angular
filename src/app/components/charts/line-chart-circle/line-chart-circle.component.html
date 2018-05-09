@@ -1,8 +1,8 @@
 <svg>
 <g>
      <!-- circles on each x,y point, click trigger event -->
-     <circle id="circle{{i}}" (click)="pointClicked(p)" class="chart-circle" MatTooltip="Tooltip!" r="5" *ngFor="let p of dataSet.xypoints[seriesIndex].values; let i = index"
-      attr.cx="{{p.x}}" attr.cy="{{p.y}}">
+     <circle id="circle{{i}}" (click)="pointClicked(p)" class="chart-circle"  r="5" *ngFor="let p of dataSet.xypoints[seriesIndex].values; let i = index"
+     matTooltip="{{p.x}}+{{p.y}}" attr.cx="{{p.x}}" attr.cy="{{p.y}}">
     </circle>
 </g>
 </svg>

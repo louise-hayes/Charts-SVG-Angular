@@ -1,13 +1,8 @@
 <svg>
   <g>
-   
     <!--  line graph -->
-    <path id="line" class="chart-line" [ngStyle]="setStyles(seriesIndex, dataSet)" MdTooltip="Tooltip!" attr.d="{{linePath(dataSet.xypoints[seriesIndex])}}"></path>
-     <!-- circles on each x,y point, click trigger event -->
-     <!-- <circle id="circle{{i}}" (click)="pointClicked(p)" class="chart-circle" MatTooltip="Tooltip!" r="5" *ngFor="let p of dataSet.xypoints[seriesIndex].values; let i = index"
-      attr.cx="{{p.x}}" attr.cy="{{p.y}}">
-    </circle> -->
-    
+    <path id="line" class="chart-line" [ngStyle]="setStyles(seriesIndex, dataSet)"  attr.d="{{linePath(dataSet.xypoints[seriesIndex])}}"></path>
   </g>
-  <!-- <use  xlink:href="#circle{{i}}"  /> -->
 </svg>
+
+

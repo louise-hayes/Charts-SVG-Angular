@@ -38,7 +38,7 @@ export class AppComponent {
 
   chartData2 = {
 
-    xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
+    xlabels: ["NH", "FL", "ME", "CA", "MA", "MN"],
     series: [
       { legend: 2017, type: "line", "z-index": 0, stroke: "blue", "strokewidth": "1", "strokedasharray": "0",  yval: [150, 250, 350, 450, 350, 250] },
       { legend: 2016, type: "line", "z-index": 0, stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , yval: [100, 300, 400, 300, 200, 100] }
@@ -55,7 +55,7 @@ export class AppComponent {
     grid: true, //optional
     legend: "right-top", 
     title: 'Usage',
-    labels: { xAxisID: 'Users', yAxisID: 'Months' }, //optional 
+    labels: { xAxisID: 'Months', yAxisID: 'Users' }, //optional 
     numYlabels: 5, //default to 5 if none provided - optimal 5 or 10
     data: this.chartData,
     style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
@@ -67,7 +67,7 @@ export class AppComponent {
     grid: true, //optional
     legend: "right-top", 
     title: 'Location',
-    labels: { xAxisID: 'Users', yAxisID: 'Months' }, //optional 
+    labels: { xAxisID: 'States', yAxisID: 'Clients' }, //optional 
     numYlabels: 5, //default to 5 if none provided - optimal 5 or 10
     data: this.chartData2,
     style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs

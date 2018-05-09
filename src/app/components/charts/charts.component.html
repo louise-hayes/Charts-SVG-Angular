@@ -28,17 +28,9 @@
       </g>
       <!-- <use id="use" href="#line" /> -->
     </g>
-
-    <!-- tooltip: come back to this when decision made about materialise or angular material -->
-    <!-- <app-tooltip *ngFor="let p of dataSet.xypoints.values" [item]="p.item">
-    </app-tooltip> -->
-
-    <!-- to do: check type if chart if pie or donut do not show -->
     <!-- ***Static part of graph*** -->
     <g app-axes [dataSet]="dataSet" [labelStyle]="labelStyle"></g>
   </svg>
   <!-- Legend -->
-  <g app-legend [dataSet]="dataSet">
-
-  </g>
-</div>
+  <g app-legend [dataSet]="dataSet"> </g>
+ 
