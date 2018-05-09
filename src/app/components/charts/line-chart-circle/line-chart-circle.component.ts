@@ -15,6 +15,14 @@ export class LineChartCircleComponent implements OnInit {
     this.pClicked.emit(event);
   }
 
+  getToolTipValues(seriesIndex, yindex, dataSet) {
+    let toolTipVals = {};
+    toolTipVals = dataSet.data.xlabels[yindex]   + ' : ' + dataSet.data.series[seriesIndex].yval[yindex] + ' ' + dataSet.labels.yAxisID;
+
+    return toolTipVals;
+
+}
+
   ngOnInit() {
   }
 
