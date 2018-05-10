@@ -10,13 +10,17 @@ export class BarChartComponent implements OnInit {
   @Input() dataSet: any;
   @Input() seriesIndex: number;
   @Input() numBarCharts: number;
-
   @Output() pClicked: EventEmitter<string>;
 
   constructor(private graphService: GraphService) {
-
+    this.pClicked = new EventEmitter(); 
   }
 
+  //trigger event upon click 
+  pointClicked(event, i): void {
+    
+    this.pClicked.emit(event.legend + ' ' +  event.yval[i] + ' ' + this.dataSet.data.xlabels[i]);
+  }
   //generate transform values for bar chart svg <rect> values
   //to do : normalise y values as percentage of y max height
 
@@ -34,7 +38,7 @@ export class BarChartComponent implements OnInit {
   }
   getToolTipValues(seriesIndex, yindex, dataSet) {
     let toolTipVals = {};
-    toolTipVals = dataSet.data.xlabels[yindex]   + ' : ' + dataSet.data.series[seriesIndex].yval[yindex] + ' ' + dataSet.labels.yAxisID;
+    toolTipVals = dataSet.data.xlabels[yindex] + ' '  + dataSet.data.series[seriesIndex].legend + ' : ' + dataSet.data.series[seriesIndex].yval[yindex] + ' ' + dataSet.labels.yAxisID;
 
     return toolTipVals;
 
