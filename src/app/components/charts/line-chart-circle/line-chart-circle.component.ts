@@ -14,7 +14,12 @@ export class LineChartCircleComponent implements OnInit {
   //trigger event upon click 
   pointClicked(event,i): void {
     // this.pClicked.emit(event);
-    this.pClicked.emit(event.legend + ' ' +  event.yval[i] + ' ' + this.dataSet.data.xlabels[i]);
+    var data = {
+      "legend" : event.legend,
+      "yval" : event.yval[i], 
+      "xlabel" : this.dataSet.data.xlabels[i]
+    };
+    this.pClicked.emit(JSON.stringify(data));
     
   }
 
