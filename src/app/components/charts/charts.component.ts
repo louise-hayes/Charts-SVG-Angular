@@ -131,8 +131,8 @@ export class ChartsComponent implements OnInit {
         //call service normalise y
         let y = this.graphService.normaliseY(yval, this.maxNm, this.maxHeight);
         xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * (index)), y: y });
-        console.log("Y " + xypoints[seriesIndex].values[index].y);
-        console.log("line xypoints " + Object.values(xypoints[seriesIndex].values[index]));
+        // console.log("Y " + xypoints[seriesIndex].values[index].y);
+        // console.log("line xypoints " + Object.values(xypoints[seriesIndex].values[index]));
       })
     });
     xypoints.forEach(function (item, index, array) {
