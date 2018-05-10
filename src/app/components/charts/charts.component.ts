@@ -39,19 +39,23 @@ export class ChartsComponent implements OnInit {
   constructor(private graphService: GraphService) {
     this.pClicked = new EventEmitter();
   };
-  generateDataSet(dataSet: any) {
+  generateDataSet() {
     //check if style height & width provided and if none defaulted to chartStyle params
     if (this.dataSet.style["height.px"]) {
       this.maxHeight = parseInt(this.dataSet.style["height.px"]) - this.xLabelMargin;
       this.lineWidth = parseInt(this.dataSet.style["width.px"]) - 30;
-    };
+    }
+    else {
+
+    }
+    
 
     this.chartStyle = this.dataSet.style;
     this.labelStyle = this.dataSet.labelStyle;
     this.axisLabelStyle = this.dataSet.axisLabelStyle;
-    this.dataSet.ylabels = this.getYLabels(dataSet.data);
-    this.dataSet.xlabels = this.getXLabels(dataSet.data);
-    this.dataSet.xypoints = this.getxyPoints(dataSet.data);
+    this.dataSet.ylabels = this.getYLabels(this.dataSet.data);
+    this.dataSet.xlabels = this.getXLabels(this.dataSet.data);
+    this.dataSet.xypoints = this.getxyPoints(this.dataSet.data);
     this.dataSet.xline = { x1: this.leftOffset, x2: this.lineWidth, y1: this.maxHeight, y2: this.maxHeight };
     this.dataSet.yline = { x1: this.leftOffset, x2: this.leftOffset, y1: this.maxHeight, y2: 0 }
     this.dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: this.dataSet.labels.xAxisID };
@@ -69,9 +73,9 @@ export class ChartsComponent implements OnInit {
     data.xlabels.forEach((item, index) => {
       xlabels.push({ x: this.leftOffset + this.xStep * (index), y: this.maxHeight + this.xLineBottomMargin, text: item });
     });
-    // xlabels.forEach(function (item, index, array) {
-    //   console.log("dataSet.xlabels :", item, " ", index);
-    // })
+    xlabels.forEach(function (item, index, array) {
+      console.log("dataSet.xlabels :", item, " ", index);
+    })
     return xlabels;
   }
 
@@ -151,18 +155,21 @@ export class ChartsComponent implements OnInit {
   }
 
   addBlanksStartChart() {
-    this.dataSet.data.xlabels.unshift("");
-    this.dataSet.data.series.forEach((series, index) => {
-      this.dataSet.data.series[index].yval.unshift(0);
-    })
+    
+      this.dataSet.data.xlabels.unshift("");
+      this.dataSet.data.series.forEach((series, index) => {
+        this.dataSet.data.series[index].yval.unshift(0);
+      })
   }
 
   ngOnInit() {
     console.log("*******************DataSet Being generated **********************");
     console.log(this.dataSet);
-    this.addBlanksStartChart();
-    //call function to populated dataSet array which will be rendered 
-    this.generateDataSet(this.dataSet);
+    if (this.dataSet) {
+      this.addBlanksStartChart();
+      //call function to populated dataSet array which will be rendered 
+      this.generateDataSet();
+    }
 
     //sample timeout to show how graph data could be updated dynamically - this is where updates can be added pulled in
     // setTimeout( () => {
