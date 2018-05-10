@@ -8,16 +8,16 @@
     <!-- For Each Data Series -->
     <!-- check type line / bar -->
     <g *ngFor="let p of dataSet.xypoints; let i = index">
-   
-      <g id="line" *ngIf="p.type === 'line'">
-        <!--  line  -->
-        <g app-line-chart [dataSet]="dataSet" [seriesIndex]="i"  (pClicked)="pointClicked($event)"></g>
-      </g>
       <g id="bar" *ngIf="p.type === 'bar'">
         <!--  bar -->
         <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i"  [numBarCharts]="numBarCharts()" (pClicked)="pointClicked($event)"></g>
         <use id="use" href="#line" />
       </g>
+      <g id="line" *ngIf="p.type === 'line'">
+        <!--  line  -->
+        <g app-line-chart [dataSet]="dataSet" [seriesIndex]="i"  (pClicked)="pointClicked($event)"></g>
+      </g>
+     
       
       <use id="use" href="#line" />
     </g>
