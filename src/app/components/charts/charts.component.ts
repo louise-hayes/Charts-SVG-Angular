@@ -73,9 +73,9 @@ export class ChartsComponent implements OnInit {
     data.xlabels.forEach((item, index) => {
       xlabels.push({ x: this.leftOffset + this.xStep * (index), y: this.maxHeight + this.xLineBottomMargin, text: item });
     });
-    // xlabels.forEach(function (item, index, array) {
-    //   console.log("dataSet.xlabels :", item, " ", index);
-    // })
+    xlabels.forEach(function (item, index, array) {
+      console.log("dataSet.xlabels :", item, " ", index);
+    })
     return xlabels;
   }
 
@@ -155,18 +155,21 @@ export class ChartsComponent implements OnInit {
   }
 
   addBlanksStartChart() {
-    this.dataSet.data.xlabels.unshift("");
-    this.dataSet.data.series.forEach((series, index) => {
-      this.dataSet.data.series[index].yval.unshift(0);
-    })
+    
+      this.dataSet.data.xlabels.unshift("");
+      this.dataSet.data.series.forEach((series, index) => {
+        this.dataSet.data.series[index].yval.unshift(0);
+      })
   }
 
   ngOnInit() {
     console.log("*******************DataSet Being generated **********************");
     console.log(this.dataSet);
-    this.addBlanksStartChart();
-    //call function to populated dataSet array which will be rendered 
-    this.generateDataSet();
+    if (this.dataSet) {
+      this.addBlanksStartChart();
+      //call function to populated dataSet array which will be rendered 
+      this.generateDataSet();
+    }
 
     //sample timeout to show how graph data could be updated dynamically - this is where updates can be added pulled in
     // setTimeout( () => {

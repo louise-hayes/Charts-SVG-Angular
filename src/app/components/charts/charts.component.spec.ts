@@ -83,8 +83,11 @@ describe('ChartsComponent', () => {
     component.dataSet=mockDataSet;
 
     component.generateDataSet();
-    console.log("Y Labels ",component.dataSet.ylabels[0] );
-    expect("500").toEqual("500");
+    console.log("Y Labels ",component.dataSet.ylabels[0].text );
+    
+    // expect(true).toBeTruthy();
+    expect(component.dataSet.ylabels[0].text) 
+          .toEqual('500'); 
+    
   });
-
 });
