@@ -18,8 +18,14 @@ export class BarChartComponent implements OnInit {
 
   //trigger event upon click 
   pointClicked(event, i): void {
+    var data = {
+      "legend" : event.legend,
+      "yval" : event.yval[i], 
+      "xlabel" : this.dataSet.data.xlabels[i]
+    };
+    this.pClicked.emit(JSON.stringify(data));
     
-    this.pClicked.emit(event.legend + ' ' +  event.yval[i] + ' ' + this.dataSet.data.xlabels[i]);
+    // this.pClicked.emit(event.legend + ' ' +  event.yval[i] + ' ' + this.dataSet.data.xlabels[i]);
   }
   //generate transform values for bar chart svg <rect> values
   //to do : normalise y values as percentage of y max height
