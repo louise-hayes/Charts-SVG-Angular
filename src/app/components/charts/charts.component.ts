@@ -39,19 +39,8 @@ export class ChartsComponent implements OnInit {
   constructor(private graphService: GraphService) {
     this.pClicked = new EventEmitter();
   };
-
-
-
-  //trigger event upon cicrle/point click 
-  // pointClicked(event): void {
-  //   this.pClicked.emit(event);
-  // }
-
-
-
-
   generateDataSet(dataSet: any) {
-    //to do : check if style height & width provided and if none defaulted to chartStyle params
+    //check if style height & width provided and if none defaulted to chartStyle params
     if (this.dataSet.style["height.px"]) {
       this.maxHeight = parseInt(this.dataSet.style["height.px"]) - this.xLabelMargin;
       this.lineWidth = parseInt(this.dataSet.style["width.px"]) - 30;
@@ -72,7 +61,7 @@ export class ChartsComponent implements OnInit {
   }
 
   //function to generate xAxisLabels array
-  //this will become a serivce
+  //this may become a serivce
   getXLabels(data) {
     this.xStep = (this.lineWidth - this.leftOffset) / data.xlabels.length;
     console.log("x step : " + this.xStep);
@@ -95,15 +84,16 @@ export class ChartsComponent implements OnInit {
     let ylabels = [];
     this.maxNm = this.graphService.getMax(data);
     this.maxYval = this.maxNm;
+
     // round largest y value (maxNm) from dataSet.series.yval to nearest 100th for graph readability
     this.maxNm = Math.ceil(this.maxNm / 100) * 100;
+
     // interval between y axis : diving the max y axis value (maxNm) by the no. of labels (default 5)
     console.log("maxHeight: " + this.maxHeight);
-
     this.yStep = this.maxHeight / this.dataSet.numYlabels; //calculate y Axis intervals between y Axis labels (line height / number of Y labels)
     let yStepLabel = this.maxNm / this.dataSet.numYlabels; //calculate y Axis labels (Max Y Value / number of Y labels)
+    
     //y labels are computed from the Y Values passed via dataSet.series.yval rounded to meaningful 100's
-
     console.log("rounding max y value to : " + this.maxNm.toString() + " dividing by numYlabels " + this.dataSet.numYlabels + " YStelLabel " + yStepLabel);
 
     for (var i = 0; i < this.dataSet.numYlabels; i++) {
@@ -111,23 +101,22 @@ export class ChartsComponent implements OnInit {
       //Ylabel y: increments in steps (steps = max value / array length) top of line = min Value e.g. 0, bottom of line = max value e.g. 300
       let yLegend = this.maxNm - (yStepLabel * i);
       ylabels.push({ x: this.leftOffset - this.ylineMargin, y: this.yStep * i, text: yLegend.toString() });
-
       console.log("yStep " + this.yStep);
 
     };
     return ylabels;
   }
 
-  //servive : to be called for all series of dataSet
+  //May become a servive : called for all series of dataSet
 
   getxyPoints(data) {
     let xypoints = [];
     data.series.forEach((item, index) => {
-      console.log("item " + item.type);
+      // console.log("item Type " + item.type);
       let seriesIndex = index;
       xypoints.push({ type: item.type, index: item.index, values: [] });
       item.yval.forEach((yval, index) => {
-        console.log("yvals " + yval);
+        // console.log("yvals " + yval);
         //call service normalise y
         let y = this.graphService.normaliseY(yval, this.maxNm, this.maxHeight);
         xypoints[seriesIndex].values.push({ item: { item: item, xlabel: data.xlabels[index] }, x: this.leftOffset + (this.xStep * (index)), y: y });
@@ -169,6 +158,7 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("*******************DataSet Being generated **********************");
     console.log(this.dataSet);
     this.addBlanksStartChart();
     //call function to populated dataSet array which will be rendered 

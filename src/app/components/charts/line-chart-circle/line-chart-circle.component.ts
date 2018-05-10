@@ -6,18 +6,21 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./line-chart-circle.component.css']
 })
 export class LineChartCircleComponent implements OnInit {
-  @Input() seriesIndex: any;
   @Input() dataSet: any;
+  @Input() seriesIndex: number;
   @Output() pClicked: EventEmitter<string>;
 
   constructor() { this.pClicked = new EventEmitter();  }
-  pointClicked(event): void {
-    this.pClicked.emit(event);
+  //trigger event upon click 
+  pointClicked(event,i): void {
+    // this.pClicked.emit(event);
+    this.pClicked.emit(event.legend + ' ' +  event.yval[i] + ' ' + this.dataSet.data.xlabels[i]);
+    
   }
 
   getToolTipValues(seriesIndex, yindex, dataSet) {
     let toolTipVals = {};
-    toolTipVals = dataSet.data.xlabels[yindex]   + ' : ' + dataSet.data.series[seriesIndex].yval[yindex] + ' ' + dataSet.labels.yAxisID;
+    toolTipVals = dataSet.data.xlabels[yindex] + ' ' + dataSet.data.series[seriesIndex].legend + ' : ' +  + dataSet.data.series[seriesIndex].yval[yindex] + ' ' + dataSet.labels.yAxisID;
 
     return toolTipVals;
 

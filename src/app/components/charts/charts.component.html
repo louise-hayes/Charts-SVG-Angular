@@ -11,11 +11,11 @@
    
       <g id="line" *ngIf="p.type === 'line'">
         <!--  line  -->
-        <g app-line-chart [seriesIndex]="i" [dataSet]="dataSet" (pClicked)="pointClicked($event)"></g>
+        <g app-line-chart [dataSet]="dataSet" [seriesIndex]="i"  (pClicked)="pointClicked($event)"></g>
       </g>
       <g id="bar" *ngIf="p.type === 'bar'">
         <!--  bar -->
-        <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i" [numBarCharts]="numBarCharts()"></g>
+        <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i"  [numBarCharts]="numBarCharts()" (pClicked)="pointClicked($event)"></g>
         <use id="use" href="#line" />
       </g>
       
@@ -24,7 +24,7 @@
     <g *ngFor="let p of dataSet.xypoints; let i = index">
       <g id="line" *ngIf="p.type === 'line'">
         <!--  line  -->
-        <g app-line-chart-circle [seriesIndex]="i" [dataSet]="dataSet" (pClicked)="pointClicked($event)"></g>
+        <g app-line-chart-circle [dataSet]="dataSet" [seriesIndex]="i"  (pClicked)="pointClicked($event)"></g>
       </g>
       <!-- <use id="use" href="#line" /> -->
     </g>

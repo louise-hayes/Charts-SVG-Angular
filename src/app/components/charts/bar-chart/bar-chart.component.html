@@ -1,5 +1,5 @@
 <svg class="chart" >
-    <g *ngFor="let v of dataSet.xypoints[seriesIndex].values; let i=index" 
+    <g  (click)="pointClicked(dataSet.data.series[seriesIndex],i)"  *ngFor="let v of dataSet.xypoints[seriesIndex].values; let i=index" 
     attr.transform="{{translateFunc(v,seriesIndex)}}">
           <rect [ngStyle]="graphService.setStyles(seriesIndex,dataSet)" matTooltip="{{getToolTipValues(seriesIndex,i,dataSet)}}" attr.width="{{getWidthBar()}}" attr.height="{{dataSet.maxHeight - v.y}}"></rect>
           <!-- <text attr.x={{v.x}} index attr.y="9.5" attr.dy="10">{{v.y}}</text> -->
