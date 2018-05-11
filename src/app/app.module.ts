@@ -7,7 +7,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/';
 import { AppComponent } from './app.component';
 import { ChartsComponent } from './components/charts/charts.component';
-import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { GraphService } from './services/graph.service';
 import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
@@ -21,10 +20,10 @@ import { LineChartCircleComponent } from './components/charts/line-chart-circle/
     MatTooltipModule,
     MatButtonModule
   ],
+  //components :
   declarations: [
     AppComponent,
     ChartsComponent,
-    TooltipComponent,
     BarChartComponent,
     LineChartComponent,
     AxesComponent,
@@ -32,6 +31,7 @@ import { LineChartCircleComponent } from './components/charts/line-chart-circle/
     LineChartCircleComponent
     
   ],
+  //modules :
   imports: [
     BrowserModule,
     CommonModule,
@@ -42,7 +42,7 @@ import { LineChartCircleComponent } from './components/charts/line-chart-circle/
 
     
   ],
-  
+  //services :
   providers: [
     GraphService
   ],

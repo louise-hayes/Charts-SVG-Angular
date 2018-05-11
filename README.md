@@ -23,8 +23,7 @@ You also need the GraphSerivce in app/serices/graph.service.ts
 @NgModule({
   declarations: [
     AppComponent,
-    ChartsComponent,
-    TooltipComponent
+    ChartsComponent
   ],
   imports: [
     BrowserModule,

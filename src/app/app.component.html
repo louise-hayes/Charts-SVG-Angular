@@ -1,8 +1,10 @@
 <app-charts [dataSet]="chartOptions"
 (pClicked)="pointClicked($event)">
 </app-charts>
+<button (click)="updateDataSet()">Update</button>
 <app-charts [dataSet]="chartOptions2"
 (pClicked)="pointClicked($event)">
 </app-charts>
+
 
 

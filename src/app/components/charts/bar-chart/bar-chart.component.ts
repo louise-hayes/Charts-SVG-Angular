@@ -44,7 +44,10 @@ export class BarChartComponent implements OnInit {
   }
   getToolTipValues(seriesIndex, yindex, dataSet) {
     let toolTipVals = {};
-    toolTipVals = dataSet.data.xlabels[yindex] + ' '  + dataSet.data.series[seriesIndex].legend + ' : ' + dataSet.data.series[seriesIndex].yval[yindex] + ' ' + dataSet.labels.yAxisID;
+    toolTipVals = dataSet.data.xlabels[yindex] + ' '  
+    + dataSet.data.series[seriesIndex].legend + ' : ' 
+    + dataSet.data.series[seriesIndex].yval[yindex] + ' '
+     + dataSet.labels.yAxisID;
 
     return toolTipVals;
 
