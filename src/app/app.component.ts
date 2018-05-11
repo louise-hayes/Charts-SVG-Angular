@@ -1,7 +1,7 @@
 import { Component, Output } from '@angular/core';
 import { GraphService } from './services/graph.service';
-import { DataService } from './services/data.service';
-
+import { DataService } from './services/fetchdata.service';
+import { MatButtonModule } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent {
 
   ) {
   };
-  indexYear: Number = 0;
+
   title = 'Angular5 Charts';
 
   chartStyle = {
@@ -77,7 +77,7 @@ export class AppComponent {
     style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
     labelStyle: this.labelStyle,
     legendStyle: this.legendStyle,
-    legendTitle: "2018",
+    legendTitle: "2013",
     barWidth: 40 //optional - advice 60 for 3 bar charts etc
   }
 
@@ -92,7 +92,7 @@ export class AppComponent {
     style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
     labelStyle: this.labelStyle,
     legendStyle: this.legendStyle,
-    legendTitle: "2018",
+    legendTitle: "",
     barWidth: 40 //optional - advice 60 for 3 bar charts etc
 
   }
@@ -106,40 +106,24 @@ export class AppComponent {
     console.log(this.chartOptions);
     //call service to fetch required year data
     let mockData = this._dataService.fetchData(index,choice);
-
     let chartDataTest = {
-
       xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
       series: mockData.data,
-      
     }
-
-
-
     this.chartOptions.data = chartDataTest;
     this.chartOptions.legendTitle= mockData.year;
-    
-    // this.chartOptions2.data = this.chartData2;
-    this.chartOptions = this._graphService.addBlanksStartChart(this.chartOptions);
     //call function to populated dataSet array which will be rendered 
     this.chartOptions = this._graphService.generateDataSet(this.chartOptions);
     console.log(this.chartOptions);
   }
 
-  processDataset(dataset) {
-    //first add blank vals to first x,y points to ensure they are placed after the start, one step after 0,0 
-    dataset = this._graphService.addBlanksStartChart(dataset);
-    //call service method to populate dataSet array which will be rendered by chart component
-    dataset = this._graphService.generateDataSet(dataset);
-    return dataset
-
-  }
-
   ngOnInit() {
     console.log("*******************DataSet Being generated **********************");
     // processDataSet : method that is calling a _graphService generateDataSet 
-    this.chartOptions = this.processDataset(this.chartOptions);
-    this.chartOptions2 = this.processDataset(this.chartOptions2);
+    // call service to generate dataSet in order to trigger a redraw - change the data the graph uses.
+    // can't use ngOnChange on the dataSet- ngOnChange only works on a string
+    this.chartOptions = this._graphService.generateDataSet(this.chartOptions);
+    this.chartOptions2 = this._graphService.generateDataSet(this.chartOptions2);
   }
 
 

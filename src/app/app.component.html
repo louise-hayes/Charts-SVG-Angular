@@ -1,8 +1,8 @@
 <app-charts [dataSet]="chartOptions"
 (pClicked)="pointClicked($event)">
 </app-charts>
-<button (click)="updateDataSet('next')">Next</button>
-<button (click)="updateDataSet('prev')">Prev</button>
+<button mat-raised-button (click)="updateDataSet('prev')">Prev</button>
+<button mat-raised-button (click)="updateDataSet('next')">Next</button>
 <app-charts [dataSet]="chartOptions2"
 (pClicked)="pointClicked($event)">
 </app-charts>
