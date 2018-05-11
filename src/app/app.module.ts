@@ -13,6 +13,8 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
 import { AxesComponent } from './components/charts/axes/axes.component';
 import { LegendComponent } from './components/charts/legend/legend.component';
 import { LineChartCircleComponent } from './components/charts/line-chart-circle/line-chart-circle.component';
+import { DataService } from './services/data.service';
+
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import { LineChartCircleComponent } from './components/charts/line-chart-circle/
   ],
   //services :
   providers: [
-    GraphService
+    GraphService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

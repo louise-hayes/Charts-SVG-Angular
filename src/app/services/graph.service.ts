@@ -21,6 +21,7 @@ export class GraphService {
     rightMargin: number = 5;
     ylabelMargin: number = 10;
     yvalsArray: any;
+    legendOffset:number=70;
     constructor() {
 
     }

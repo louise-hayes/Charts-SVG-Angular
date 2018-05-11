@@ -14,9 +14,8 @@ export class LegendComponent implements OnInit {
 
   translateLegendFunc(i) {
     let barxypoints = [];
-    barxypoints.push("60", 15*i+20);
+    barxypoints.push("70", 15*i+20);
     // barxypoints.push(val.x + (20  * this.dataSet.data.series[this.seriesIndex].barIndex), (this.dataSet.maxHeight - val.y));
-
     return "translate(" + barxypoints + ")";
 
   }
