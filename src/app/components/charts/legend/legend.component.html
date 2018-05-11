@@ -1,5 +1,5 @@
 <svg class="legend" [ngStyle]="dataSet.legendStyle">
-    <text class="title-legend" attr.x="200" attr.y={{10}}></text>
+    <text class="title-legend" attr.x="200" attr.y={{10}}>Year:{{dataSet.legendTitle}}</text>
   
     <g *ngFor="let l of dataSet.data.series; let i=index;">
       <g *ngIf="l.type === 'line'">

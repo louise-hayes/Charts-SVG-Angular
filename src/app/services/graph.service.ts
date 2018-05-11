@@ -186,7 +186,6 @@ export class GraphService {
 
         }
 
-
         this.chartStyle = dataSet.style;
         this.legendStyle = dataSet.legendStyle;
         this.labelStyle = dataSet.labelStyle;
