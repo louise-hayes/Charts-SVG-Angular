@@ -1,33 +1,33 @@
-<svg class="graph" [ngStyle]="chartStyle">
-<g class="axis">
+<svg:g class="graph" [ngStyle]="chartStyle">
+<svg:g class=" axis">
     <!-- x-axis-->
-    <line attr.x1="{{dataSet.xline.x1}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{dataSet.xline.y1}}" attr.y2="{{dataSet.xline.y2}}"></line>
-  </g>
-  <g class="axis">
+    <svg:line attr.x1="{{dataSet.xline.x1}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{dataSet.xline.y1}}" attr.y2="{{dataSet.xline.y2}}"></svg:line>
+  </svg:g>
+  <svg:g class="axis">
     <!-- y-axis -->
-    <line attr.x1="{{dataSet.yline.x1}}" attr.x2="{{dataSet.yline.x2}}" attr.y1="{{dataSet.yline.y1}}" attr.y2="{{dataSet.yline.y2}}"></line>
-  </g>
-  <g class="labels x-labels" [ngStyle]="labelStyle">
+    <svg:line attr.x1="{{dataSet.yline.x1}}" attr.x2="{{dataSet.yline.x2}}" attr.y1="{{dataSet.yline.y1}}" attr.y2="{{dataSet.yline.y2}}"></line>
+  </svg:g>
+  <svg:g class="labels x-labels" [ngStyle]="dataSet.labelStyle">
       <!--  X-axis labels-->
-      <text class="chart-labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
+      <svg:text class="chart-labels" *ngFor="let l of dataSet.xlabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
       <!-- X-axis title -->
-      <text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}" class="label-title">{{dataSet.labelxTitle.title}}</text>
+      <svg:text attr.x="{{dataSet.labelxTitle.x}}" attr.y="{{dataSet.labelxTitle.y}}" class="label-title">{{dataSet.labelxTitle.title}}</text>
       <!-- X-GRID -->
       <!-- only show if dataSet.grid = true -->
-      <line [ngClass]="getGridClass()" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1="{{l.y}}"
-        attr.y2=0></line>
+      <svg:line [ngClass]="getGridClass()" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1="{{l.y}}"
+        attr.y2=0></svg:line>
       <!-- X axis ticks to come back to -->
       <!-- <line class="ticks" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1=5 attr.y2=0></line> -->
-    </g>
-    <g class="labels y-labels" [ngStyle]="labelStyle">
+    </svg:g>
+    <svg:g class="labels y-labels" [ngStyle]="labelStyle">
       <!--  Y-axis labels-->
-      <text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</text>
+      <svg:text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</svg:text>
       <!-- Y-axis title -->
-      <text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" attr.transform="rotate(270, {{dataSet.labelyTitle.x}} , {{dataSet.labelyTitle.y}} )"
-        class="label-title">{{dataSet.labelyTitle.title}}</text>
+      <svg:text attr.x="{{dataSet.labelyTitle.x}}" attr.y="{{dataSet.labelyTitle.y}}" attr.transform="rotate(270, {{dataSet.labelyTitle.x}} , {{dataSet.labelyTitle.y}} )"
+        class="label-title">{{dataSet.labelyTitle.title}}</svg:text>
       <!-- Y-GRID -->
       <!-- only show if dataSet.grid = true -->
-      <line [ngClass]="getGridClass()" *ngFor="let l of dataSet.ylabels" attr.x1="{{l.x}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{l.y}}"
-        attr.y2="{{l.y}}"></line>
-    </g>
-</svg>
+      <svg:line [ngClass]="getGridClass()" *ngFor="let l of dataSet.ylabels" attr.x1="{{l.x}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{l.y}}"
+        attr.y2="{{l.y}}"></svg:line>
+    </svg:g>
+  </svg:g>

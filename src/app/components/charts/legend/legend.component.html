@@ -1,4 +1,4 @@
-<svg class="legend">
+<svg class="legend" [ngStyle]="dataSet.legendStyle">
     <text class="title-legend" attr.x="200" attr.y={{10}}></text>
   
     <g *ngFor="let l of dataSet.data.series; let i=index;">

@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GraphService } from '../../../services/graph.service';
 
 
 @Component({
-  selector: 'g[app-legend]',
+  selector: 'div[app-legend]',
   templateUrl: './legend.component.html',
   styleUrls: ['./legend.component.css']
 })

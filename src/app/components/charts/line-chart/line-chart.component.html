@@ -1,8 +1,6 @@
-<svg>
-  <g>
+
     <!--  line graph -->
-    <path id="line" class="chart-line" [ngStyle]="graphService.setStyles(seriesIndex, dataSet)"  attr.d="{{linePath(dataSet.xypoints[seriesIndex])}}"></path>
-  </g>
-</svg>
+    <svg:path id="line" class="chart-line" [ngStyle]="graphService.setStyles(seriesIndex, dataSet)"  attr.d="{{linePath(dataSet.xypoints[seriesIndex])}}"></svg:path>
+ 
 
 

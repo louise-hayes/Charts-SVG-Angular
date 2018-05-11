@@ -9,7 +9,6 @@ import { GraphService } from '../../../services/graph.service';
 })
 export class AxesComponent implements OnInit {
   @Input() dataSet: any;
-  @Input() labelStyle: any;
 
   constructor() { }
 

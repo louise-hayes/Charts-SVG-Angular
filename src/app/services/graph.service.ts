@@ -7,6 +7,7 @@ export class GraphService {
     ylineMargin: number = 5;
     lineWidth: number = 500;
     chartStyle: object;
+    legendStyle: object;
     labelStyle: object;
     axisLabelStyle: object;
     xLineBottomMargin: number = 20;
@@ -162,7 +163,7 @@ export class GraphService {
   }
 
   addBlanksStartChart(dataSet) {
-    
+    //add one set of blank vals to move everything over one step, to start first real y value after 0
       dataSet.data.xlabels.unshift("");
       dataSet.data.series.forEach((series, index) => {
         dataSet.data.series[index].yval.unshift(0);
@@ -186,6 +187,7 @@ export class GraphService {
 
 
         this.chartStyle = dataSet.style;
+        this.legendStyle = dataSet.legendStyle;
         this.labelStyle = dataSet.labelStyle;
         this.axisLabelStyle = dataSet.axisLabelStyle;
         dataSet.ylabels = this.getYLabels(dataSet);
