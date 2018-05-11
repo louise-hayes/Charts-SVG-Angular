@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { GraphService } from '../../../services/graph.service';
 
 @Component({
   selector: 'g[app-line-chart]',
@@ -11,7 +12,10 @@ export class LineChartComponent implements OnInit {
 
   @Output() pClicked: EventEmitter<string>;
 
-  constructor() { this.pClicked = new EventEmitter(); }
+  constructor(private graphService: GraphService) { 
+    // console.log(this.dataSet);
+    this.pClicked = new EventEmitter(); 
+  }
   
   
   //take in x,y pixels and return svg path
@@ -22,21 +26,9 @@ export class LineChartComponent implements OnInit {
       currentPoint = xypoints.values[i];
       pathParts.push(currentPoint.x + "," + currentPoint.y);
     }
-    // console.log("M" + pathParts.join(" L"));
-    // console.log(pathParts);
     return "M" + pathParts.join(" L");
 
 
-  }
-
-  setStyles(i, dataSet) {
-    //for line graph
-    let styles = {
-      stroke: this.dataSet.data.series[i].stroke, //color of line
-      "stroke-width": this.dataSet.data.series[i].strokewidth, //0 thin, 6=thicker line
-      "stroke-dasharray": this.dataSet.data.series[i].strokedasharray // 0 = continous line
-    }
-    return styles;
   }
   //trigger event upon cicrle/point click 
   pointClicked(event): void {
@@ -48,5 +40,6 @@ export class LineChartComponent implements OnInit {
     console.log("line-chart ", this.dataSet);
 
   }
+
 
 }

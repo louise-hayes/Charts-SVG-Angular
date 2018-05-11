@@ -10,8 +10,8 @@
     <g *ngFor="let p of dataSet.xypoints; let i = index">
       <g id="bar" *ngIf="p.type === 'bar'">
         <!--  bar -->
-        <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i"  [numBarCharts]="numBarCharts()" (pClicked)="pointClicked($event)"></g>
-        <use id="use" href="#line" />
+        <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i"  [numBarCharts]="graphService.numBarCharts(dataSet)" (pClicked)="pointClicked($event)"></g>
+        
       </g>
       <g id="line" *ngIf="p.type === 'line'">
         <!--  line  -->
@@ -19,7 +19,7 @@
       </g>
      
       
-      <use id="use" href="#line" />
+      
     </g>
     <g *ngFor="let p of dataSet.xypoints; let i = index">
       <g id="line" *ngIf="p.type === 'line'">
