@@ -22,7 +22,8 @@
       font-size:13px;
   }
 
-  .title-legend{
+  text.title-legend{
+      padding:5px;
       font-size:15px;
       fill: blue;
   }

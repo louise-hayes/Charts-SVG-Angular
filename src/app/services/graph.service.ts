@@ -22,6 +22,10 @@ export class GraphService {
     ylabelMargin: number = 10;
     yvalsArray: any;
     legendOffset:number=70;
+    legendYoffset:number=40;
+    
+    
+
     constructor() {
 
     }
@@ -174,8 +178,8 @@ export class GraphService {
 
 
     generateDataSet(dataSet) {
-
-
+    //first add blank vals to first x,y points to ensure they are placed after the start, one step after 0,0 
+        dataSet=this.addBlanksStartChart(dataSet);
         dataSet.numyYlabels = dataSet.numYlabels ? dataSet.numYlabels : 5;
 
         if (dataSet.style["height.px"]) {
@@ -198,6 +202,10 @@ export class GraphService {
         dataSet.labelxTitle = { x: this.lineWidth / 2, y: this.maxHeight + this.xLabelMargin, title: dataSet.labels.xAxisID };
         dataSet.labelyTitle = { x: this.ylabelMargin, y: this.maxHeight / 2, title: dataSet.labels.yAxisID };
         dataSet.maxHeight = this.maxHeight;
+        dataSet.legendOffset = this.legendOffset;
+        dataSet.legendYoffset = this.legendYoffset;
+        
+        
         return dataSet;
 
     }

@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-import { MatButtonModule } from '@angular/material/';
+import { MatButtonModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { GraphService } from './services/graph.service';
@@ -13,7 +12,7 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
 import { AxesComponent } from './components/charts/axes/axes.component';
 import { LegendComponent } from './components/charts/legend/legend.component';
 import { LineChartCircleComponent } from './components/charts/line-chart-circle/line-chart-circle.component';
-import { DataService } from './services/data.service';
+import { DataService } from './services/fetchdata.service';
 
 
 
