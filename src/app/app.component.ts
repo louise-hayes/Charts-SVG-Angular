@@ -83,6 +83,7 @@ export class AppComponent {
     data: this.chartData2,
     style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
     labelStyle: this.labelStyle,
+    legendStyle: this.legendStyle,
     barWidth: 40 //optional - advice 60 for 3 bar charts etc
   }
 
