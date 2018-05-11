@@ -1,19 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ChartsComponent } from './charts.component';
 import { GraphService } from '../../services/graph.service';
-// import { BarChartComponent } from './bar-chart/bar-chart.component';
-// import { LineChartComponent } from './line-chart/line-chart.component';
-// import { AxesComponent } from './axes/axes.component';
-// import { MatTooltipModule } from '@angular/material/tooltip';
 
 describe('ChartsComponent', () => {
   let component: ChartsComponent;
   let fixture: ComponentFixture<ChartsComponent>;
+  let graphService: GraphService;
 
   beforeEach(async(() => {
+    graphService = new GraphService;
+    component = new ChartsComponent(graphService);
 
     TestBed.overrideComponent(ChartsComponent, {
+  
       //without override then 
       set: {
         template: '<div>Overridden template here</div>'
@@ -32,12 +31,19 @@ describe('ChartsComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  afterEach(() => { 
+    graphService = null;
+    component = null;
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should generate DataSet', () => {
+  
+    it('returns true when the numBarCharts returns 3', () => {
+      
+   
     let chartData = {
 
     xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
@@ -52,7 +58,6 @@ describe('ChartsComponent', () => {
     ]
   };
 
-    //for future use: styling to be implemented after basic graph functionality working
     let title = 'Angular5 Charts';
 
     let chartStyle = {
@@ -84,10 +89,14 @@ describe('ChartsComponent', () => {
     component.dataSet=mockDataSet;
 
     console.log("Y Labels ",component.dataSet.ylabels[0].text );
+    //moved component methods into graphService methods so no methods to test of generateDataSet here
     
     // expect(true).toBeTruthy();
     // expect(component.dataSet.ylabels[0].text) 
     //       .toEqual('500'); 
+
+    expect(graphService.numBarCharts(mockDataSet)).toBe(3);
+  
     
   });
 });

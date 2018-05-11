@@ -6,6 +6,7 @@ import { GraphService } from './services/graph.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   constructor(private graphService: GraphService) {
   };
@@ -23,6 +24,12 @@ export class AppComponent {
 
   axisLabelStyle = {
     fill: "red"
+  }
+  legendStyle = {
+    position: "relative",
+    top: -350,
+    left: 500
+
   }
 
   chartData = {
@@ -56,13 +63,13 @@ export class AppComponent {
   chartOptions = {
     axis: true, //if line or bar must be true
     grid: true, //optional
-    legend: "right-top",
     title: 'Usage',
     labels: { xAxisID: 'Months', yAxisID: 'Users' }, //optional 
     numYlabels: 5, //default to 5 if none provided - optimal 5 or 10
     data: this.chartData,
     style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
     labelStyle: this.labelStyle,
+    legendStyle: this.legendStyle,
     barWidth: 40 //optional - advice 60 for 3 bar charts etc
   }
 
@@ -106,9 +113,9 @@ export class AppComponent {
   }
 
   processDataset(dataset) {
-    console.log("115");
+    //first add blank vals to first x,y points to ensure they are placed after the start, one step after 0,0 
     dataset = this.graphService.addBlanksStartChart(dataset);
-    //call function to populated dataSet array which will be rendered 
+    //call service method to populate dataSet array which will be rendered by chart component
     dataset = this.graphService.generateDataSet(dataset);
     return dataset
 
@@ -116,14 +123,9 @@ export class AppComponent {
 
   ngOnInit() {
     console.log("*******************DataSet Being generated **********************");
+    // processDataSet : method that is calling a graphService generateDataSet 
     this.chartOptions = this.processDataset(this.chartOptions);
     this.chartOptions2 = this.processDataset(this.chartOptions2);
-
-    //sample timeout to show how graph data could be updated dynamically - this is where updates can be added pulled in
-    // setTimeout( () => {
-    //   this.dataSet.data = getLatestData();
-    //  this.generateDataSet(this.dataSet);
-    // },10000)
   }
 
 
