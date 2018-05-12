@@ -14,17 +14,17 @@ export class GraphService {
     xLabelMargin: number = 60;
     leftMargin: number = 5;
     yStep: number;
- 
+
     maxNm: number;
     maxYval: number;
     maxHeight: number = 250;
     rightMargin: number = 5;
     ylabelMargin: number = 10;
     yvalsArray: any;
-    legendOffset:number=70;
-    legendYoffset:number=40;
-    
-    
+    legendOffset: number = 70;
+    legendYoffset: number = 40;
+
+
 
     constructor() {
 
@@ -110,8 +110,8 @@ export class GraphService {
 
         // round largest y value (maxNm) from dataSet.series.yval to nearest 100th for graph readability
         this.maxNm = Math.ceil(this.maxNm / 100) * 100;
-        if (this.maxNm === this.maxYval){
-            this.maxNm=(this.maxNm+100);
+        if (this.maxNm === this.maxYval) {
+            this.maxNm = (this.maxNm + 100);
         }
         // interval between y axis : diving the max y axis value (maxNm) by the no. of labels (default 5)
         console.log("maxHeight: " + this.maxHeight);
@@ -155,31 +155,39 @@ export class GraphService {
         return xypoints;
 
     }
-     // get number of bar charts - to determine x pixel of bar chart / poistion of bar centered either side of grid line
-  numBarCharts(dataSet) {
-    let numBarCharts: number = 0;
-    dataSet.xypoints.forEach(item => {
-      if (item.type === 'bar') {
-        numBarCharts++;
-      }
-    })
+    // get number of bar charts - to determine x pixel of bar chart / poistion of bar centered either side of grid line
+    numBarCharts(dataSet) {
+        let numBarCharts: number = 0;
+        if (dataSet.xypoints) {
+            dataSet.xypoints.forEach(item => {
 
-    return numBarCharts;
-  }
+                if (item.type === 'bar') {
+                    numBarCharts++;
+                }
+            })
+            return numBarCharts;
+        }
+        else {
+            return 0;
+        }
 
-  addBlanksStartChart(dataSet) {
-    //add one set of blank vals to move everything over one step, to start first real y value after 0
-      dataSet.data.xlabels.unshift("");
-      dataSet.data.series.forEach((series, index) => {
-        dataSet.data.series[index].yval.unshift(0);
-      });
-      return dataSet;
-  }
+    }
+
+    addBlanksStartChart(dataSet) {
+        //add one set of blank vals to move everything over one step, to start first real y value after 0
+        if (dataSet.data && dataSet.data.xlabels && dataSet.data.series) {
+            dataSet.data.xlabels.unshift("");
+            dataSet.data.series.forEach((series, index) => {
+                dataSet.data.series[index].yval.unshift(0);
+            });
+        }
+        return dataSet;
+    }
 
 
     generateDataSet(dataSet) {
-    //first add blank vals to first x,y points to ensure they are placed after the start, one step after 0,0 
-        dataSet=this.addBlanksStartChart(dataSet);
+        //first add blank vals to first x,y points to ensure they are placed after the start, one step after 0,0 
+        dataSet = this.addBlanksStartChart(dataSet);
         dataSet.numyYlabels = dataSet.numYlabels ? dataSet.numYlabels : 5;
 
         if (dataSet.style["height.px"]) {
@@ -204,8 +212,8 @@ export class GraphService {
         dataSet.maxHeight = this.maxHeight;
         dataSet.legendOffset = this.legendOffset;
         dataSet.legendYoffset = this.legendYoffset;
-        
-        
+
+
         return dataSet;
 
     }
