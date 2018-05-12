@@ -16,9 +16,11 @@ You also need the GraphSerivce in app/serices/graph.service.ts
 
 ### Import the component
 - In Parent ```app.module.ts``` 
+import { GraphService } from './services/graph.service';
+import { DataService } from './services/fetchdata.service';
 
 ``` 
-### Add the ChartsComponent and GraphService to NgModule declarations:
+### Add the ChartsComponent and GrpahService and DataService to NgModule declarations:
 ```
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ You also need the GraphSerivce in app/serices/graph.service.ts
     CommonModule
   ],
   providers: [
-    GraphService
+    GraphService,
+    DataService
   ],
   bootstrap: [AppComponent]
 ```
@@ -42,9 +45,11 @@ You also need the GraphSerivce in app/serices/graph.service.ts
 
 
 ```
- chartStyle = {
+ title = 'Angular5 Charts';
+
+  chartStyle = {
     "height.px": 300,
-    "width.px": 600,
+    "width.px": 500,
     "font-family": "Arial"
   };
 
@@ -55,31 +60,27 @@ You also need the GraphSerivce in app/serices/graph.service.ts
   axisLabelStyle = {
     fill: "red"
   }
+  legendStyle = {
+    position: "relative",
+    top: -350,
+    left: 500
+
+  }
 
   chartData = {
 
     xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
     series: [
-      { legend: 2016, type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" , yval: [100, 300, 400, 300, 200, 100] },
-      { legend: 2017, type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0",  yval: [150, 250, 350, 450, 350, 250] },
-      { legend: 2018, type: "bar", barIndex: 1, fill: "yellow",  yval: [125, 275, 375, 275, 175, 100] },
-      { legend: 2019, type: "bar", barIndex: 0, fill: "red",  yval: [300, 100, 200, 150, 300, 200] }
-      
+      { legend: "Red trucks", type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5", yval: [920, 300, 400, 300, 200, 100] },
+      { legend: "Blue trucks", type: "line", stroke: "blue", "strokewidth": "1", "strokedasharray": "0", yval: [50, 250, 350, 450, 350, 250] }
+       { legend: 2018, type: "bar", barIndex: 0, fill: "yellow", yval: [100, 300, 400, 300, 200, 100] },
+       { legend: 2019, type: "bar", barIndex: 1, fill: "red", yval: [150, 250, 350, 450, 350, 250] },
+       { legend: 2020, type: "bar", barIndex: 2, fill: "orange", yval: [150, 250, 350, 450, 350, 250] },
+
 
     ]
   }
 
-  chartOptions = {
-    axis: true, //if line or bar must be true
-    grid: true, //optional
-    legend: "right-top", 
-    title: 'Demo Graph',
-    labels: { xAxisID: 'Users', yAxisID: 'Months' }, //optional 
-    numYlabels: 5, //default to 5 if none provided - optimal 5 or 10
-    data: this.chartData,
-    style: this.chartStyle, //all styles optional, component provides defaults - if passing params they will overwrite component and must be accurate css key value pairs
-    labelStyle: this.labelStyle
-  }
 
 ```
 ### define function to handle chart clicks events
@@ -96,16 +97,25 @@ You also need the GraphSerivce in app/serices/graph.service.ts
 In parent ```app.component.html```
 
 ```
-<app-charts [dataSet]="dataSet"></app-charts>
+<app-charts [dataSet]="chartOptions"
+(pClicked)="pointClicked($event)">
+</app-charts>
+
+Option to add click event : to update data
+<button mat-raised-button (click)="updateDataSet('prev')">Prev</button>
+
 ```
 
 
-# Alternatively use the npm package:
+
+# Alternatively use the npm package: be sure to add in services manually
+
 ### Import as an npm package
 ```npm i chart-angular5```
 
 - In Parent ```app.module.ts``` 
 ```import { ChartsComponent } from 'import { ChartsComponent } from 'chart-angular5';```
+
 - Add the component to NgModule imports:
 
 ```
