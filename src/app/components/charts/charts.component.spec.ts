@@ -41,7 +41,7 @@ describe('ChartsComponent', () => {
   });
 
   
-    it('returns true when the numBarCharts returns 3', () => {
+    // it('returns true when the numBarCharts returns 3', () => {
       
    
     let chartData = {
@@ -86,9 +86,9 @@ describe('ChartsComponent', () => {
         labelStyle: labelStyle,
         barWidth:40 //optional - advice 40 for 3 bar charts etc
     }
-    component.dataSet=mockDataSet;
+    // component.dataSet=mockDataSet;
 
-    console.log("Y Labels ",component.dataSet.ylabels[0].text );
+    // console.log("Y Labels ",component.dataSet.ylabels[0].text );
     //moved component methods into graphService methods so no methods to test of generateDataSet here
     
     // expect(true).toBeTruthy();
@@ -98,5 +98,5 @@ describe('ChartsComponent', () => {
     // expect(graphService.numBarCharts(mockDataSet)).toBe(3);
   
     
-  });
+  // });
 });

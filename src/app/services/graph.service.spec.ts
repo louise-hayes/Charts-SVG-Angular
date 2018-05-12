@@ -40,19 +40,32 @@ describe('Service: Graph', () => {
 
     it('should return 0 from numBarCharts if empty dataSet', () => {
         let mockData: object = {
-            
+
         };
         let answer = service.numBarCharts(mockData);
         console.log(answer);
         expect(answer).toEqual(0);
     });
 
-    it('should return from getXlabels', () => {
+    it('should return x: 50, y: 270 from getXlabels', () => {
         let mockData: object = {
             xlabels: [{}]
         };
         let answer = service.getXLabels(mockData);
-        console.log("answer" , answer);
-        expect(answer).toEqual([{x:50, y:270, text:{}}]);
+        console.log("answer", answer);
+        expect(answer).toEqual([{ x: 50, y: 270, text: {} }]);
+    });
+    it('should return stroke: "red" from setStyles', () => {
+        let mockData: object = {
+            data: {
+                series: [
+                    { type: "line", stroke: "red", "strokewidth": "1", "strokedasharray": "5,5" }
+                ]
+            }
+        }
+
+        let answer = service.setStyles(0,mockData);
+        console.log("answer", answer);
+        expect(answer).toEqual({ stroke: "red", "stroke-width": "1", "stroke-dasharray": "5,5" });
     });
 });
