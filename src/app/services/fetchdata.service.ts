@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 
-export class DataService {
+export class FetchDataService {
+
     currentYear: number = 0;
+    constructor() {
+
+    }
 
     fetchData(index, choice) {
         if (choice === 'next') { this.currentYear++; }

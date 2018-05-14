@@ -12,7 +12,7 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
 import { AxesComponent } from './components/charts/axes/axes.component';
 import { LegendComponent } from './components/charts/legend/legend.component';
 import { LineChartCircleComponent } from './components/charts/line-chart-circle/line-chart-circle.component';
-import { DataService } from './services/fetchdata.service';
+import { FetchDataService } from './services/fetchdata.service';
 
 
 
@@ -46,7 +46,7 @@ import { DataService } from './services/fetchdata.service';
   //services :
   providers: [
     GraphService,
-    DataService
+    FetchDataService
   ],
   bootstrap: [AppComponent]
 })

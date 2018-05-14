@@ -14,7 +14,6 @@ export class GraphService {
     xLabelMargin: number = 60;
     leftMargin: number = 5;
     yStep: number;
-
     maxNm: number;
     maxYval: number;
     maxHeight: number = 250;
@@ -23,9 +22,6 @@ export class GraphService {
     yvalsArray: any;
     legendOffset: number = 70;
     legendYoffset: number = 40;
-
-
-
     constructor() {
 
     }
@@ -63,7 +59,6 @@ export class GraphService {
 
     setStyles(i, dataSet) {
         let styles: any;
-        //for line graph
 
         if (dataSet.data.series[i].type === "line") {
             styles = {
@@ -77,18 +72,15 @@ export class GraphService {
                 fill: dataSet.data.series[i].fill //color of bar
 
             }
+        } else if (dataSet.data.series[i].type === "donut") {
+            styles = {
+                fill: dataSet.data.series[i].fill
+            }
         }
 
         return styles;
     }
-    //come back to this : MatToolTip="graphService.getToolTipValues()" would not work as a valid component param.
-
-    // getToolTipValues(seriesIndex, yindex, dataSet) {
-    //     let toolTipVals = {};
-    //     toolTipVals = dataSet.data.series[seriesIndex].yval[yindex];
-    //     return toolTipVals;
-
-    // }
+    
 
     getXLabels(data) {
         data.xStep = (this.lineWidth - this.leftOffset) / data.xlabels.length;
@@ -213,6 +205,8 @@ export class GraphService {
         dataSet.legendOffset = this.legendOffset;
         dataSet.legendYoffset = this.legendYoffset;
 
+console.log("finished dataSet ******");
+console.log(JSON.stringify(dataSet));
 
         return dataSet;
 

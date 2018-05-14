@@ -1,6 +1,6 @@
 import { Component, Output } from '@angular/core';
 import { GraphService } from './services/graph.service';
-import { DataService } from './services/fetchdata.service';
+import { FetchDataService } from './services/fetchdata.service';
 import { MatButtonModule } from '@angular/material';
 
 @Component({
@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material';
 export class AppComponent {
   constructor(
     private _graphService: GraphService,
-    private _dataService: DataService
+    private _dataService: FetchDataService
 
   ) {
   };
@@ -121,7 +121,7 @@ export class AppComponent {
     console.log("*******************DataSet Being generated **********************");
     // processDataSet : method that is calling a _graphService generateDataSet 
     // call service to generate dataSet in order to trigger a redraw - change the data the graph uses.
-    // can't use ngOnChange on the dataSet- ngOnChange only works on a string
+    // can't use ngOnChange on the dataSet - ngOnChange only works on a string
     this.chartOptions = this._graphService.generateDataSet(this.chartOptions);
     this.chartOptions2 = this._graphService.generateDataSet(this.chartOptions2);
   }

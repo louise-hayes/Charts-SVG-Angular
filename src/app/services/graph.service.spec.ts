@@ -68,4 +68,29 @@ describe('Service: Graph', () => {
         console.log("answer", answer);
         expect(answer).toEqual({ stroke: "red", "stroke-width": "1", "stroke-dasharray": "5,5" });
     });
+    it('should return fill: "yellow" from setStyles', () => {
+        let mockData: object = {
+            data: {
+                series: [
+                    { type: "bar", fill: "yellow" }
+                ]
+            }
+        }
+
+        let answer = service.setStyles(0,mockData);
+        console.log("answer", answer);
+        expect(answer).toEqual({ fill: "yellow"});
+    });
+    it('should return fill: "yellow" from setStyles', () => {
+        let mockData: object = {
+            data: {
+                series: [
+                    { type: "donut", fill: "yellow" }
+                ]
+            }
+        }
+        let answer = service.setStyles(0,mockData);
+        console.log("answer", answer);
+        expect(answer).toEqual({ fill: "yellow"});
+    });
 });
