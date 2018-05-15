@@ -10,7 +10,7 @@ import { GraphService } from '../../services/graph.service';
 export class ChartsComponent implements OnInit {
   @Input() dataSet: any;
   @Output() pClicked: EventEmitter<string>;
-  position = 'before';
+  position = 'before';//tooltip
   
 
   constructor(private graphService: GraphService) {
@@ -24,7 +24,7 @@ export class ChartsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("*******************DataSet Being generated **********************");
+    console.log("*******************Charts Component: DataSet Being generated **********************");
     console.log(this.dataSet);
   }
 }

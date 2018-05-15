@@ -80,7 +80,7 @@ export class GraphService {
 
         return styles;
     }
-    
+
 
     getXLabels(data) {
         data.xStep = (this.lineWidth - this.leftOffset) / data.xlabels.length;
@@ -89,9 +89,9 @@ export class GraphService {
         data.xlabels.forEach((item, index) => {
             xlabels.push({ x: this.leftOffset + data.xStep * (index), y: this.maxHeight + this.xLineBottomMargin, text: item });
         });
-        xlabels.forEach(function (item, index, array) {
-            console.log("dataSet.xlabels :", item, " ", index);
-        })
+        // xlabels.forEach(function (item, index, array) {
+        //     console.log("dataSet.xlabels :", item, " ", index);
+        // })
         return xlabels;
     }
 
@@ -141,9 +141,9 @@ export class GraphService {
                 // console.log("line xypoints " + Object.values(xypoints[seriesIndex].values[index]));
             })
         });
-        xypoints.forEach(function (item, index, array) {
-            console.log("getPoints Item :", item, "getPoints Index : ", index);
-        })
+        // xypoints.forEach(function (item, index, array) {
+        //     console.log("getPoints Item :", item, "getPoints Index : ", index);
+        // })
         return xypoints;
 
     }
@@ -178,11 +178,13 @@ export class GraphService {
 
 
     generateDataSet(dataSet) {
-        //first add blank vals to first x,y points to ensure they are placed after the start, one step after 0,0 
+        console.log("-----graphService.generate DataSet------")
+        //first add blank vals to first x,y points to ensure they are placed after the start, i.e. one step after 0,0 
         dataSet = this.addBlanksStartChart(dataSet);
+        //set numbYlables on Y axis to default 5 of none specified
         dataSet.numyYlabels = dataSet.numYlabels ? dataSet.numYlabels : 5;
-
-        if (dataSet.style["height.px"]) {
+        //set height, will default to charts.component.css if none specified. 
+        if (dataSet.style["height.px"] && !(Number.isNaN(dataSet.style["height.px"])) ) {
             this.maxHeight = parseInt(dataSet.style["height.px"]) - this.xLabelMargin;
             this.lineWidth = parseInt(dataSet.style["width.px"]) - 30;
         }
@@ -205,8 +207,8 @@ export class GraphService {
         dataSet.legendOffset = this.legendOffset;
         dataSet.legendYoffset = this.legendYoffset;
 
-console.log("finished dataSet ******");
-console.log(JSON.stringify(dataSet));
+        console.log("graphService : finished generating dataSet ******");
+        // console.log(JSON.stringify(dataSet));
 
         return dataSet;
 

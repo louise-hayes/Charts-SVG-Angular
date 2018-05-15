@@ -19,6 +19,7 @@ export class LineChartCircleComponent implements OnInit {
       "yval" : event.yval[i], 
       "xlabel" : this.dataSet.data.xlabels[i]
     };
+    console.log("here");
     this.pClicked.emit(JSON.stringify(data));
     
   }

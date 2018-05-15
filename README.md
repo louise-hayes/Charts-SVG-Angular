@@ -15,12 +15,15 @@ You also need the GraphSerivce in app/serices/graph.service.ts
 
 
 ### Import the component
+
 - In Parent ```app.module.ts``` 
+```
 import { GraphService } from './services/graph.service';
-import { DataService } from './services/fetchdata.service';
+import { FetchDataService } from './services/fetchdata.service';
 
 ``` 
-### Add the ChartsComponent and GrpahService and DataService to NgModule declarations:
+### Add the ChartsComponent and GraphService and optional FetchDataService to NgModule declarations:
+
 ```
 @NgModule({
   declarations: [
@@ -33,7 +36,7 @@ import { DataService } from './services/fetchdata.service';
   ],
   providers: [
     GraphService,
-    DataService
+    FetchDataService
   ],
   bootstrap: [AppComponent]
 ```
@@ -84,6 +87,7 @@ import { DataService } from './services/fetchdata.service';
 
 ```
 ### define function to handle chart clicks events
+```
   pointClicked(event): void {
     console.log(event); // insert your code here
   }
@@ -114,9 +118,11 @@ Option to add click event : to update data
 ```npm i chart-angular5```
 
 - In Parent ```app.module.ts``` 
-```import { ChartsComponent } from 'import { ChartsComponent } from 'chart-angular5';```
 
-- Add the component to NgModule imports:
+```
+import { ChartsComponent } from 'import { ChartsComponent } from 'chart-angular5';```
+
+### Add the component to NgModule imports:
 
 ```
 imports: [

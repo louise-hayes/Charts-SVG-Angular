@@ -2,31 +2,24 @@
   <div class="chart-header">
     <h2 class="chart-title">{{dataSet.title}}</h2>
   </div>
-
   <svg class="graph" [ngStyle]="chartStyle">
-
     <!-- For Each Data Series -->
     <!-- check type line / bar -->
     <g *ngFor="let p of dataSet.xypoints; let i = index">
       <g id="bar" *ngIf="p.type === 'bar'">
         <!--  bar -->
-        <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i"  [numBarCharts]="graphService.numBarCharts(dataSet)" (pClicked)="pointClicked($event)"></g>
-        
+        <g app-bar-chart [dataSet]="dataSet" [seriesIndex]="i"  [numBarCharts]="graphService.numBarCharts(dataSet)" (pClicked)="pointClicked($event)"></g>       
       </g>
       <g id="line" *ngIf="p.type === 'line'">
         <!--  line  -->
         <g app-line-chart [dataSet]="dataSet" [seriesIndex]="i"  (pClicked)="pointClicked($event)"></g>
       </g>
-     
-      
-      
     </g>
     <g *ngFor="let p of dataSet.xypoints; let i = index">
       <g id="line" *ngIf="p.type === 'line'">
         <!--  line  -->
         <g app-line-chart-circle [dataSet]="dataSet" [seriesIndex]="i"  (pClicked)="pointClicked($event)"></g>
       </g>
-      <!-- <use id="use" href="#line" /> -->
     </g>
     <!-- ***Static part of graph*** -->
     <g app-axes [dataSet]="dataSet"></g>
