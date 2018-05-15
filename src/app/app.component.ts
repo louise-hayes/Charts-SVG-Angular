@@ -99,6 +99,12 @@ export class AppComponent {
 
   pointClicked(event): void {
     console.log(event);
+  
+    // alert(event.substring(1,1) + event.substring(2,1) + + event.substring(3,1));
+    // alert(Object.values(event));
+    var object = JSON.parse(event);
+    alert(object.legend + " : " + object.yval + " In " + object.xlabel);
+
   }
 
   updateDataSet(choice, index) {
@@ -118,7 +124,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log("*******************DataSet Being generated **********************");
+    console.log("*******************App Component: calling graphService.generateDataSet**********************");
     // processDataSet : method that is calling a _graphService generateDataSet 
     // call service to generate dataSet in order to trigger a redraw - change the data the graph uses.
     // can't use ngOnChange on the dataSet - ngOnChange only works on a string
