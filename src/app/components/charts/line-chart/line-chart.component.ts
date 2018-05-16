@@ -12,7 +12,7 @@ export class LineChartComponent implements OnInit {
 
   @Output() pClicked: EventEmitter<string>;
 
-  constructor(private graphService: GraphService) { 
+  constructor(public graphService: GraphService) { 
     // console.log(this.dataSet);
     this.pClicked = new EventEmitter(); 
   }
