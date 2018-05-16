@@ -7,6 +7,7 @@ FetchDataService has been added to the parent App, to demonstrate where a RESTfu
 
 
 ## Git: https://github.com/louise-hayes/svgcharts.git
+## Heroku: https://angular5chartsvg.herokuapp.com/
 
 ![screen shot 2018-05-03 at 00 04 19](https://user-images.githubusercontent.com/29293985/39559627-9c408ab4-4e65-11e8-8c5c-ea92d71ac80d.png)
 ## To launch: 
