@@ -191,12 +191,35 @@ this.dataSet = {
   
 
 
-      points: [{ 
-      type: item.type,
-      values: 
-      [
-        { item: yval, x: this.leftOffset + (this.xStep * index), y: this.maxHeight - (this.maxHeight / (this.maxNm / yval)) }
-      ],
+ xypoints:
+
+[{
+"type":"line",
+"values":
+
+[
+{"item":{"item":{"legend":2017,"type":"line","z-index":0,"stroke":"blue","strokewidth":"1","strokedasharray":"0","yval":[0,100,250,350,450,350,250]},"xlabel":""},"x":50,"y":240},
+{"item":{"item":{"legend":2017,"type":"line","z-index":0,"stroke":"blue","strokewidth":"1","strokedasharray":"0","yval":[0,100,250,350,450,350,250]},"xlabel":"NH"},"x":110,"y":192},
+{"item":{"item":{"legend":2017,"type":"line","z-index":0,"stroke":"blue","strokewidth":"1","strokedasharray":"0","yval":[0,100,250,350,450,350,250]},"xlabel":"FL"},"x":170,"y":120},
+{"item":{"item":{"legend":2017,"type":"line","z-index":0,"stroke":"blue","strokewidth":"1","strokedasharray":"0","yval":[0,100,250,350,450,350,250]},"xlabel":"ME"},"x":230,"y":72},
+{"item":{"item":{"legend":2017,"type":"line","z-index":0,"stroke":"blue","strokewidth":"1","strokedasharray":"0","yval":[0,100,250,350,450,350,250]},"xlabel":"CA"},"x":290,"y":24},
+{"item":{"item":{"legend":2017,"type":"line","z-index":0,"stroke":"blue","strokewidth":"1","strokedasharray":"0","yval":[0,100,250,350,450,350,250]},"xlabel":"MA"},"x":350,"y":72},
+{"item":{"item":{"legend":2017,"type":"line","z-index":0,"stroke":"blue","strokewidth":"1","strokedasharray":"0","yval":[0,100,250,350,450,350,250]},"xlabel":"MN"},"x":410,"y":120}
+]},
+
+
+{"type":"line",
+"values":
+[
+{"item":{"item":{"legend":2016,"type":"line","z-index":0,"stroke":"red","strokewidth":"1","strokedasharray":"5,5","yval":[0,70,300,400,300,200,100]},"xlabel":""},"x":50,"y":240},
+{"item":{"item":{"legend":2016,"type":"line","z-index":0,"stroke":"red","strokewidth":"1","strokedasharray":"5,5","yval":[0,70,300,400,300,200,100]},"xlabel":"NH"},"x":110,"y":206.4},
+{"item":{"item":{"legend":2016,"type":"line","z-index":0,"stroke":"red","strokewidth":"1","strokedasharray":"5,5","yval":[0,70,300,400,300,200,100]},"xlabel":"FL"},"x":170,"y":96},
+{"item":{"item":{"legend":2016,"type":"line","z-index":0,"stroke":"red","strokewidth":"1","strokedasharray":"5,5","yval":[0,70,300,400,300,200,100]},"xlabel":"ME"},"x":230,"y":48},
+{"item":{"item":{"legend":2016,"type":"line","z-index":0,"stroke":"red","strokewidth":"1","strokedasharray":"5,5","yval":[0,70,300,400,300,200,100]},"xlabel":"CA"},"x":290,"y":96},
+{"item":{"item":{"legend":2016,"type":"line","z-index":0,"stroke":"red","strokewidth":"1","strokedasharray":"5,5","yval":[0,70,300,400,300,200,100]},"xlabel":"MA"},"x":350,"y":144},
+{"item":{"item":{"legend":2016,"type":"line","z-index":0,"stroke":"red","strokewidth":"1","strokedasharray":"5,5","yval":[0,70,300,400,300,200,100]},"xlabel":"MN"},"x":410,"y":192}]},
+
+
       xlabels: [
         { x: this.leftOffset + this.xStep * index, y: this.maxHeight + this.xLineBottomMargin, text: chartData.xlabels },
       ],
@@ -291,6 +314,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+![screen shot 2018-05-16 at 11 07 53](https://user-images.githubusercontent.com/29293985/40125700-8863e042-58f9-11e8-8786-41c7da638d72.png)
+
 
 ## Running end-to-end tests
 

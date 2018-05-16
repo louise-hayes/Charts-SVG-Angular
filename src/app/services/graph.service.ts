@@ -57,6 +57,8 @@ export class GraphService {
         return n;
     }
 
+    // populates NgStyle for each graph element dymanically using the dataSet series style params.
+
     setStyles(i, dataSet) {
         let styles: any;
 
