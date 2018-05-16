@@ -1,4 +1,4 @@
-<svg:g class="graph" [ngStyle]="chartStyle">
+<svg:g class="graph" [ngStyle]="dataSet.chartStyle">
 <svg:g class=" axis">
     <!-- x-axis-->
     <svg:line attr.x1="{{dataSet.xline.x1}}" attr.x2="{{dataSet.xline.x2}}" attr.y1="{{dataSet.xline.y1}}" attr.y2="{{dataSet.xline.y2}}"></svg:line>
@@ -19,7 +19,7 @@
       <!-- X axis ticks to come back to -->
       <!-- <line class="ticks" *ngFor="let l of dataSet.xlabels" attr.x1="{{l.x}}" attr.x2="{{l.x}}" attr.y1=5 attr.y2=0></line> -->
     </svg:g>
-    <svg:g class="labels y-labels" [ngStyle]="labelStyle">
+    <svg:g class="labels y-labels" [ngStyle]="dataSet.labelStyle">
       <!--  Y-axis labels-->
       <svg:text class="chart-labels" *ngFor="let l of dataSet.ylabels" attr.x="{{l.x}}" attr.y="{{l.y}}">{{l.text}}</svg:text>
       <!-- Y-axis title -->
