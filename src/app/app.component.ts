@@ -107,11 +107,11 @@ export class AppComponent {
 
   }
 
-  updateDataSet(choice, index) {
+  updateDataSet(choice) {
     console.log("button");
     console.log(this.chartOptions);
     //call service to fetch required year data
-    let mockData = this._dataService.fetchData(index,choice);
+    let mockData = this._dataService.fetchData(choice);
     let chartDataTest = {
       xlabels: ["Jan", "Feb", "March", "April", "May", "June"],
       series: mockData.data,
