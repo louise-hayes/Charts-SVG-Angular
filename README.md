@@ -1,8 +1,10 @@
 # Angular5ChartsSvg2
 Angular5 SVG Charts from scratch
 
-This angular5 charts app contains no thrid party chart dependencies (such as chart.js, d3.js, ngx-charts or highcharts).
-You also need the GraphSerivce in app/serices/graph.service.ts
+This angular5 charts app contains no 3rd party chart dependencies (such as chart.js, d3.js, ngx-charts or highcharts).
+You also need the GraphSerivce in app/serices/graph.service.ts.
+FetchDataService has been added to the parent App, to demonstrate where a RESTful API data update could be triggered by Button Click/update service.
+
 
 ## Git: https://github.com/louise-hayes/svgcharts.git
 

@@ -9,7 +9,7 @@ export class FetchDataService {
 
     }
 
-    fetchData(index, choice) {
+    fetchData(choice) {
         if (choice === 'next') { this.currentYear++; }
         else if (choice === 'prev') { this.currentYear--; };
         if (this.currentYear < 0) { this.currentYear = 0 }
